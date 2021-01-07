@@ -5,9 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/DidacScene.unity
     guid: 1a7d6ecb11dcf084a98dd87b56b34a66
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 33f332d2be8ada74cb722fcac20e8270
   - enabled: 1
     path: Assets/Scenes/DidacSceneGame.unity
     guid: ee098053db5b8604c97a9acce5f8d9c5
