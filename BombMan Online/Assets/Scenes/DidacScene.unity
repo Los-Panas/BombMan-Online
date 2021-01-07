@@ -701,7 +701,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4fef2c3c12610b4a90727d1f8f18001, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startButton: {fileID: 1057280199}
   roomSize: 4
 --- !u!4 &1730291926
 Transform:

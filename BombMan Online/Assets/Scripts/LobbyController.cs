@@ -8,13 +8,11 @@ public class LobbyController : MonoBehaviourPunCallbacks
 {
 
     [SerializeField]
-    private GameObject startButton;
-    [SerializeField]
     private int roomSize;
 
     public override void OnConnectedToMaster()
     {
-        PhotonNetwork.AutomaticallySyncScene = true; //
+        PhotonNetwork.AutomaticallySyncScene = true; 
     }
 
     public void NewConnection()
