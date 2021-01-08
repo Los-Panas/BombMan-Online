@@ -6,7 +6,7 @@ using Photon.Pun;
 public class Bomb : MonoBehaviourPunCallbacks
 {
     [Header("Values")]
-    public Vector3 color = Vector3.zero;
+    public Color color;
     [SerializeField]
     int tiles_to_paint = 2;
 
@@ -30,7 +30,7 @@ public class Bomb : MonoBehaviourPunCallbacks
         Destroy(GetComponent<Animator>());
 
         PaintExplosion.gameObject.SetActive(true);
-        PaintExplosion.material.color = new Color(color.x, color.y, color.z, 1);
+        PaintExplosion.material.color = color;
         Invoke("Destroy", 1.5f);
 
         CreatePaintTriggers();

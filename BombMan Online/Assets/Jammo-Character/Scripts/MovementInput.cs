@@ -112,7 +112,8 @@ public class MovementInput : MonoBehaviour {
 		}
 
 		pos.y = 0.8f;
-		Instantiate(Bomb, pos, Bomb.transform.rotation);
+		GameObject bomb = Instantiate(Bomb, pos, Bomb.transform.rotation);
+		bomb.GetComponent<Bomb>().color = GetComponent<CharacterSkinController>().childColor;
 	}
 
 	void PlayerMoveAndRotation() {

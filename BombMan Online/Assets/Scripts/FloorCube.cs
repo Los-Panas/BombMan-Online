@@ -21,7 +21,7 @@ public class FloorCube : MonoBehaviour
 
         if (cubeStyle == Style.Dark)
         {
-            mat.color = Color.grey;
+            mat.color = Color.white * 0.75f;
         }
     }
 
@@ -29,13 +29,13 @@ public class FloorCube : MonoBehaviour
     {
         if (other.CompareTag("BombPaint"))
         {
-            Vector3 color = other.transform.parent.parent.GetComponent<Bomb>().color;
+            Color color = other.transform.parent.parent.GetComponent<Bomb>().color;
             if (cubeStyle == Style.Dark)
             {
-                color *= 0.8f;
+                color *= 0.75f;
             }
 
-            mat.color = new Color(color.x, color.y, color.z, 1);
+            mat.color = color;
         }
     }
 }

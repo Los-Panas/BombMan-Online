@@ -4,22 +4,60 @@ using UnityEngine;
 
 public class CharacterSkinController : MonoBehaviour
 {
+    public enum RobotColor
+    {
+        Red,
+        Yellow,
+        Blue,
+        Black
+    }
+
     Animator animator;
     Renderer[] characterMaterials;
 
-   
-    public Texture2D[] albedoList;
+    public RobotColor color;
+    [HideInInspector]
+    public Color childColor;
+    [SerializeField]
+    Material[] RobotColors;
     [ColorUsage(true,true)]
     public Color[] eyeColors;
     public enum EyePosition { normal, happy, angry, dead}
     public EyePosition eyeState;
+    [SerializeField]
+    SkinnedMeshRenderer[] affectedColorMeshes;
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
         characterMaterials = GetComponentsInChildren<Renderer>();
-        
+
+        Material current_color = null;
+        switch (color)
+        {
+            case RobotColor.Red:
+                current_color = RobotColors[0];
+                childColor = new Color(0.75f, 0, 0, 1);
+                break;
+            case RobotColor.Yellow:
+                current_color = RobotColors[1];
+                childColor = new Color(0.75f, 0.75f, 0.15f, 1);
+                break;
+            case RobotColor.Blue:
+                current_color = RobotColors[2];
+                childColor = new Color(0, 0.75f, 0.75f, 1);
+                break;
+            case RobotColor.Black:
+                current_color = RobotColors[3];
+                childColor = new Color(0.25f, 0.25f, 0.25f, 1);
+                break;
+        }
+
+        for (int i = 0; i < affectedColorMeshes.Length; ++i)
+        {
+            affectedColorMeshes[i].material = current_color;
+        }
     }
 
     // Update is called once per frame
@@ -54,17 +92,6 @@ public class CharacterSkinController : MonoBehaviour
     void ChangeAnimatorIdle(string trigger)
     {
         animator.SetTrigger(trigger);
-    }
-
-    void ChangeMaterialSettings(int index)
-    {
-        for (int i = 0; i < characterMaterials.Length; i++)
-        {
-            if (characterMaterials[i].transform.CompareTag("PlayerEyes"))
-                characterMaterials[i].material.SetColor("_EmissionColor", eyeColors[index]);
-            else
-                characterMaterials[i].material.SetTexture("_MainTex",albedoList[index]);
-        }
     }
 
     void ChangeEyeOffset(EyePosition pos)
