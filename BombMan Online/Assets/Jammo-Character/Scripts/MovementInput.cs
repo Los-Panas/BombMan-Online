@@ -1,4 +1,4 @@
-
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,7 +19,7 @@ public class MovementInput : MonoBehaviour {
 	public Animator anim;
 	public float Speed;
 	public float allowPlayerRotation = 0.1f;
-	public Camera cam;
+	private Camera cam;
 	public CharacterController controller;
 	public bool isGrounded;
 
@@ -45,6 +45,10 @@ public class MovementInput : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+		if (!GetComponent<Transform>().parent.GetComponent<PhotonView>().IsMine)
+			return;
+
 		InputMagnitude ();
 
         isGrounded = controller.isGrounded;
@@ -67,8 +71,8 @@ public class MovementInput : MonoBehaviour {
 		InputZ = Input.GetAxis ("Vertical");
 
 		var camera = Camera.main;
-		var forward = cam.transform.forward;
-		var right = cam.transform.right;
+		var forward = camera.transform.forward;
+		var right = camera.transform.right;
 
 		forward.y = 0f;
 		right.y = 0f;
