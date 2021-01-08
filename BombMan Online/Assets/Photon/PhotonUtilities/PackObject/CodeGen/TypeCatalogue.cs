@@ -180,8 +180,8 @@ namespace Photon.Compression.Internal
                 return;
             }
 
-            Debug.Log("Rescanning assembly for [PackObject] and [SyncVar] changes. " +
-                "If you are not using Simple SyncVars, this scan can be disabled by un-checking 'Auto Generate' in PackObjectSettings.");
+            //Debug.Log("Rescanning assembly for [PackObject] and [SyncVar] changes. " +
+            //    "If you are not using Simple SyncVars, this scan can be disabled by un-checking 'Auto Generate' in PackObjectSettings.");
             rescanPending = true;
 
         }

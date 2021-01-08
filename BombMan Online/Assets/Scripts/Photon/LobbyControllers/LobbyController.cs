@@ -10,6 +10,11 @@ public class LobbyController : MonoBehaviourPunCallbacks
     [SerializeField]
     private int roomSize;
 
+    void Start()
+    {
+        PhotonNetwork.ConnectUsingSettings();
+    }
+
     public override void OnConnectedToMaster()
     {
         PhotonNetwork.AutomaticallySyncScene = true; 
@@ -38,5 +43,15 @@ public class LobbyController : MonoBehaviourPunCallbacks
     {
         Debug.Log("fail create room");
         CreateRoom();
+    }
+
+    public override void OnEnable()
+    {
+        PhotonNetwork.AddCallbackTarget(this);
+    }
+
+    public override void OnDisable()
+    {
+        PhotonNetwork.RemoveCallbackTarget(this);
     }
 }
