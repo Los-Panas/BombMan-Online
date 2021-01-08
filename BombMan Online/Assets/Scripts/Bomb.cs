@@ -17,20 +17,8 @@ public class Bomb : MonoBehaviourPunCallbacks
     GameObject Triggers;
     [SerializeField]
     GameObject BombPaint;
-
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField]
+    ParticleSystemRenderer PaintExplosion;
 
     public void Explode()
     {
@@ -40,6 +28,10 @@ public class Bomb : MonoBehaviourPunCallbacks
         }
 
         Destroy(GetComponent<Animator>());
+
+        PaintExplosion.gameObject.SetActive(true);
+        PaintExplosion.material.color = new Color(color.x, color.y, color.z, 1);
+        Invoke("Destroy", 1.5f);
 
         CreatePaintTriggers();
     }
@@ -81,10 +73,15 @@ public class Bomb : MonoBehaviourPunCallbacks
             }
         }
 
-        Invoke("DestroyTriggers", 0.1f);
+        Invoke("DestroyTriggers", 0.05f);
     }
 
     void DestroyTriggers()
+    {
+        Destroy(Triggers);
+    }
+
+    void Destroy()
     {
         Destroy(gameObject);
     }

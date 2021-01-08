@@ -35,7 +35,7 @@ public class FloorCube : MonoBehaviour
                 color *= 0.8f;
             }
 
-            mat.color = new Color(color.x, color.y, color.z, 255);
+            mat.color = new Color(color.x, color.y, color.z, 1);
         }
     }
 }
