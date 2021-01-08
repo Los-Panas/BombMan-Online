@@ -9782,7 +9782,6 @@ GameObject:
   - component: {fileID: 1627931717947306085}
   - component: {fileID: 8379622653383026635}
   - component: {fileID: 1560066838002956761}
-  - component: {fileID: 2620212573413337060}
   m_Layer: 0
   m_Name: bomblvl1_pSphere1
   m_TagString: Untagged
@@ -9851,20 +9850,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!136 &2620212573413337060
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5067539307738633678}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.60062754
-  m_Height: 1.2012551
-  m_Direction: 1
-  m_Center: {x: 2.2298694, y: -0.012239486, z: -0.0000005066395}
 --- !u!1 &6733162548186941859
 GameObject:
   m_ObjectHideFlags: 0
