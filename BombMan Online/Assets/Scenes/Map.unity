@@ -6605,6 +6605,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1522833436}
     m_Modifications:
+    - target: {fileID: -1580370297771843288, guid: 05e34c0b3f0f0734da4c00a0fd286dd5,
+        type: 3}
+      propertyPath: cubeStyle
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6183294197582181660, guid: 05e34c0b3f0f0734da4c00a0fd286dd5,
         type: 3}
       propertyPath: m_RootOrder
