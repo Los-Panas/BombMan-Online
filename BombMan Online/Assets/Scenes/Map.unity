@@ -12017,6 +12017,12 @@ PrefabInstance:
       propertyPath: color.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7589297148560656821, guid: 14dac1e71de8a5e4387ac48e80a69dd6,
+        type: 3}
+      propertyPath: BombPaint
+      value: 
+      objectReference: {fileID: 1938609196418831604, guid: e9e9a9c6df96d6f46a12332f2bb9512e,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 14dac1e71de8a5e4387ac48e80a69dd6, type: 3}
 --- !u!1001 &1617120631
@@ -12826,6 +12832,12 @@ PrefabInstance:
       propertyPath: color.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7589297148560656821, guid: 14dac1e71de8a5e4387ac48e80a69dd6,
+        type: 3}
+      propertyPath: BombPaint
+      value: 
+      objectReference: {fileID: 1938609196418831604, guid: e9e9a9c6df96d6f46a12332f2bb9512e,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 14dac1e71de8a5e4387ac48e80a69dd6, type: 3}
 --- !u!1001 &1782559743
