@@ -7,8 +7,7 @@ public class CharacterSkinController : MonoBehaviour
     Animator animator;
     Renderer[] characterMaterials;
 
-    [SerializeField]
-    GameObject Bomb;
+   
     public Texture2D[] albedoList;
     [ColorUsage(true,true)]
     public Color[] eyeColors;
@@ -49,33 +48,6 @@ public class CharacterSkinController : MonoBehaviour
             //ChangeMaterialSettings(3);
             ChangeEyeOffset(EyePosition.dead);
             ChangeAnimatorIdle("dead");
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            // TODO: Instantiate Network
-            Vector3 pos = transform.position;
-
-            if (pos.x - Mathf.Abs(Mathf.Floor(pos.x) + 0.5f) < Mathf.Abs(Mathf.Ceil(pos.x) + 0.5f) - pos.x)
-            {
-                pos.x = Mathf.Floor(pos.x) + 0.5f;
-            }
-            else
-            {
-                pos.x = Mathf.Ceil(pos.x) + 0.5f;
-            }
-
-            if (pos.z - Mathf.Abs(Mathf.Floor(pos.z) + 0.5f) < Mathf.Abs(Mathf.Ceil(pos.z) + 0.5f) - pos.z)
-            {
-                pos.z = Mathf.Floor(pos.z) + 0.5f;
-            }
-            else
-            {
-                pos.z = Mathf.Ceil(pos.z) + 0.5f;
-            }
-
-            pos.y = 0.8f;
-            Instantiate(Bomb, pos, Bomb.transform.rotation);
         }
     }
 

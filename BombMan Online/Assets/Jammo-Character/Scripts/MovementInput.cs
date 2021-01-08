@@ -36,6 +36,9 @@ public class MovementInput : MonoBehaviour {
     public float verticalVel;
     private Vector3 moveVector;
 
+	[SerializeField]
+	GameObject Bomb;
+
 	// Use this for initialization
 	void Start () {
 		anim = this.GetComponent<Animator> ();
@@ -63,6 +66,14 @@ public class MovementInput : MonoBehaviour {
         moveVector = new Vector3(0, verticalVel * .2f * Time.deltaTime, 0);
 		controller.Move(moveVector);
 
+
+		if (Input.GetKeyDown(KeyCode.Space))
+		{
+			// TODO: Instantiate Network
+			GetComponent<PhotonView>().RPC("RPC_SpawnBomb", RpcTarget.All, transform.position);
+		}
+
+
 		GetComponent<PhotonView>().RPC("RPC_Movment", RpcTarget.All, transform.position);
 		GetComponent<PhotonView>().RPC("RPC_Rotate", RpcTarget.All, transform.rotation);
 	}
@@ -77,6 +88,31 @@ public class MovementInput : MonoBehaviour {
 	void RPC_Rotate(Quaternion rotate)
 	{
 		transform.rotation = rotate;
+	}
+
+	[PunRPC]
+	void RPC_SpawnBomb(Vector3 pos)
+	{
+		if (pos.x - Mathf.Abs(Mathf.Floor(pos.x) + 0.5f) < Mathf.Abs(Mathf.Ceil(pos.x) + 0.5f) - pos.x)
+		{
+			pos.x = Mathf.Floor(pos.x) + 0.5f;
+		}
+		else
+		{
+			pos.x = Mathf.Ceil(pos.x) + 0.5f;
+		}
+
+		if (pos.z - Mathf.Abs(Mathf.Floor(pos.z) + 0.5f) < Mathf.Abs(Mathf.Ceil(pos.z) + 0.5f) - pos.z)
+		{
+			pos.z = Mathf.Floor(pos.z) + 0.5f;
+		}
+		else
+		{
+			pos.z = Mathf.Ceil(pos.z) + 0.5f;
+		}
+
+		pos.y = 0.8f;
+		Instantiate(Bomb, pos, Bomb.transform.rotation);
 	}
 
 	void PlayerMoveAndRotation() {
