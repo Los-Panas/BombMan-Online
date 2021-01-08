@@ -8,7 +8,7 @@ public class GameSetUpController : MonoBehaviour
 {
     public static GameSetUpController GS;
 
-    public Transform[] spawnPoints;
+    public List<Transform> spawnPoints;
 
     private void OnEnable()
     {

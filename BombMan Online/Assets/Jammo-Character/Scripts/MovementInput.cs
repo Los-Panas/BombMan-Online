@@ -46,7 +46,7 @@ public class MovementInput : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (!transform.GetComponent<PhotonView>().IsMine)
+		if (!GetComponent<PhotonView>().IsMine)
 			return;
 
 		InputMagnitude ();
@@ -61,14 +61,16 @@ public class MovementInput : MonoBehaviour {
             verticalVel -= 1;
         }
         moveVector = new Vector3(0, verticalVel * .2f * Time.deltaTime, 0);
-		//controller.Move(moveVector);
-		transform.GetComponent<PhotonView>().RPC("RPC_Movment", RpcTarget.AllBuffered, moveVector);
+		controller.Move(moveVector);
+
+		GetComponent<PhotonView>().RPC("RPC_Movment", RpcTarget.All, transform.position);
+		GetComponent<PhotonView>().RPC("RPC_Rotate", RpcTarget.All, transform.rotation);
 	}
 
 	[PunRPC]
 	void RPC_Movment(Vector3 movement)
     {
-		controller.Move(movement);
+		transform.position = movement;
 	}
 
 	[PunRPC]
@@ -94,22 +96,15 @@ public class MovementInput : MonoBehaviour {
 		desiredMoveDirection = forward * InputZ + right * InputX;
 
 		if (blockRotationPlayer == false) {
-			Quaternion q = Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (desiredMoveDirection), desiredRotationSpeed);
-			//controller.Move(desiredMoveDirection * Time.deltaTime * Velocity);
-			transform.GetComponent<PhotonView>().RPC("RPC_Rotate", RpcTarget.All, q);
-
-
-			Vector3 nV = desiredMoveDirection* Time.deltaTime* Velocity;
-			transform.GetComponent<PhotonView>().RPC("RPC_Movment", RpcTarget.All, nV);
+			transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (desiredMoveDirection), desiredRotationSpeed);
+			controller.Move(desiredMoveDirection * Time.deltaTime * Velocity);
 
 		}
 	}
 
     public void LookAt(Vector3 pos)
     {
-		Quaternion q = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(pos), desiredRotationSpeed);
-		transform.GetComponent<PhotonView>().RPC("RPC_Rotate", RpcTarget.All, q);
-
+		transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(pos), desiredRotationSpeed);
 	}
 
 	public void RotateToCamera(Transform t)
