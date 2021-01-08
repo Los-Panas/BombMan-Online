@@ -46,7 +46,7 @@ public class MovementInput : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (!GetComponent<Transform>().parent.GetComponent<PhotonView>().IsMine)
+		if (!transform.GetComponent<PhotonView>().IsMine)
 			return;
 
 		InputMagnitude ();
@@ -61,12 +61,23 @@ public class MovementInput : MonoBehaviour {
             verticalVel -= 1;
         }
         moveVector = new Vector3(0, verticalVel * .2f * Time.deltaTime, 0);
-        controller.Move(moveVector);
+		//controller.Move(moveVector);
+		transform.GetComponent<PhotonView>().RPC("RPC_Movment", RpcTarget.AllBuffered, moveVector);
+	}
 
+	[PunRPC]
+	void RPC_Movment(Vector3 movement)
+    {
+		controller.Move(movement);
+	}
 
-    }
+	[PunRPC]
+	void RPC_Rotate(Quaternion rotate)
+	{
+		transform.rotation = rotate;
+	}
 
-    void PlayerMoveAndRotation() {
+	void PlayerMoveAndRotation() {
 		InputX = Input.GetAxis ("Horizontal");
 		InputZ = Input.GetAxis ("Vertical");
 
@@ -83,17 +94,25 @@ public class MovementInput : MonoBehaviour {
 		desiredMoveDirection = forward * InputZ + right * InputX;
 
 		if (blockRotationPlayer == false) {
-			transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (desiredMoveDirection), desiredRotationSpeed);
-            controller.Move(desiredMoveDirection * Time.deltaTime * Velocity);
+			Quaternion q = Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (desiredMoveDirection), desiredRotationSpeed);
+			//controller.Move(desiredMoveDirection * Time.deltaTime * Velocity);
+			transform.GetComponent<PhotonView>().RPC("RPC_Rotate", RpcTarget.All, q);
+
+
+			Vector3 nV = desiredMoveDirection* Time.deltaTime* Velocity;
+			transform.GetComponent<PhotonView>().RPC("RPC_Movment", RpcTarget.All, nV);
+
 		}
 	}
 
     public void LookAt(Vector3 pos)
     {
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(pos), desiredRotationSpeed);
-    }
+		Quaternion q = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(pos), desiredRotationSpeed);
+		transform.GetComponent<PhotonView>().RPC("RPC_Rotate", RpcTarget.All, q);
 
-    public void RotateToCamera(Transform t)
+	}
+
+	public void RotateToCamera(Transform t)
     {
 
         var camera = Camera.main;
