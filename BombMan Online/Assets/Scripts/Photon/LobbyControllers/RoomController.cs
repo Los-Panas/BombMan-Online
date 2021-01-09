@@ -64,6 +64,10 @@ public class RoomController : MonoBehaviourPunCallbacks, IInRoomCallbacks
         PhotonNetwork.LoadLevel(0);
     }
 
+    public void GoToMenu()
+    {
+        PhotonNetwork.LeaveRoom();
+    }
     private void StartGame()
     {
         if (PhotonNetwork.IsMasterClient)

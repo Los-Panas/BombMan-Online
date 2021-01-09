@@ -69,7 +69,10 @@ public class MovementInput : MonoBehaviour {
 		controller.Move(moveVector);
 		//GetComponent<PhotonView>().RPC("RPC_Movment", RpcTarget.All, moveVector);
 
-
+		if (Input.GetKeyDown(KeyCode.Escape))
+		{
+			GameObject.Find("RoomController").GetComponent<RoomController>().GoToMenu();
+		}
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
 			GetComponent<PhotonView>().RPC("RPC_SpawnBomb", RpcTarget.All, transform.position);
