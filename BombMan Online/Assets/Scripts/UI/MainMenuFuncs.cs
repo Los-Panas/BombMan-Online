@@ -27,6 +27,8 @@ public class MainMenuFuncs : MonoBehaviour
             GameObject.Find("RoomController").GetComponent<RoomController>().SetLevelMap(mapDropDown.value + 1);
            
         }
+        PanelBG.SetActive(true);
+        RoomPanel.SetActive(false);
     }
 
     public void OpenGamePanel()
