@@ -2,16 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using Photon.Pun;
 public class GameTimer : MonoBehaviour
 {
+    public static GameTimer GT;
+
     [SerializeField]
     private float totalGameTime;
     private float timeToFinish;
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
-        //NewGame();
+        if(GT == null)
+        {
+            GT = this;
+        }
     }
 
     // Update is called once per frame
@@ -29,7 +34,6 @@ public class GameTimer : MonoBehaviour
             GetComponent<Text>().text = timeseg.ToString() + " s";
         }
     }
-
     public void NewGame()
     {
         timeToFinish = totalGameTime + Time.time;
