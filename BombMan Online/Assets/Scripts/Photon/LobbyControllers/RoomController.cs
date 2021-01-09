@@ -34,7 +34,7 @@ public class RoomController : MonoBehaviourPunCallbacks, IInRoomCallbacks
     {
         base.OnEnable();
         PhotonNetwork.AddCallbackTarget(this);
-        SceneManager.sceneLoaded += OnSceneFinishedLoading;
+        
     }
 
     public override void OnDisable()
@@ -47,9 +47,21 @@ public class RoomController : MonoBehaviourPunCallbacks, IInRoomCallbacks
     public override void OnJoinedRoom()
     {
         if (!CheckIfNameIsAlreadyTaken())
+        {
             StartGame();
+            SceneManager.sceneLoaded += OnSceneFinishedLoading;
+        }
         else
+        {
+
             PhotonNetwork.LeaveRoom();
+
+        }
+    }
+    public override void OnLeftRoom()
+    {
+        base.OnLeftRoom();
+        PhotonNetwork.LoadLevel(0);
     }
 
     private void StartGame()
