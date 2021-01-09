@@ -8,12 +8,17 @@ public class GameTimer : MonoBehaviour
     public static GameTimer GT;
 
     [SerializeField]
+    Text seconds;
+    [SerializeField]
+    Text miliseconds;
+
+    [SerializeField]
     private float totalGameTime;
     private float timeToFinish;
     // Start is called before the first frame update
     void OnEnable()
     {
-        if(GT == null)
+        if (GT == null)
         {
             GT = this;
         }
@@ -22,16 +27,19 @@ public class GameTimer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if(timeToFinish - Time.time <= 0)
+        if (timeToFinish - Time.time <= 0) 
         {
-            GetComponent<Text>().text = "0'00 s";
+            seconds.text = "00";
+            miliseconds.text = "00";
+            Destroy(this);
         }
         else
         {
             double timeseg = timeToFinish - Time.time;
             timeseg = System.Math.Round(timeseg, 2);
-            GetComponent<Text>().text = timeseg.ToString() + " s";
+            int fseconds = Mathf.FloorToInt((float)timeseg);
+            seconds.text = fseconds.ToString();
+            miliseconds.text = (timeseg - fseconds).ToString();
         }
     }
     public void NewGame()
