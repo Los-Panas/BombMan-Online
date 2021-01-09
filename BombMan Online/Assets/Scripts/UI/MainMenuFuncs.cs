@@ -1,15 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainMenuFuncs : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject PanelBG;
     public GameObject RoomPanel;
+    public InputField CreateInputField;
+    public InputField JoinInputField;
     private string roomHost = "";
     private string existingRoom = "";
- 
+
+    void Start()
+    {
+        if (CreateInputField != null && JoinInputField != null)
+        {
+            CreateInputField.text = "Create Code";
+            JoinInputField.text = "Enter Code";
+        }
+    }
 
     public void OpenGamePanel()
     {
