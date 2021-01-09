@@ -34,7 +34,9 @@ public class RoomController : MonoBehaviourPunCallbacks, IInRoomCallbacks
     {
         base.OnEnable();
         PhotonNetwork.AddCallbackTarget(this);
-        
+        SceneManager.sceneLoaded += OnSceneFinishedLoading;
+
+
     }
 
     public override void OnDisable()
@@ -49,7 +51,7 @@ public class RoomController : MonoBehaviourPunCallbacks, IInRoomCallbacks
         if (!CheckIfNameIsAlreadyTaken())
         {
             StartGame();
-            SceneManager.sceneLoaded += OnSceneFinishedLoading;
+
         }
         else
         {
