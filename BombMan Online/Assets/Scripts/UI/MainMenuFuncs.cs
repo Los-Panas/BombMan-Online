@@ -10,8 +10,10 @@ public class MainMenuFuncs : MonoBehaviour
     public GameObject RoomPanel;
     public InputField CreateInputField;
     public InputField JoinInputField;
+    public Dropdown mapDropDown;
     private string roomHost = "";
     private string existingRoom = "";
+    private int map = 1;
 
     void Start()
     {
@@ -19,6 +21,11 @@ public class MainMenuFuncs : MonoBehaviour
         {
             CreateInputField.text = "Create Code";
             JoinInputField.text = "Enter Code";
+        }
+        if(mapDropDown!=null)
+        {
+            GameObject.Find("RoomController").GetComponent<RoomController>().SetLevelMap(mapDropDown.value + 1);
+           
         }
     }
 
@@ -65,5 +72,11 @@ public class MainMenuFuncs : MonoBehaviour
         {
             GameObject.Find("LobbyController").GetComponent<LobbyController>().JoinRoomWithTag(existingRoom);
         }
+    }
+
+    public void SetMapLevel(int value)
+    {
+        map = value + 1;
+        GameObject.Find("RoomController").GetComponent<RoomController>().SetLevelMap(map);
     }
 }
