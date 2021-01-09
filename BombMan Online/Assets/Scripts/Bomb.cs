@@ -20,6 +20,9 @@ public class Bomb : MonoBehaviourPunCallbacks
     [SerializeField]
     ParticleSystemRenderer PaintExplosion;
 
+    [HideInInspector]
+    public CharacterSkinController.RobotColor bomb_color = CharacterSkinController.RobotColor.None;
+
     public void Explode()
     {
         for (int i = 0; i < transform.childCount; ++i)
@@ -79,6 +82,7 @@ public class Bomb : MonoBehaviourPunCallbacks
     void DestroyTriggers()
     {
         Destroy(Triggers);
+        TileManager.instance.UpdateValues();
     }
 
     void Destroy()
