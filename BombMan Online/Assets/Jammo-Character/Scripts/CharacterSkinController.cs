@@ -17,7 +17,7 @@ public class CharacterSkinController : MonoBehaviour
     Animator animator;
     Renderer[] characterMaterials;
 
-    public RobotColor color;
+    public RobotColor color = RobotColor.None;
     [HideInInspector]
     public Color childColor;
     [SerializeField]
