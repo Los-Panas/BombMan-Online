@@ -33,8 +33,8 @@ public class GameSetUpController : MonoBehaviour
     {
         playerName[playerNameIndex].gameObject.SetActive(true);
         playerName[playerNameIndex].text = name;
-        //if (playerNameIndex > 0 && startButton.gameObject.activeSelf == false
-            //&& PhotonNetwork.IsMasterClient)
+        if (playerNameIndex > 0 && startButton.gameObject.activeSelf == false
+            && PhotonNetwork.IsMasterClient)
             startButton.gameObject.SetActive(true);
 
         playerNameIndex++;
@@ -63,5 +63,11 @@ public class GameSetUpController : MonoBehaviour
     public void DisableCanvas()
     {
         canvas.gameObject.SetActive(false);
+    }
+
+    public void CloseServer()
+    {
+        if(PhotonNetwork.IsMasterClient)
+            PhotonNetwork.CurrentRoom.IsOpen = false;
     }
 }
