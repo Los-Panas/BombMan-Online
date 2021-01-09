@@ -7,7 +7,6 @@ using System.IO;
 public class PowerUpSpawner : MonoBehaviour
 {
     List<FloorCube> tilesMap;
-    public List<GameObject> spawnedPowerUps;
     public int maxPowerUps = 5;
     int currentPU = 0;
     int currentPowerUps = 0;
@@ -30,7 +29,7 @@ public class PowerUpSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Time.time - spawnTimer > spawnTime && spawnedPowerUps.Count < maxPowerUps)
+        if (Time.time - spawnTimer > spawnTime)
         {
             spawnTime = UnityEngine.Random.Range(5f, 10f);
             spawnTimer = Time.time;
@@ -46,11 +45,11 @@ public class PowerUpSpawner : MonoBehaviour
         switch ((PUTypes)puType)
         {
             case PUTypes.SPEED:
-                spawnedPowerUps.Add(PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "BOMBPU"), pos, Quaternion.identity));//TODO: BIGBOMB
+                PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "BOMBPU"), pos, Quaternion.identity);//TODO: BIGBOMB
                 Debug.Log("SPEED");
                 break;
             case PUTypes.BIG_BOMB:
-                spawnedPowerUps.Add(PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "SPEEDPU"), pos, Quaternion.identity));//TODO: BIGBOMB
+                PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "SPEEDPU"), pos, Quaternion.identity);//TODO: BIGBOMB
                 Debug.Log("BOMB");
                 break;
         }

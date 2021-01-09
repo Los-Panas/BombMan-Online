@@ -8,12 +8,19 @@ public class GameTimer : MonoBehaviour
     public static GameTimer GT;
 
     [SerializeField]
+    Text seconds;
+    [SerializeField]
+    Text miliseconds;
+
+    [SerializeField]
     private float totalGameTime;
     private float timeToFinish;
+
+    bool start = false;
     // Start is called before the first frame update
     void OnEnable()
     {
-        if(GT == null)
+        if (GT == null)
         {
             GT = this;
         }
@@ -22,20 +29,25 @@ public class GameTimer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if(timeToFinish - Time.time <= 0)
+        if (timeToFinish - Time.time <= 0 && start)
         {
-            GetComponent<Text>().text = "0'00 s";
+            seconds.text = "00";
+            miliseconds.text = "00";
+            Destroy(this);
+            if (PhotonNetwork.IsMasterClient)
+                PhotonNetwork.DestroyAll();
         }
-        else
+        else if (start)
         {
             double timeseg = timeToFinish - Time.time;
-            timeseg = System.Math.Round(timeseg, 2);
-            GetComponent<Text>().text = timeseg.ToString() + " s";
+            int fseconds = Mathf.FloorToInt((float)timeseg);
+            seconds.text = fseconds.ToString();
+            miliseconds.text = Mathf.Round((float)System.Math.Round((timeseg - fseconds) * 100, 2)).ToString();
         }
     }
     public void NewGame()
     {
         timeToFinish = totalGameTime + Time.time;
+        start = true;
     }
 }
