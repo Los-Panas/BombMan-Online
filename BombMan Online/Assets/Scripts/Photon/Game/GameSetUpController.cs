@@ -41,7 +41,6 @@ public class GameSetUpController : MonoBehaviour
             startButton.gameObject.SetActive(true);
 
         playerNameIndex++;
-
     }
 
     public int GetPosition()
