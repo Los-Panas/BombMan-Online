@@ -908,8 +908,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1276712818}
-        m_MethodName: NewConnection
+      - m_Target: {fileID: 1880900153}
+        m_MethodName: EnterHostRoom
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -973,7 +973,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &403395344
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2085,7 +2085,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1139212432
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2430,8 +2430,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1276712818}
-        m_MethodName: NewConnection
+      - m_Target: {fileID: 1880900153}
+        m_MethodName: EnterPrivateRoom
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2790,6 +2790,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PanelBG: {fileID: 403395343}
   RoomPanel: {fileID: 1139212431}
+  CreateInputField: {fileID: 978954146}
+  JoinInputField: {fileID: 1244435611}
 --- !u!4 &1880900154
 Transform:
   m_ObjectHideFlags: 0
