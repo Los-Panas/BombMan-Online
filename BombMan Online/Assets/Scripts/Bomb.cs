@@ -7,8 +7,9 @@ public class Bomb : MonoBehaviourPunCallbacks
 {
     [Header("Values")]
     public Color color;
-    [SerializeField]
     public int tiles_to_paint = 2;
+    [SerializeField]
+    LayerMask ignoreMask;
 
     [Header("GameObjects")]
     [SerializeField]
@@ -42,10 +43,10 @@ public class Bomb : MonoBehaviourPunCallbacks
     void CreatePaintTriggers()
     {
         RaycastHit[] ray = new RaycastHit[4];
-        Physics.Raycast(transform.position, new Vector3(1, 0, 0), out ray[0]);
-        Physics.Raycast(transform.position, new Vector3(0, 0, 1), out ray[1]);
-        Physics.Raycast(transform.position, new Vector3(-1, 0, 0), out ray[2]);
-        Physics.Raycast(transform.position, new Vector3(0, 0, -1), out ray[3]);
+        Physics.Raycast(transform.position, new Vector3(1, 0, 0), out ray[0], 100, ignoreMask.value);
+        Physics.Raycast(transform.position, new Vector3(0, 0, 1), out ray[1], 100, ignoreMask.value);
+        Physics.Raycast(transform.position, new Vector3(-1, 0, 0), out ray[2], 100, ignoreMask.value);
+        Physics.Raycast(transform.position, new Vector3(0, 0, -1), out ray[3], 100, ignoreMask.value);
 
         Instantiate(BombPaint, transform.position, BombPaint.transform.rotation, Triggers.transform);
 
@@ -76,6 +77,7 @@ public class Bomb : MonoBehaviourPunCallbacks
             }
         }
 
+        Destroy(GetComponent<Collider>());
         Invoke("DestroyTriggers", 0.05f);
     }
 
@@ -88,13 +90,5 @@ public class Bomb : MonoBehaviourPunCallbacks
     void Destroy()
     {
         Destroy(gameObject);
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            GetComponent<Collider>().isTrigger = false;
-        }
     }
 }
