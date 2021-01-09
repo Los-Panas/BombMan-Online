@@ -129,12 +129,4 @@ public class CharacterSkinController : MonoBehaviour
                 characterMaterials[i].material.SetTextureOffset("_MainTex", offset);
         }
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        //if (other.CompareTag("BombPaint"))
-        //{
-        //    // Fucking die
-        //}
-    }
 }
