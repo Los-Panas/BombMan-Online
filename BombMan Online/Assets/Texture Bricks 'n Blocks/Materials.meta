@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:BombMan Online/Assets/Materials.meta
+guid: 58c2d0d08d1ea994cb9a4c9acccfa8ec
+=======
 guid: 3fc62a9d17b8eba43bb6f7b77ae4b33e
+>>>>>>> 9f14cd84b379a6c0016cc41411745e2db583eebb:BombMan Online/Assets/Texture Bricks 'n Blocks/Materials.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

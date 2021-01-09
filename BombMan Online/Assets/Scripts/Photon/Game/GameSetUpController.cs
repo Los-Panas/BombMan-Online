@@ -64,4 +64,10 @@ public class GameSetUpController : MonoBehaviour
     {
         canvas.gameObject.SetActive(false);
     }
+
+    public void CloseServer()
+    {
+        if(PhotonNetwork.IsMasterClient)
+            PhotonNetwork.CurrentRoom.IsOpen = false;
+    }
 }

@@ -14,7 +14,7 @@ public class PhotonPlayer : MonoBehaviour
         PV = GetComponent<PhotonView>();
         if (PV.IsMine)
         {
-            PV.RPC("RCP_UpdateLobby", RpcTarget.AllBuffered, PhotonNetwork.NickName);
+            PV.RPC("RCP_UpdateLobby", RpcTarget.AllBufferedViaServer, PhotonNetwork.NickName);
             GameSetUpController.GS.currentObject = gameObject;
         }
     }
@@ -28,8 +28,8 @@ public class PhotonPlayer : MonoBehaviour
     void RCP_StartGame()
     {
        GameSetUpController.GS.DisableCanvas();
-       int id = GameSetUpController.GS.GetPosition();
-       myAvatar = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"),
+       int id = GameSetUpController.GS.GetPosition() + 1;
+       myAvatar = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player" + id.ToString()),
        GameSetUpController.GS.spawnPoints[id].position, GameSetUpController.GS.spawnPoints[id].rotation); 
         
     }
