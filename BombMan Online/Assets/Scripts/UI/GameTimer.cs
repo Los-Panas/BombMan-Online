@@ -15,6 +15,8 @@ public class GameTimer : MonoBehaviour
     [SerializeField]
     private float totalGameTime;
     private float timeToFinish;
+
+    bool start = false;
     // Start is called before the first frame update
     void OnEnable()
     {
@@ -27,13 +29,15 @@ public class GameTimer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (timeToFinish - Time.time <= 0) 
+        if(timeToFinish - Time.time <= 0 && start)
         {
-            seconds.text = "00";
-            miliseconds.text = "00";
-            Destroy(this);
+                seconds.text = "00";
+                miliseconds.text = "00";
+                Destroy(this);
+                if (PhotonNetwork.IsMasterClient)
+                PhotonNetwork.DestroyAll();
         }
-        else
+        else if (start)
         {
             double timeseg = timeToFinish - Time.time;
             timeseg = System.Math.Round(timeseg, 2);
@@ -45,5 +49,6 @@ public class GameTimer : MonoBehaviour
     public void NewGame()
     {
         timeToFinish = totalGameTime + Time.time;
+        start = true;
     }
 }

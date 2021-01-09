@@ -129,21 +129,17 @@ public class BuffsManager : MonoBehaviour
             PowerUpEntity po = other.gameObject.GetComponent<PowerUpEntity>();
             if(!AlreadyHaveThisBuff(po.type))
                 AddPowerUp(po.type, po.lifeTime);
-
-            PowerUpSpawner spawner = GameObject.Find("PowerUpSpawner").GetComponent<PowerUpSpawner>();
             
-            for (int i = 0; i < spawner.spawnedPowerUps.Count; ++i)
-            {
-                if (spawner.spawnedPowerUps[i] == other.gameObject)
-                {
-                    spawner.spawnedPowerUps.Remove(spawner.spawnedPowerUps[i]);
-                    break;
-                }
+            pv.RPC("DestroyPowerUp", RpcTarget.MasterClient,other.gameObject.GetComponent<PhotonView>().ViewID);
+            //PhotonNetwork.Destroy(other.gameObject);
 
-            }
-            //pv.RPC("DestroyPowerUp", RpcTarget.AllBufferedViaServer, other.gameObject);
-            PhotonNetwork.Destroy(other.gameObject);
             //DestroyPowerUp(other.gameObject);
         }
+    }
+
+    [PunRPC]
+    void DestroyPowerUp(int nID)
+    {
+        PhotonNetwork.Destroy(PhotonView.Find(nID));
     }
 }
