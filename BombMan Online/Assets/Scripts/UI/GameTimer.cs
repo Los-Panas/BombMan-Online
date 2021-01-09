@@ -29,21 +29,20 @@ public class GameTimer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(timeToFinish - Time.time <= 0 && start)
+        if (timeToFinish - Time.time <= 0 && start)
         {
-                seconds.text = "00";
-                miliseconds.text = "00";
-                Destroy(this);
-                if (PhotonNetwork.IsMasterClient)
+            seconds.text = "00";
+            miliseconds.text = "00";
+            Destroy(this);
+            if (PhotonNetwork.IsMasterClient)
                 PhotonNetwork.DestroyAll();
         }
         else if (start)
         {
             double timeseg = timeToFinish - Time.time;
-            timeseg = System.Math.Round(timeseg, 2);
             int fseconds = Mathf.FloorToInt((float)timeseg);
             seconds.text = fseconds.ToString();
-            miliseconds.text = (timeseg - fseconds).ToString();
+            miliseconds.text = Mathf.Round((float)System.Math.Round((timeseg - fseconds) * 100, 2)).ToString();
         }
     }
     public void NewGame()
