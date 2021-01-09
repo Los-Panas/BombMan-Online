@@ -89,4 +89,12 @@ public class Bomb : MonoBehaviourPunCallbacks
     {
         Destroy(gameObject);
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            GetComponent<Collider>().isTrigger = false;
+        }
+    }
 }

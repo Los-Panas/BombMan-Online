@@ -18,6 +18,8 @@ public class GameSetUpController : MonoBehaviour
     private Button startButton;
     [SerializeField]
     private Canvas canvas;
+    [SerializeField]
+    private GameObject[] playerImage;
 
     public GameObject currentObject;
 
@@ -32,13 +34,13 @@ public class GameSetUpController : MonoBehaviour
     public void PlayerConnected(string name)
     {
         playerName[playerNameIndex].gameObject.SetActive(true);
+        playerImage[playerNameIndex].SetActive(true);
         playerName[playerNameIndex].text = name;
         if (playerNameIndex > 0 && startButton.gameObject.activeSelf == false
             && PhotonNetwork.IsMasterClient)
             startButton.gameObject.SetActive(true);
 
         playerNameIndex++;
-
     }
 
     public int GetPosition()

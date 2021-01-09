@@ -67,6 +67,7 @@ public class MovementInput : MonoBehaviour {
         }
         moveVector = new Vector3(0, verticalVel * .2f * Time.deltaTime, 0);
 		controller.Move(moveVector);
+		//GetComponent<PhotonView>().RPC("RPC_Movment", RpcTarget.All, moveVector);
 
 
 		if (Input.GetKeyDown(KeyCode.Space))
@@ -76,14 +77,12 @@ public class MovementInput : MonoBehaviour {
 		}
 
 
-		GetComponent<PhotonView>().RPC("RPC_Movment", RpcTarget.All, transform.position);
-		GetComponent<PhotonView>().RPC("RPC_Rotate", RpcTarget.All, transform.rotation);
 	}
 
 	[PunRPC]
 	void RPC_Movment(Vector3 movement)
     {
-		transform.position = movement;
+		controller.Move(movement);
 	}
 
 	[PunRPC]
@@ -139,15 +138,20 @@ public class MovementInput : MonoBehaviour {
 		desiredMoveDirection = forward * InputZ + right * InputX;
 
 		if (blockRotationPlayer == false) {
-			transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (desiredMoveDirection), desiredRotationSpeed);
-			controller.Move(desiredMoveDirection * Time.deltaTime * Velocity);
-
+			Quaternion q = Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (desiredMoveDirection), desiredRotationSpeed);
+			//GetComponent<PhotonView>().RPC("RPC_Rotate", RpcTarget.All, q);
+			transform.rotation = q;
+			Vector3 m = desiredMoveDirection * Time.deltaTime * Velocity;
+			//GetComponent<PhotonView>().RPC("RPC_Movment", RpcTarget.All, m);
+			controller.Move(m);
 		}
 	}
 
     public void LookAt(Vector3 pos)
     {
-		transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(pos), desiredRotationSpeed);
+		Quaternion q = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(pos), desiredRotationSpeed);
+		GetComponent<PhotonView>().RPC("RPC_Rotate", RpcTarget.All, q);
+
 	}
 
 	public void RotateToCamera(Transform t)
