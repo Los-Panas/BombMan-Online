@@ -15,6 +15,14 @@ public class FloorCube : MonoBehaviour
     
     public Style cubeStyle = Style.Light;
 
+    [HideInInspector]
+    public CharacterSkinController.RobotColor currentColor = CharacterSkinController.RobotColor.None;
+
+    private void Awake()
+    {
+        TileManager.instance.cubes.Add(this);
+    }
+
     private void Start()
     {
         mat = GetComponent<MeshRenderer>().material;
@@ -29,7 +37,10 @@ public class FloorCube : MonoBehaviour
     {
         if (other.CompareTag("BombPaint"))
         {
-            Color color = other.transform.parent.parent.GetComponent<Bomb>().color;
+            Bomb bomb = other.transform.parent.parent.GetComponent<Bomb>();
+            currentColor = bomb.bomb_color;
+            Color color = bomb.color;
+
             if (cubeStyle == Style.Dark)
             {
                 color *= 0.75f;

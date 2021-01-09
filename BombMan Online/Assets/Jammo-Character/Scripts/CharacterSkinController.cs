@@ -9,7 +9,9 @@ public class CharacterSkinController : MonoBehaviour
         Red,
         Yellow,
         Blue,
-        Black
+        Black,
+
+        None
     }
 
     Animator animator;
