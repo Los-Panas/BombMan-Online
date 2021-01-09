@@ -1172,8 +1172,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 492fbacaa238c0d4d9b2eb9f71deadbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seconds: {fileID: 0}
-  miliseconds: {fileID: 0}
+  seconds: {fileID: 1641092365886416790}
+  miliseconds: {fileID: 6230728427935146982}
   totalGameTime: 60
 --- !u!114 &6337538133826521610
 MonoBehaviour:
