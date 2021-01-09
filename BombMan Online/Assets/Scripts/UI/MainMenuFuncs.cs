@@ -50,6 +50,9 @@ public class MainMenuFuncs : MonoBehaviour
     }
     public void EnterPrivateRoom()
     {
-
+        if (!string.IsNullOrEmpty(existingRoom))
+        {
+            GameObject.Find("LobbyController").GetComponent<LobbyController>().JoinRoomWithTag(existingRoom);
+        }
     }
 }

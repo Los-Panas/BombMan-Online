@@ -31,6 +31,10 @@ public class LobbyController : MonoBehaviourPunCallbacks
         CreateRoom();
     }
 
+    public override void OnJoinRoomFailed(short returnCode, string message)
+    {
+        Debug.Log("Non existing Room or Full");
+    }
     private void CreateRoom()
     {
         Debug.Log("Create own random room");
@@ -44,6 +48,11 @@ public class LobbyController : MonoBehaviourPunCallbacks
         Debug.Log("Create own room");
         RoomOptions rOpts = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = (byte)roomSize };
         PhotonNetwork.CreateRoom(value, rOpts);
+    }
+
+    public void JoinRoomWithTag(string value)
+    {
+        PhotonNetwork.JoinRoom(value);
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)

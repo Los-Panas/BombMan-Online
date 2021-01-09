@@ -908,8 +908,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1276712818}
-        m_MethodName: NewConnection
+      - m_Target: {fileID: 1880900153}
+        m_MethodName: EnterHostRoom
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2430,8 +2430,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1276712818}
-        m_MethodName: NewConnection
+      - m_Target: {fileID: 1880900153}
+        m_MethodName: EnterPrivateRoom
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
