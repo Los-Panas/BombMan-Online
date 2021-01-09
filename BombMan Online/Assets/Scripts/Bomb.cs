@@ -8,7 +8,7 @@ public class Bomb : MonoBehaviourPunCallbacks
     [Header("Values")]
     public Color color;
     [SerializeField]
-    int tiles_to_paint = 2;
+    public int tiles_to_paint = 2;
 
     [Header("GameObjects")]
     [SerializeField]

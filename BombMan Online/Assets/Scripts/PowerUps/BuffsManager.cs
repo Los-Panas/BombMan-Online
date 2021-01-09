@@ -30,7 +30,7 @@ public class BuffsManager : MonoBehaviour
     List<PowerUp> powerups = new List<PowerUp>();
     MovementInput movement;
     bool isFaster = false;
-    bool isBigBomb = false;
+    public bool isBigBomb = false;
     float initVelocity;
     float blinkingTimer = 0f;
     bool blink;
@@ -40,7 +40,7 @@ public class BuffsManager : MonoBehaviour
        movement = GetComponent<MovementInput>();
        initVelocity = movement.Velocity;
        GameObject gO = GameObject.Find("SPEEDUI");
-        speedText = gO.GetComponent<Text>();
+       speedText = gO.GetComponent<Text>();
     }
 
     // Update is called once per frame
@@ -48,16 +48,16 @@ public class BuffsManager : MonoBehaviour
     {
         for (int i = 0; i < powerups.Count; ++i)
         {
-            if (Time.realtimeSinceStartup - powerups[i].lifeTimer > powerups[i].lifeTime)
+            if (Time.time - powerups[i].lifeTimer > powerups[i].lifeTime)
             {
                 SetValueToInitial(powerups[i]);
                 powerups.Remove(powerups[i]);
                 continue;
             }
-            if(Time.realtimeSinceStartup - powerups[i].lifeTimer > secondsUntilBlinking)
+            if(Time.time - powerups[i].lifeTimer > secondsUntilBlinking)
             {
                 //Start blinking UI
-                if(Time.realtimeSinceStartup - blinkingTimer > 0.2)
+                if(Time.time - blinkingTimer > 0.2)
                 {
                     blinkingTimer = Time.realtimeSinceStartup;
                     blink = !blink;
@@ -100,7 +100,7 @@ public class BuffsManager : MonoBehaviour
                 speedText.color = Color.white;
                 break;
             case PUTypes.BIG_BOMB:
-                //Victor your shiet here
+                
                 break;
             default:
                 break;
@@ -127,6 +127,18 @@ public class BuffsManager : MonoBehaviour
             PowerUpEntity po = other.gameObject.GetComponent<PowerUpEntity>();
             if(!AlreadyHaveThisBuff(po.type))
                 AddPowerUp(po.type, po.lifeTime);
+
+            PowerUpSpawner spawner = GameObject.Find("PowerUpSpawner").GetComponent<PowerUpSpawner>();
+            
+            for (int i = 0; i < spawner.spawnedPowerUps.Count; ++i)
+            {
+                if (spawner.spawnedPowerUps[i] == other.gameObject)
+                {
+                    spawner.spawnedPowerUps.Remove(spawner.spawnedPowerUps[i]);
+                    break;
+                }
+
+            }
             Destroy(other.gameObject);
         }
     }
