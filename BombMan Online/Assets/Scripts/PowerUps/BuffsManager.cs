@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using Photon.Pun;
 public enum PUTypes
 {
     NONE,
@@ -34,6 +34,7 @@ public class BuffsManager : MonoBehaviour
     float initVelocity;
     float blinkingTimer = 0f;
     bool blink;
+    PhotonView pv;
     // Start is called before the first frame update
     void Start()
     {
@@ -41,6 +42,7 @@ public class BuffsManager : MonoBehaviour
        initVelocity = movement.Velocity;
        GameObject gO = GameObject.Find("SPEEDUI");
        speedText = gO.GetComponent<Text>();
+        pv = GetComponent<PhotonView>();
     }
 
     // Update is called once per frame
@@ -139,7 +141,13 @@ public class BuffsManager : MonoBehaviour
                 }
 
             }
-            Destroy(other.gameObject);
+            pv.RPC("DestroyPowerUp", RpcTarget.AllBufferedViaServer, other.gameObject);
+            //DestroyPowerUp(other.gameObject);
         }
+    }
+    [PunRPC]
+    void DestroyPowerUp(GameObject gO)
+    {
+        Destroy(gO);
     }
 }
