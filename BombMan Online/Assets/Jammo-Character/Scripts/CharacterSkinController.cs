@@ -32,11 +32,16 @@ public class CharacterSkinController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SetColor(color);
+    }
+
+    public void SetColor(RobotColor col)
+    {
         animator = GetComponent<Animator>();
         characterMaterials = GetComponentsInChildren<Renderer>();
 
         Material current_color = null;
-        switch (color)
+        switch (col)
         {
             case RobotColor.Red:
                 current_color = RobotColors[0];
