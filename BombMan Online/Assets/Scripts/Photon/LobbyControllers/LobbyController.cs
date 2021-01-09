@@ -33,10 +33,17 @@ public class LobbyController : MonoBehaviourPunCallbacks
 
     private void CreateRoom()
     {
-        Debug.Log("Create own room");
+        Debug.Log("Create own random room");
         int randomNum = Random.Range(0, 1000);
         RoomOptions rOpts = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = (byte)roomSize };
         PhotonNetwork.CreateRoom("BomberDroid" + randomNum, rOpts);
+    }
+
+    public void CreateRoomWithTag(string value)
+    {
+        Debug.Log("Create own room");
+        RoomOptions rOpts = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = (byte)roomSize };
+        PhotonNetwork.CreateRoom(value, rOpts);
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
