@@ -61,9 +61,13 @@ public class RoomController : MonoBehaviourPunCallbacks, IInRoomCallbacks
     public override void OnLeftRoom()
     {
         base.OnLeftRoom();
-        //PhotonNetwork.LoadLevel(0);
+        PhotonNetwork.LoadLevel(0);
     }
 
+    public void GoToMenu()
+    {
+        PhotonNetwork.LeaveRoom();
+    }
     private void StartGame()
     {
         if (PhotonNetwork.IsMasterClient)
@@ -75,7 +79,8 @@ public class RoomController : MonoBehaviourPunCallbacks, IInRoomCallbacks
         currentScene = scene.buildIndex;
         if(currentScene == multiplayerScene)
         {
-            CreatePlayer();
+            if (!CheckIfNameIsAlreadyTaken())
+                CreatePlayer();
         }
     }
 

@@ -16,6 +16,6 @@ public class PingFunction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.GetComponent<Text>().text = PhotonNetwork.GetPing().ToString() + "ms";
+        this.GetComponent<Text>().text = PhotonNetwork.GetPing().ToString() + " ms";
     }
 }
