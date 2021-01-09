@@ -16,10 +16,11 @@ public class FloorCube : MonoBehaviour
     public Style cubeStyle = Style.Light;
 
     [HideInInspector]
-    public CharacterSkinController.RobotColor currentColor = CharacterSkinController.RobotColor.None;
+    public CharacterSkinController.RobotColor currentColor;
 
     private void Awake()
     {
+        currentColor = CharacterSkinController.RobotColor.None;
         TileManager.instance.cubes.Add(this);
     }
 

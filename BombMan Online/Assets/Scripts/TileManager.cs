@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TileManager : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class TileManager : MonoBehaviour
     [HideInInspector]
     public List<FloorCube> cubes = new List<FloorCube>();
     CubeColors cubeColors;
+    [SerializeField]
+    Text[] cubesText;
 
     private void Awake()
     {
@@ -51,9 +54,14 @@ public class TileManager : MonoBehaviour
                 case CharacterSkinController.RobotColor.Black:
                     ++cubeColors.blackCubes;
                     break;
+                case CharacterSkinController.RobotColor.None:
+                    break;
             }
         }
 
-        // TODO: Update UI
+        cubesText[0].text = cubeColors.redCubes.ToString();
+        cubesText[1].text = cubeColors.yellowCubes.ToString();
+        cubesText[2].text = cubeColors.blueCubes.ToString();
+        cubesText[3].text = cubeColors.blackCubes.ToString();
     }
 }
