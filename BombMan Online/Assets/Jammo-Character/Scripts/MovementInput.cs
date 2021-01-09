@@ -51,8 +51,8 @@ public class MovementInput : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		//if (!GetComponent<PhotonView>().IsMine)
-		//	return;
+		if (!GetComponent<PhotonView>().IsMine)
+			return;
 
 		InputMagnitude ();
 

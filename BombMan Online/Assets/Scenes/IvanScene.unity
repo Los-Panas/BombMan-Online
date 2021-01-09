@@ -769,7 +769,7 @@ PrefabInstance:
     - target: {fileID: 68760603115319548, guid: da4e7c43fe1bf594bb72447647c5674a,
         type: 3}
       propertyPath: viewIdField
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2452281245578195345, guid: da4e7c43fe1bf594bb72447647c5674a,
         type: 3}
@@ -2299,26 +2299,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 233324752}
   m_Mesh: {fileID: -5495902117074765545, guid: e37ce6a39e0fe0347aea44ff0abd7e56, type: 3}
---- !u!1 &234277885 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2452281245578195345, guid: da4e7c43fe1bf594bb72447647c5674a,
-    type: 3}
-  m_PrefabInstance: {fileID: 54022085}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &234277886
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 234277885}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aff626942d1abdd4ea9ea3344215bd03, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  secondsUntilBlinking: 2
-  isBigBomb: 0
 --- !u!1001 &256748314
 PrefabInstance:
   m_ObjectHideFlags: 0
