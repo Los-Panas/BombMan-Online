@@ -72,11 +72,8 @@ public class MovementInput : MonoBehaviour {
 
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
-			// TODO: Instantiate Network
 			GetComponent<PhotonView>().RPC("RPC_SpawnBomb", RpcTarget.All, transform.position);
 		}
-
-
 	}
 
 	[PunRPC]
@@ -119,6 +116,7 @@ public class MovementInput : MonoBehaviour {
 		b.bomb_color = GetComponent<CharacterSkinController>().color;
 		if (buffsManager.isBigBomb)
 			b.tiles_to_paint = 4;
+		gameObject.layer = LayerMask.GetMask("IgnoreBomb");
 	}
 
 	void PlayerMoveAndRotation() {
