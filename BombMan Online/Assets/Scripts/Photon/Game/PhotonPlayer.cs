@@ -12,15 +12,31 @@ public class PhotonPlayer : MonoBehaviour
     void Start()
     {
         PV = GetComponent<PhotonView>();
-        int spawnPicker = Random.Range(0, GameSetUpController.GS.spawnPoints.Count);
-
         if (PV.IsMine)
         {
-            myAvatar = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"),
-               GameSetUpController.GS.spawnPoints[spawnPicker].position, GameSetUpController.GS.spawnPoints[spawnPicker].rotation);
-
-            GameSetUpController.GS.spawnPoints.RemoveAt(spawnPicker);
+            PV.RPC("RCP_UpdateLobby", RpcTarget.AllBuffered, PhotonNetwork.NickName);
+            GameSetUpController.GS.currentObject = gameObject;
         }
     }
 
+    public void StartGame()
+    {
+        PV.RPC("RCP_StartGame", RpcTarget.AllBuffered);
+    }
+
+    [PunRPC]
+    void RCP_StartGame()
+    {
+       GameSetUpController.GS.DisableCanvas();
+       int id = GameSetUpController.GS.GetPosition();
+       myAvatar = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"),
+       GameSetUpController.GS.spawnPoints[id].position, GameSetUpController.GS.spawnPoints[id].rotation); 
+        
+    }
+
+    [PunRPC]
+    void RCP_UpdateLobby(string name)
+    {
+        GameSetUpController.GS.PlayerConnected(name);
+    }
 }
