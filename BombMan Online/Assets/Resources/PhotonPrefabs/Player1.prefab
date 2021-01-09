@@ -2251,6 +2251,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   secondsUntilBlinking: 2
+  isBigBomb: 0
 --- !u!1 &2466322886839824688
 GameObject:
   m_ObjectHideFlags: 0
