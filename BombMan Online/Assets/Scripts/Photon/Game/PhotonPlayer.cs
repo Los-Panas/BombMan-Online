@@ -15,7 +15,7 @@ public class PhotonPlayer : MonoBehaviour
         if (PV.IsMine)
         {
             PV.RPC("RCP_UpdateLobby", RpcTarget.AllBufferedViaServer, PhotonNetwork.NickName);
-            GameSetUpController.GS.currentObject = gameObject;
+            GameSetUpController.GS.myNetworkPlayer = gameObject;
         }
     }
 

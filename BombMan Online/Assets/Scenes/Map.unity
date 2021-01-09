@@ -3227,7 +3227,7 @@ MonoBehaviour:
   - {fileID: 1848595347}
   - {fileID: 494463961}
   - {fileID: 733870760}
-  currentObject: {fileID: 0}
+  myNetworkPlayer: {fileID: 0}
 --- !u!4 &510738633
 Transform:
   m_ObjectHideFlags: 0
@@ -12327,6 +12327,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2101609759, guid: 690294d74085a644b84dea840b66b0cd, type: 3}
+      propertyPath: totalGameTime
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5990412246597941753, guid: 690294d74085a644b84dea840b66b0cd,
         type: 3}
       propertyPath: m_RootOrder

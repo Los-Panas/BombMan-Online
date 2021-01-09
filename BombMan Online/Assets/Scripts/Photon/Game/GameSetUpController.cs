@@ -21,7 +21,7 @@ public class GameSetUpController : MonoBehaviour
     [SerializeField]
     private GameObject[] playerImage;
 
-    public GameObject currentObject;
+    public GameObject myNetworkPlayer;
 
     private void OnEnable()
     {
@@ -58,8 +58,8 @@ public class GameSetUpController : MonoBehaviour
     }
     public void StartGame()
     {
-        if (currentObject != null)
-            currentObject.GetComponent<PhotonPlayer>().StartGame();
+        if (myNetworkPlayer != null)
+            myNetworkPlayer.GetComponent<PhotonPlayer>().StartGame();
     }
 
     public void DisableCanvas()
@@ -73,5 +73,10 @@ public class GameSetUpController : MonoBehaviour
     {
         if(PhotonNetwork.IsMasterClient)
             PhotonNetwork.CurrentRoom.IsOpen = false;
+    }
+
+    public void DestroyAvatar()
+    {
+        PhotonNetwork.Destroy(myNetworkPlayer.GetComponent<PhotonPlayer>().myAvatar);
     }
 }

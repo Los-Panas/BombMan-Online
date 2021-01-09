@@ -35,7 +35,7 @@ public class GameTimer : MonoBehaviour
             miliseconds.text = "00";
             Destroy(this);
             if (PhotonNetwork.IsMasterClient)
-                PhotonNetwork.DestroyAll();
+                GameSetUpController.GS.DestroyAvatar();
         }
         else if (start)
         {
