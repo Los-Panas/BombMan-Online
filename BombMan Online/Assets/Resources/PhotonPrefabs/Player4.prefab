@@ -2189,6 +2189,7 @@ MonoBehaviour:
   StopAnimTime: 0.15
   verticalVel: 0
   Bomb: {fileID: 4128046997149437145, guid: 14dac1e71de8a5e4387ac48e80a69dd6, type: 3}
+  bombCooldown: 3
 --- !u!114 &3680587066939997476
 MonoBehaviour:
   m_ObjectHideFlags: 0

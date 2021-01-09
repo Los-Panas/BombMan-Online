@@ -40,6 +40,9 @@ public class MovementInput : MonoBehaviour {
 	[SerializeField]
 	GameObject Bomb;
 
+	public float bombCooldown = 3.0f;
+	float last_boom_throw = 0.0f;
+
 	// Use this for initialization
 	void Start () {
 		anim = this.GetComponent<Animator> ();
@@ -70,9 +73,10 @@ public class MovementInput : MonoBehaviour {
 		//GetComponent<PhotonView>().RPC("RPC_Movment", RpcTarget.All, moveVector);
 
 
-		if (Input.GetKeyDown(KeyCode.Space))
+		if (Input.GetKeyDown(KeyCode.Space) && (Time.time - last_boom_throw) >= bombCooldown) 
 		{
 			GetComponent<PhotonView>().RPC("RPC_SpawnBomb", RpcTarget.All, transform.position);
+			last_boom_throw = Time.time;
 		}
 	}
 
