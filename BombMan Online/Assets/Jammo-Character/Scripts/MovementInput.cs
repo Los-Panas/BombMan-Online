@@ -110,13 +110,13 @@ public class MovementInput : MonoBehaviour {
 		}
 
 		pos.y = 0.8f;
+		gameObject.layer = 8;
 		GameObject bomb = Instantiate(Bomb, pos, Bomb.transform.rotation);
 		Bomb b = bomb.GetComponent<Bomb>();
 		b.color = GetComponent<CharacterSkinController>().childColor;
 		b.bomb_color = GetComponent<CharacterSkinController>().color;
 		if (buffsManager.isBigBomb)
 			b.tiles_to_paint = 4;
-		gameObject.layer = LayerMask.GetMask("IgnoreBomb");
 	}
 
 	void PlayerMoveAndRotation() {
