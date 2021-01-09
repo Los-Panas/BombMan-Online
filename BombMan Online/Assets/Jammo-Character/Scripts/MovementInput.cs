@@ -1,4 +1,4 @@
-
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,7 +19,7 @@ public class MovementInput : MonoBehaviour {
 	public Animator anim;
 	public float Speed;
 	public float allowPlayerRotation = 0.1f;
-	public Camera cam;
+	private Camera cam;
 	public CharacterController controller;
 	public bool isGrounded;
 
@@ -36,6 +36,9 @@ public class MovementInput : MonoBehaviour {
     public float verticalVel;
     private Vector3 moveVector;
 
+	[SerializeField]
+	GameObject Bomb;
+
 	// Use this for initialization
 	void Start () {
 		anim = this.GetComponent<Animator> ();
@@ -45,6 +48,10 @@ public class MovementInput : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+		if (!GetComponent<PhotonView>().IsMine)
+			return;
+
 		InputMagnitude ();
 
         isGrounded = controller.isGrounded;
@@ -57,18 +64,66 @@ public class MovementInput : MonoBehaviour {
             verticalVel -= 1;
         }
         moveVector = new Vector3(0, verticalVel * .2f * Time.deltaTime, 0);
-        controller.Move(moveVector);
+		controller.Move(moveVector);
 
 
-    }
+		if (Input.GetKeyDown(KeyCode.Space))
+		{
+			// TODO: Instantiate Network
+			GetComponent<PhotonView>().RPC("RPC_SpawnBomb", RpcTarget.All, transform.position);
+		}
 
-    void PlayerMoveAndRotation() {
+
+		GetComponent<PhotonView>().RPC("RPC_Movment", RpcTarget.All, transform.position);
+		GetComponent<PhotonView>().RPC("RPC_Rotate", RpcTarget.All, transform.rotation);
+	}
+
+	[PunRPC]
+	void RPC_Movment(Vector3 movement)
+    {
+		transform.position = movement;
+	}
+
+	[PunRPC]
+	void RPC_Rotate(Quaternion rotate)
+	{
+		transform.rotation = rotate;
+	}
+
+	[PunRPC]
+	void RPC_SpawnBomb(Vector3 pos)
+	{
+		if (pos.x - Mathf.Abs(Mathf.Floor(pos.x) + 0.5f) < Mathf.Abs(Mathf.Ceil(pos.x) + 0.5f) - pos.x)
+		{
+			pos.x = Mathf.Floor(pos.x) + 0.5f;
+		}
+		else
+		{
+			pos.x = Mathf.Ceil(pos.x) + 0.5f;
+		}
+
+		if (pos.z - Mathf.Abs(Mathf.Floor(pos.z) + 0.5f) < Mathf.Abs(Mathf.Ceil(pos.z) + 0.5f) - pos.z)
+		{
+			pos.z = Mathf.Floor(pos.z) + 0.5f;
+		}
+		else
+		{
+			pos.z = Mathf.Ceil(pos.z) + 0.5f;
+		}
+
+		pos.y = 0.8f;
+		GameObject bomb = Instantiate(Bomb, pos, Bomb.transform.rotation);
+		bomb.GetComponent<Bomb>().color = GetComponent<CharacterSkinController>().childColor;
+		bomb.GetComponent<Bomb>().bomb_color = GetComponent<CharacterSkinController>().color;
+	}
+
+	void PlayerMoveAndRotation() {
 		InputX = Input.GetAxis ("Horizontal");
 		InputZ = Input.GetAxis ("Vertical");
 
 		var camera = Camera.main;
-		var forward = cam.transform.forward;
-		var right = cam.transform.right;
+		var forward = camera.transform.forward;
+		var right = camera.transform.right;
 
 		forward.y = 0f;
 		right.y = 0f;
@@ -80,16 +135,17 @@ public class MovementInput : MonoBehaviour {
 
 		if (blockRotationPlayer == false) {
 			transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (desiredMoveDirection), desiredRotationSpeed);
-            controller.Move(desiredMoveDirection * Time.deltaTime * Velocity);
+			controller.Move(desiredMoveDirection * Time.deltaTime * Velocity);
+
 		}
 	}
 
     public void LookAt(Vector3 pos)
     {
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(pos), desiredRotationSpeed);
-    }
+		transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(pos), desiredRotationSpeed);
+	}
 
-    public void RotateToCamera(Transform t)
+	public void RotateToCamera(Transform t)
     {
 
         var camera = Camera.main;

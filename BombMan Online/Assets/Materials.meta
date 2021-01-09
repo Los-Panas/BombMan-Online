@@ -1,5 +1,16 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:BombMan Online/Assets/Materials.meta
+<<<<<<< HEAD
 guid: 4d1203ef9719f01409d8d0447ef87e3d
+=======
+guid: 3fc62a9d17b8eba43bb6f7b77ae4b33e
+>>>>>>> 9f14cd84b379a6c0016cc41411745e2db583eebb:BombMan Online/Assets/Texture Bricks 'n Blocks/Materials.meta
+=======
+guid: 0237dc3ad5f7d1349b7072419320bda8
+=======
+guid: 14f6eabe6f3fff44189a1656c0d3826a
+>>>>>>> d8faa98bf0deb62c0b0f10593d98bba92389e6fa:BombMan Online/Assets/Resources/PhotonPrefabs.meta
+>>>>>>> 9f14cd84b379a6c0016cc41411745e2db583eebb
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

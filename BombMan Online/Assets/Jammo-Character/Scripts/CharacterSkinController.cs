@@ -4,21 +4,67 @@ using UnityEngine;
 
 public class CharacterSkinController : MonoBehaviour
 {
+    public enum RobotColor
+    {
+        Red,
+        Yellow,
+        Blue,
+        Black,
+
+        None
+    }
+
     Animator animator;
     Renderer[] characterMaterials;
 
-    public Texture2D[] albedoList;
+    public RobotColor color = RobotColor.None;
+    [HideInInspector]
+    public Color childColor;
+    [SerializeField]
+    Material[] RobotColors;
     [ColorUsage(true,true)]
     public Color[] eyeColors;
     public enum EyePosition { normal, happy, angry, dead}
     public EyePosition eyeState;
+    [SerializeField]
+    SkinnedMeshRenderer[] affectedColorMeshes;
 
     // Start is called before the first frame update
     void Start()
     {
+        SetColor(color);
+    }
+
+    public void SetColor(RobotColor col)
+    {
         animator = GetComponent<Animator>();
         characterMaterials = GetComponentsInChildren<Renderer>();
-        
+
+        Material current_color = null;
+        switch (col)
+        {
+            case RobotColor.Red:
+                current_color = RobotColors[0];
+                childColor = new Color(0.75f, 0, 0, 1);
+                break;
+            case RobotColor.Yellow:
+                current_color = RobotColors[1];
+                childColor = new Color(0.75f, 0.75f, 0.15f, 1);
+                break;
+            case RobotColor.Blue:
+                current_color = RobotColors[2];
+                childColor = new Color(0, 0.75f, 0.75f, 1);
+                break;
+            case RobotColor.Black:
+                current_color = RobotColors[3];
+                childColor = new Color(0.25f, 0.25f, 0.25f, 1);
+                break;
+        }
+
+        for (int i = 0; i < affectedColorMeshes.Length; ++i)
+        {
+            affectedColorMeshes[i].material = current_color;
+        }
     }
 
     // Update is called once per frame
@@ -55,17 +101,6 @@ public class CharacterSkinController : MonoBehaviour
         animator.SetTrigger(trigger);
     }
 
-    void ChangeMaterialSettings(int index)
-    {
-        for (int i = 0; i < characterMaterials.Length; i++)
-        {
-            if (characterMaterials[i].transform.CompareTag("PlayerEyes"))
-                characterMaterials[i].material.SetColor("_EmissionColor", eyeColors[index]);
-            else
-                characterMaterials[i].material.SetTexture("_MainTex",albedoList[index]);
-        }
-    }
-
     void ChangeEyeOffset(EyePosition pos)
     {
         Vector2 offset = Vector2.zero;
@@ -93,5 +128,13 @@ public class CharacterSkinController : MonoBehaviour
             if (characterMaterials[i].transform.CompareTag("PlayerEyes"))
                 characterMaterials[i].material.SetTextureOffset("_MainTex", offset);
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        //if (other.CompareTag("BombPaint"))
+        //{
+        //    // Fucking die
+        //}
     }
 }

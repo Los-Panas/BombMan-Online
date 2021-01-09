@@ -6,7 +6,11 @@ TagManager:
   tags:
   - PlayerEyes
   - Bullet
+<<<<<<< HEAD
   - PowerUp
+=======
+  - BombPaint
+>>>>>>> 9f14cd84b379a6c0016cc41411745e2db583eebb
   layers:
   - Default
   - TransparentFX

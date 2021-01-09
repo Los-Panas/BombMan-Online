@@ -1,6 +1,12 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:BombMan Online/Assets/Materials/floorMat.mat.meta
 guid: e441617416af26046a6d7f9c5542ecdc
 NativeFormatImporter:
+=======
+guid: 88d80b5a003d53845b575499b1728240
+folderAsset: yes
+DefaultImporter:
+>>>>>>> 9f14cd84b379a6c0016cc41411745e2db583eebb:BombMan Online/Assets/Ground textures pack/Lava.meta
   externalObjects: {}
   mainObjectFileID: 0
   userData: 

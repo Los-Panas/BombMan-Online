@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:BombMan Online/Assets/Scripts/PowerUps.meta
 guid: d7a7652de28e54c4b973a4ef70fc1c39
+=======
+guid: 3bfe66c2ba3eb3a4d8069116a675940f
+>>>>>>> 9f14cd84b379a6c0016cc41411745e2db583eebb:BombMan Online/Assets/Fonts.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
