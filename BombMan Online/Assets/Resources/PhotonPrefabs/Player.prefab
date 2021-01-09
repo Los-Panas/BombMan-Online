@@ -2003,7 +2003,7 @@ GameObject:
   - component: {fileID: 7938489163285038266}
   m_Layer: 2
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2233,7 +2233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   secondsUntilBlinking: 2
-  speedText: {fileID: 0}
+  isBigBomb: 0
 --- !u!1 &2466322886839824688
 GameObject:
   m_ObjectHideFlags: 0

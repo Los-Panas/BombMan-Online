@@ -22,6 +22,7 @@ public class MovementInput : MonoBehaviour {
 	private Camera cam;
 	public CharacterController controller;
 	public bool isGrounded;
+	BuffsManager buffsManager;
 
     [Header("Animation Smoothing")]
     [Range(0, 1f)]
@@ -44,6 +45,7 @@ public class MovementInput : MonoBehaviour {
 		anim = this.GetComponent<Animator> ();
 		cam = Camera.main;
 		controller = this.GetComponent<CharacterController> ();
+		buffsManager = GetComponent<BuffsManager>();
 	}
 	
 	// Update is called once per frame
@@ -112,8 +114,11 @@ public class MovementInput : MonoBehaviour {
 
 		pos.y = 0.8f;
 		GameObject bomb = Instantiate(Bomb, pos, Bomb.transform.rotation);
-		bomb.GetComponent<Bomb>().color = GetComponent<CharacterSkinController>().childColor;
-		bomb.GetComponent<Bomb>().bomb_color = GetComponent<CharacterSkinController>().color;
+		Bomb b = bomb.GetComponent<Bomb>();
+		b.color = GetComponent<CharacterSkinController>().childColor;
+		b.bomb_color = GetComponent<CharacterSkinController>().color;
+		if (buffsManager.isBigBomb)
+			b.tiles_to_paint = 4;
 	}
 
 	void PlayerMoveAndRotation() {

@@ -65,6 +65,8 @@ public class GameSetUpController : MonoBehaviour
     public void DisableCanvas()
     {
         canvas.gameObject.SetActive(false);
+        GameTimer.GT.NewGame();
+
     }
 
     public void CloseServer()
