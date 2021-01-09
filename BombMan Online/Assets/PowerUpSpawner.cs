@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using System.IO;
 public class PowerUpSpawner : MonoBehaviour
 {
     List<FloorCube> tilesMap;
@@ -36,21 +37,20 @@ public class PowerUpSpawner : MonoBehaviour
             puType = UnityEngine.Random.Range(1, 3);
             Debug.Log("TYPE: " + puType);
             Vector3 pos = SetRandomTilePosition();
-            pv.RPC("InstantiatePowerUp", RpcTarget.AllBufferedViaServer, new object[] { puType, pos });
-            //InstantiatePowerUp(puType);
+            InstantiatePowerUp(puType, pos);
         }
     }
-    [PunRPC]
+
     private void InstantiatePowerUp(int puType, Vector3 pos)
     {
         switch ((PUTypes)puType)
         {
             case PUTypes.SPEED:
-                spawnedPowerUps.Add(Instantiate(speedPU, pos, Quaternion.identity));//TODO: BIGBOMB
+                spawnedPowerUps.Add(PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "BOMBPU"), pos, Quaternion.identity));//TODO: BIGBOMB
                 Debug.Log("SPEED");
                 break;
             case PUTypes.BIG_BOMB:
-                spawnedPowerUps.Add(Instantiate(bombPU, pos, Quaternion.identity));//TODO: BIGBOMB
+                spawnedPowerUps.Add(PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "SPEEDPU"), pos, Quaternion.identity));//TODO: BIGBOMB
                 Debug.Log("BOMB");
                 break;
         }
