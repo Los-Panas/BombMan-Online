@@ -39,4 +39,16 @@ public class PhotonPlayer : MonoBehaviour
     {
         GameSetUpController.GS.PlayerConnected(name);
     }
+
+    public void DestroyAvatar()
+    {
+        PV.RPC("RCP_DestroyAvatar", RpcTarget.AllBufferedViaServer);
+    }
+
+    [PunRPC]
+    void RCP_DestroyAvatar()
+    {
+        if (PV.IsMine)
+            PhotonNetwork.Destroy(myAvatar);
+    }
 }

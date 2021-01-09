@@ -77,6 +77,6 @@ public class GameSetUpController : MonoBehaviour
 
     public void DestroyAvatar()
     {
-        PhotonNetwork.Destroy(myNetworkPlayer.GetComponent<PhotonPlayer>().myAvatar);
+        myNetworkPlayer.GetComponent<PhotonPlayer>().DestroyAvatar();
     }
 }
