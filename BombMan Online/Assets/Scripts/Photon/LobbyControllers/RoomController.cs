@@ -11,7 +11,7 @@ public class RoomController : MonoBehaviourPunCallbacks, IInRoomCallbacks
     public static RoomController room;
 
     public int currentScene;
-    public int multiplayerScene;
+    private int multiplayerScene;
 
     private void Awake()
     {
@@ -47,7 +47,6 @@ public class RoomController : MonoBehaviourPunCallbacks, IInRoomCallbacks
     public override void OnJoinedRoom()
     {
         StartGame();
-
     }
 
     private void StartGame()
@@ -68,5 +67,10 @@ public class RoomController : MonoBehaviourPunCallbacks, IInRoomCallbacks
     private void CreatePlayer()
     {
             PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonNetworkPlayer"), transform.position, Quaternion.identity, 0);
+    }
+
+    public void SetLevelMap(int value)
+    {
+        multiplayerScene = value;
     }
 }

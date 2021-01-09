@@ -26,7 +26,7 @@ public class PowerUp
 public class BuffsManager : MonoBehaviour
 {
     public float secondsUntilBlinking = 0f;
-    public Text speedText;
+    Text speedText;
     List<PowerUp> powerups = new List<PowerUp>();
     MovementInput movement;
     bool isFaster = false;
@@ -39,6 +39,8 @@ public class BuffsManager : MonoBehaviour
     {
        movement = GetComponent<MovementInput>();
        initVelocity = movement.Velocity;
+       GameObject gO = GameObject.Find("SPEEDUI");
+        speedText = gO.GetComponent<Text>();
     }
 
     // Update is called once per frame
