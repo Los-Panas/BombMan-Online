@@ -9,7 +9,6 @@ public class CheckBombTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             other.gameObject.layer = 2;
-            Debug.Log("Okeyy");
         }
     }
 }

@@ -141,13 +141,9 @@ public class BuffsManager : MonoBehaviour
                 }
 
             }
-            pv.RPC("DestroyPowerUp", RpcTarget.AllBufferedViaServer, other.gameObject);
+            //pv.RPC("DestroyPowerUp", RpcTarget.AllBufferedViaServer, other.gameObject);
+            PhotonNetwork.Destroy(other.gameObject);
             //DestroyPowerUp(other.gameObject);
         }
-    }
-    [PunRPC]
-    void DestroyPowerUp(GameObject gO)
-    {
-        Destroy(gO);
     }
 }
