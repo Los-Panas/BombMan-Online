@@ -26,11 +26,6 @@ public class TileManager : MonoBehaviour
         instance = this;
     }
 
-    private void Start()
-    {
-        Debug.Log(cubes.Count);
-    }
-
     void InitializeCubeStruct()
     {
         cubeColors.redCubes = 0;

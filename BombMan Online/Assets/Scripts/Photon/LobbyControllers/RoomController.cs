@@ -46,7 +46,10 @@ public class RoomController : MonoBehaviourPunCallbacks, IInRoomCallbacks
 
     public override void OnJoinedRoom()
     {
-        StartGame();
+        if (!CheckIfNameIsAlreadyTaken())
+            StartGame();
+        else
+            PhotonNetwork.LeaveRoom();
     }
 
     private void StartGame()
@@ -72,5 +75,19 @@ public class RoomController : MonoBehaviourPunCallbacks, IInRoomCallbacks
     public void SetLevelMap(int value)
     {
         multiplayerScene = value;
+    }
+
+    private bool CheckIfNameIsAlreadyTaken()
+    {
+        foreach (Player player in PhotonNetwork.PlayerListOthers)
+        {
+            if (player.NickName == PhotonNetwork.NickName)
+            {
+                Debug.LogError("Player name already taken");
+                return true;
+            }
+        }
+
+        return false;
     }
 }
