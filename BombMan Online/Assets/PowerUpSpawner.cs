@@ -45,16 +45,17 @@ public class PowerUpSpawner : MonoBehaviour
 
     private void InstantiatePowerUp(int puType, Vector3 pos)
     {
+        Vector3 rot = new Vector3(-90, 0, 0);
         switch ((PUTypes)puType)
         {
             case PUTypes.SPEED:
-                spawnedPowerUps.Add(PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "BOMBPU"), pos, Quaternion.identity));//TODO: BIGBOMB
+                spawnedPowerUps.Add(PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PowerUpSpeed"), pos, Quaternion.Euler(rot)));//TODO: BIGBOMB
                 break;
             case PUTypes.BIG_BOMB:
-                spawnedPowerUps.Add(PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "SPEEDPU"), pos, Quaternion.identity));//TODO: BIGBOMB
+                spawnedPowerUps.Add(PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PowerUpBomb"), pos, Quaternion.Euler(rot)));//TODO: BIGBOMB
                 break;
             case PUTypes.COOLDOWN:
-                spawnedPowerUps.Add(PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "COOLDOWNPU"), pos, Quaternion.identity));//TODO: BIGBOMB
+                spawnedPowerUps.Add(PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PowerUpCooldown"), pos, Quaternion.Euler(rot)));//TODO: BIGBOMB
                 break;
         }
     }

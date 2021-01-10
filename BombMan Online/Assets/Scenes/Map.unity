@@ -5773,6 +5773,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: PowerUpSpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 4419814075274436865, guid: b3ccc0a5fb49e6f4aa29c37087659c80,
+        type: 3}
+      propertyPath: bombPU
+      value: 
+      objectReference: {fileID: 100000, guid: 992190abc696d9d4db9dbef827e00de4, type: 3}
+    - target: {fileID: 4419814075274436865, guid: b3ccc0a5fb49e6f4aa29c37087659c80,
+        type: 3}
+      propertyPath: speedPU
+      value: 
+      objectReference: {fileID: 100000, guid: dc9654250f713b848ae930dfcbcf7b23, type: 3}
+    - target: {fileID: 4419814075274436865, guid: b3ccc0a5fb49e6f4aa29c37087659c80,
+        type: 3}
+      propertyPath: cooldownPU
+      value: 
+      objectReference: {fileID: 100000, guid: 80960a539127eee4d86b716a48fa7de6, type: 3}
     - target: {fileID: 4419814075274436866, guid: b3ccc0a5fb49e6f4aa29c37087659c80,
         type: 3}
       propertyPath: m_RootOrder
