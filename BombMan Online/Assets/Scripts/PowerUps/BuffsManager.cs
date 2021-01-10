@@ -222,8 +222,8 @@ public class BuffsManager : MonoBehaviour
         if (string.Compare(other.gameObject.tag, "PowerUp") == 0)
         {
             PowerUpEntity po = other.gameObject.GetComponent<PowerUpEntity>();
-            if(!AlreadyHaveThisBuff(po.type))
-                AddPowerUp(po.type, po.lifeTime);
+            if (!AlreadyHaveThisBuff(po.type))
+                pv.RPC("RCP_AddPowerUp", RpcTarget.All, new object[] { (int)po.type, po.lifeTime });
 
             PowerUpSpawner spawner = GameObject.Find("PowerUpSpawner").GetComponent<PowerUpSpawner>();
 
@@ -238,7 +238,7 @@ public class BuffsManager : MonoBehaviour
             pv.RPC("RCP_DestroyPowerUp", RpcTarget.All, other.gameObject.GetComponent<PhotonView>().ViewID);
 
             
-            GameObject.Find("AudioManager").GetComponent<AudioManager>().PlayAudioWithName("pickup");
+           
         }
     }
 
@@ -248,5 +248,12 @@ public class BuffsManager : MonoBehaviour
         PhotonView aux = PhotonView.Find(nID);
         if(aux != null && aux.IsMine)
             PhotonNetwork.Destroy(aux);
+    }
+
+    [PunRPC]
+    void RCP_AddPowerUp(int type,float lifeTime)
+    {
+        AddPowerUp((PUTypes)type, lifeTime);
+        GameObject.Find("AudioManager").GetComponent<AudioManager>().PlayAudioWithName("pickup");
     }
 }
