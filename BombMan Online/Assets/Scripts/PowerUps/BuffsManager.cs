@@ -238,7 +238,7 @@ public class BuffsManager : MonoBehaviour
             pv.RPC("RCP_DestroyPowerUp", RpcTarget.All, other.gameObject.GetComponent<PhotonView>().ViewID);
 
             
-            GameObject.Find("AudioManager").GetComponent<AudioManager>().PlayAudioWithName("pickup");
+           
         }
     }
 
@@ -254,6 +254,9 @@ public class BuffsManager : MonoBehaviour
     void RCP_AddPowerUp(int type,float lifeTime, string vID)
     {
         if(vID.CompareTo(pv.name) == 0)
+        {
             AddPowerUp((PUTypes)type, lifeTime);
+            GameObject.Find("AudioManager").GetComponent<AudioManager>().PlayAudioWithName("pickup");
+        }
     }
 }

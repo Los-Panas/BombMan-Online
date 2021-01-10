@@ -143,4 +143,4 @@ MonoBehaviour:
   explosion: {fileID: 8300000, guid: 37626718005ca6642bbbd42c19373671, type: 3}
   pickup: {fileID: 8300000, guid: 5a0338f900787dd42ad24ef97468af05, type: 3}
   spawn: {fileID: 8300000, guid: 8889f40d278ffc44e87354b17d3b24ae, type: 3}
-  death: {fileID: 8300000, guid: 7c5c96f3956d044488d57e0858fac05c, type: 3}
+  death: {fileID: 8300000, guid: 5e79df6f989975b49a852e9e7b2b1b2c, type: 3}
