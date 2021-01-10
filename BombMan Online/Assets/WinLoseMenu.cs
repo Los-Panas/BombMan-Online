@@ -6,6 +6,8 @@ using Photon.Pun;
 
 public class WinLoseMenu : MonoBehaviour
 {
+    static public WinLoseMenu instance; 
+
     [SerializeField]
     CharacterSkinController[] players;
     [SerializeField]
@@ -26,23 +28,77 @@ public class WinLoseMenu : MonoBehaviour
     Text[] playerNames;
     [SerializeField]
     Text[] percentages;
+    [SerializeField]
+    GameObject MainCamera;
+    [SerializeField]
+    GameObject LobbyButton;
 
-    private void Start()
+    private void Awake()
     {
-        Camera.main.gameObject.SetActive(false);
+        instance = this;
+        gameObject.SetActive(false);
+    }
+
+    public void Initialize()
+    {
+        gameObject.SetActive(true);
+        MainCamera.SetActive(false);
         TileManagerCanvas.SetActive(false);
         GeneralLight.SetActive(false);
 
         TileManager.CubeColors cubecolors = TileManager.instance.cubeColors;
-        //TODO: Change Positions
+
         int playersNum = PhotonNetwork.CurrentRoom.PlayerCount;
 
         for (int i = 0; i < playersNum; ++i)
         {
             players[i].gameObject.SetActive(true);
+            playerNames[i].gameObject.SetActive(true);
             players[i].Initialize();
         }
 
+        Vector3 pos;
+
+        switch (playersNum)
+        {
+            case 2:
+                pos = players[0].transform.position;
+                pos.x += 1;
+                players[0].transform.position = pos;
+
+                pos = players[1].transform.position;
+                pos.x -= 1;
+                players[1].transform.position = pos;
+                break;
+            case 3:
+                pos = players[0].transform.position;
+                pos.x += 2;
+                players[0].transform.position = pos;
+
+                pos = players[2].transform.position;
+                pos.x -= 2;
+                players[2].transform.position = pos;
+                break;
+            case 4:
+                pos = players[0].transform.position;
+                pos.x += 3;
+                players[0].transform.position = pos;
+
+                pos = players[1].transform.position;
+                pos.x += 1;
+                players[1].transform.position = pos;
+
+                pos = players[2].transform.position;
+                pos.x -= 1;
+                players[2].transform.position = pos;
+
+                pos = players[3].transform.position;
+                pos.x -= 3;
+                players[3].transform.position = pos;
+                break;
+        }
+
+        // ------------- WHO WON ----------------------------------------------
         int playerWon = 0;
 
         if (cubecolors.redCubes < cubecolors.yellowCubes)
@@ -93,26 +149,96 @@ public class WinLoseMenu : MonoBehaviour
                 }
             }
         }
+        // --------------------------------------------------------------------------
 
         for (int i = 0; i < materials.Length; ++i)
         {
             materials[i].material.color = colors[playerWon];
         }
 
-        playerwonText.text = GameSetUpController.GS.GetPlayernames()[playerWon].text + "won!";
+        playerwonText.text = GameSetUpController.GS.GetPlayernames()[playerWon].text + " won!";
 
-        for (int i = 0; i < playersNum; ++i)
+        switch (playersNum)
         {
-            if (i == playerWon)
-            {
-                Vector3 pos = players[i].transform.position;
-                pos.z += 1;
-                players[i].transform.position = pos;
-                players[i].SetAnimationWinLose("happy");
-                playerLights[i].gameObject.SetActive(true);
-                playerNames[i].color = Color.white;
-                percentages[i].color = Color.white;
-                
+            case 2:
+                switch (playerWon)
+                {
+                    case 0:
+                        pos = new Vector2(-200, -290);
+                        playerNames[0].GetComponent<RectTransform>().anchoredPosition = pos;
+
+                        pos = new Vector2(170, -220);
+                        playerNames[1].GetComponent<RectTransform>().anchoredPosition = pos;
+                        break;
+                    case 1:
+                        pos = new Vector2(-170, -220);
+                        playerNames[0].GetComponent<RectTransform>().anchoredPosition = pos;
+
+                        pos = new Vector2(200, -290);
+                        playerNames[1].GetComponent<RectTransform>().anchoredPosition = pos;
+                        break;
+                }
+                break;
+            case 3:
+                for (int i = 0; i < 3; ++i)
+                {
+                    switch (i)
+                    {
+                        case 0:
+                            pos = new Vector2(-340, -220);
+                            playerNames[i].GetComponent<RectTransform>().anchoredPosition = pos;
+                            break;
+                        case 1:
+                            pos = new Vector2(0, -220);
+                            playerNames[i].GetComponent<RectTransform>().anchoredPosition = pos;
+                            break;
+                        case 2:
+                            pos = new Vector2(340, -220);
+                            playerNames[i].GetComponent<RectTransform>().anchoredPosition = pos;
+                            break;
+                    }
+                }
+
+                switch (playerWon)
+                {
+                    case 0:
+                        pos = new Vector2(-420, -290);
+                        playerNames[playerWon].GetComponent<RectTransform>().anchoredPosition = pos;
+                        break;
+                    case 1:
+                        pos = new Vector2(0, -290);
+                        playerNames[playerWon].GetComponent<RectTransform>().anchoredPosition = pos;
+                        break;
+                    case 2:
+                        pos = new Vector2(420, -290);
+                        playerNames[playerWon].GetComponent<RectTransform>().anchoredPosition = pos;
+                        break;
+                }
+                break;
+            case 4:
+                for (int i = 0; i < 4; ++i)
+                {
+                    switch (i)
+                    {
+                        case 0:
+                            pos = new Vector2(-510, -220);
+                            playerNames[i].GetComponent<RectTransform>().anchoredPosition = pos;
+                            break;
+                        case 1:
+                            pos = new Vector2(-170, -220);
+                            playerNames[i].GetComponent<RectTransform>().anchoredPosition = pos;
+                            break;
+                        case 2:
+                            pos = new Vector2(170, -220);
+                            playerNames[i].GetComponent<RectTransform>().anchoredPosition = pos;
+                            break;
+                        case 3:
+                            pos = new Vector2(510, -220);
+                            playerNames[i].GetComponent<RectTransform>().anchoredPosition = pos;
+                            break;
+                    }
+                }
+
                 switch (playerWon)
                 {
                     case 0:
@@ -132,6 +258,20 @@ public class WinLoseMenu : MonoBehaviour
                         playerNames[playerWon].GetComponent<RectTransform>().anchoredPosition = pos;
                         break;
                 }
+                break;
+        }
+
+        for (int i = 0; i < playersNum; ++i)
+        {
+            if (i == playerWon)
+            {
+                pos = players[i].transform.position;
+                pos.z += 1;
+                players[i].transform.position = pos;
+                players[i].SetAnimationWinLose("happy");
+                playerLights[i].gameObject.SetActive(true);
+                playerNames[i].color = Color.white;
+                percentages[i].color = Color.white;
             }
             else
             {
@@ -154,7 +294,7 @@ public class WinLoseMenu : MonoBehaviour
             dir.y = players[i].transform.position.y;
             players[i].transform.rotation = Quaternion.LookRotation(dir);
 
-            playerNames[i].text = GameSetUpController.GS.GetPlayernames()[playerWon].text;
+            playerNames[i].text = GameSetUpController.GS.GetPlayernames()[i].text;
 
             switch (i)
             {
@@ -171,6 +311,26 @@ public class WinLoseMenu : MonoBehaviour
                     percentages[i].text = (System.Math.Round(((float)cubecolors.blackCubes / 133.0f) * 100, 2)).ToString() + "%";
                     break;
             }
+        }
+
+        Invoke("ShowButton", 3.0f);
+    }
+
+    public void ReturnToLobby()
+    {
+        gameObject.SetActive(false);
+        MainCamera.SetActive(true);
+        TileManagerCanvas.SetActive(true);
+        GeneralLight.SetActive(true);
+        LobbyButton.SetActive(false);
+        GameSetUpController.GS.EnableCanvas();
+    }
+
+    void ShowButton()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            LobbyButton.SetActive(true);
         }
     }
 }
