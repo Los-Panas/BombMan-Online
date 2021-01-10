@@ -9993,7 +9993,7 @@ GameObject:
   - component: {fileID: 5963499797083602419}
   - component: {fileID: 2118533071069952498}
   - component: {fileID: 5536589221690401116}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CheckTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
