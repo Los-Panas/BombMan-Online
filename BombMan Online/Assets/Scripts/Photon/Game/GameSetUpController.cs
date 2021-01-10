@@ -34,7 +34,6 @@ public class GameSetUpController : MonoBehaviour
 
     private void Update()
     {
-        
     }
 
     public Text[] GetPlayernames()
