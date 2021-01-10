@@ -9485,7 +9485,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 32b015341bd948b45963c2017bf08b12, type: 3}
-  m_Type: 0
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -9493,7 +9493,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 0.25
 --- !u!222 &1518348080
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10758,7 +10758,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1742421959
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12458,11 +12458,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4686673508770803708, guid: 690294d74085a644b84dea840b66b0cd,
-        type: 3}
-      propertyPath: cubeColors.blackCubes
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5990412246597941753, guid: 690294d74085a644b84dea840b66b0cd,
         type: 3}
       propertyPath: m_RootOrder
@@ -12523,9 +12518,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: TileManager
       objectReference: {fileID: 0}
-    - target: {fileID: 6068240355181683712, guid: 690294d74085a644b84dea840b66b0cd,
+    - target: {fileID: 6566460339916914677, guid: 690294d74085a644b84dea840b66b0cd,
         type: 3}
-      propertyPath: m_IsActive
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7348486854735035939, guid: 690294d74085a644b84dea840b66b0cd,
+        type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8139190561705367686, guid: 690294d74085a644b84dea840b66b0cd,
+        type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8514894148738141869, guid: 690294d74085a644b84dea840b66b0cd,
+        type: 3}
+      propertyPath: m_Type
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -19072,6 +19082,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WinLose
+      objectReference: {fileID: 0}
+    - target: {fileID: 2806640210392984477, guid: 159800b953f0aa74eb2cb6ad1ffe0eba,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2962418447028530495, guid: 159800b953f0aa74eb2cb6ad1ffe0eba,
         type: 3}
