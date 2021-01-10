@@ -10758,7 +10758,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1742421959
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12518,24 +12518,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: TileManager
       objectReference: {fileID: 0}
-    - target: {fileID: 6566460339916914677, guid: 690294d74085a644b84dea840b66b0cd,
-        type: 3}
-      propertyPath: m_Type
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7348486854735035939, guid: 690294d74085a644b84dea840b66b0cd,
-        type: 3}
-      propertyPath: m_Type
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8139190561705367686, guid: 690294d74085a644b84dea840b66b0cd,
-        type: 3}
-      propertyPath: m_Type
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8514894148738141869, guid: 690294d74085a644b84dea840b66b0cd,
         type: 3}
-      propertyPath: m_Type
+      propertyPath: m_FillCenter
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
