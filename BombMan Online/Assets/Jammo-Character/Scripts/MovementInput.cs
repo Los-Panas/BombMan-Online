@@ -194,6 +194,7 @@ public class MovementInput : MonoBehaviour {
 		if (string.Compare(other.gameObject.tag, "BombPaint") == 0)
 		{
 			PhotonNetwork.Destroy(gameObject);
+			GameObject.Find("AudioManager").GetComponent<AudioManager>().PlayAudioWithName("death");
 		}
 	}
 }
