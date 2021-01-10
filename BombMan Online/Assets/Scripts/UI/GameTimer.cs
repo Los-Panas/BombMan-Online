@@ -60,5 +60,7 @@ public class GameTimer : MonoBehaviour
         timeToFinish = totalGameTime + Time.time;
         start = true;
         powerupspawner.start = true;
+        CleanMap.CM.CleanAllMap();
+
     }
 }
