@@ -32,14 +32,20 @@ public class CharacterSkinController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        animator = GetComponent<Animator>();
+        characterMaterials = GetComponentsInChildren<Renderer>();
+
         SetColor(color);
+    }
+
+    public void Initialize()
+    {
+        animator = GetComponent<Animator>();
+        characterMaterials = GetComponentsInChildren<Renderer>();
     }
 
     public void SetColor(RobotColor col)
     {
-        animator = GetComponent<Animator>();
-        characterMaterials = GetComponentsInChildren<Renderer>();
-
         Material current_color = null;
         switch (col)
         {
@@ -49,7 +55,7 @@ public class CharacterSkinController : MonoBehaviour
                 break;
             case RobotColor.Yellow:
                 current_color = RobotColors[1];
-                childColor = new Color(0.75f, 0.75f, 0.15f, 1);
+                childColor = new Color(1, 1, 0, 1);
                 break;
             case RobotColor.Blue:
                 current_color = RobotColors[2];
@@ -70,30 +76,30 @@ public class CharacterSkinController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            //ChangeMaterialSettings(0);
-            ChangeEyeOffset(EyePosition.normal);
-            ChangeAnimatorIdle("normal");
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            //ChangeMaterialSettings(1);
-            ChangeEyeOffset(EyePosition.angry);
-            ChangeAnimatorIdle("angry");
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            //ChangeMaterialSettings(2);
-            ChangeEyeOffset(EyePosition.happy);
-            ChangeAnimatorIdle("happy");
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            //ChangeMaterialSettings(3);
-            ChangeEyeOffset(EyePosition.dead);
-            ChangeAnimatorIdle("dead");
-        }
+        //if (Input.GetKeyDown(KeyCode.Alpha1))
+        //{
+        //    //ChangeMaterialSettings(0);
+        //    ChangeEyeOffset(EyePosition.normal);
+        //    ChangeAnimatorIdle("normal");
+        //}
+        //if (Input.GetKeyDown(KeyCode.Alpha2))
+        //{
+        //    //ChangeMaterialSettings(1);
+        //    ChangeEyeOffset(EyePosition.angry);
+        //    ChangeAnimatorIdle("angry");
+        //}
+        //if (Input.GetKeyDown(KeyCode.Alpha3))
+        //{
+        //    //ChangeMaterialSettings(2);
+        //    ChangeEyeOffset(EyePosition.happy);
+        //    ChangeAnimatorIdle("happy");
+        //}
+        //if (Input.GetKeyDown(KeyCode.Alpha4))
+        //{
+        //    //ChangeMaterialSettings(3);
+        //    ChangeEyeOffset(EyePosition.dead);
+        //    ChangeAnimatorIdle("dead");
+        //}
     }
 
     void ChangeAnimatorIdle(string trigger)
@@ -127,6 +133,23 @@ public class CharacterSkinController : MonoBehaviour
         {
             if (characterMaterials[i].transform.CompareTag("PlayerEyes"))
                 characterMaterials[i].material.SetTextureOffset("_MainTex", offset);
+        }
+    }
+
+    public void SetAnimationWinLose(string anim)
+    {
+        ChangeAnimatorIdle(anim);
+        switch (anim)
+        {
+            case "happy":
+                ChangeEyeOffset(EyePosition.happy);
+                break;
+            case "dead":
+                ChangeEyeOffset(EyePosition.dead);
+                break;
+            case "angry":
+                ChangeEyeOffset(EyePosition.angry);
+                break;
         }
     }
 }

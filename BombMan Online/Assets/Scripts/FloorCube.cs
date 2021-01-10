@@ -10,7 +10,6 @@ public class FloorCube : MonoBehaviour
         Light
     }
 
-
     Material mat;
     
     public Style cubeStyle = Style.Light;

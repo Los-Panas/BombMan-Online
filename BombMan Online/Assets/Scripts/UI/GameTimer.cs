@@ -61,6 +61,5 @@ public class GameTimer : MonoBehaviour
         start = true;
         powerupspawner.start = true;
         CleanMap.CM.CleanAllMap();
-
     }
 }
