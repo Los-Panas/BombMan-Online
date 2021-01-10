@@ -16,6 +16,8 @@ public class PowerUpSpawner : MonoBehaviour
     public GameObject bombPU;
     int puType;
     PhotonView pv;
+    [HideInInspector]
+    public bool start = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +31,7 @@ public class PowerUpSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Time.time - spawnTimer > spawnTime)
+        if (Time.time - spawnTimer > spawnTime && start)
         {
             spawnTime = UnityEngine.Random.Range(5f, 10f);
             spawnTimer = Time.time;

@@ -15,9 +15,13 @@ public class GameTimer : MonoBehaviour
     [SerializeField]
     private float totalGameTime;
     private float timeToFinish;
-
+    PowerUpSpawner powerupspawner;
     bool start = false;
     // Start is called before the first frame update
+    private void Start()
+    {
+        powerupspawner = GameObject.Find("PowerUpSpawner").GetComponent<PowerUpSpawner>();
+    }
     void OnEnable()
     {
         if (GT == null)
@@ -49,5 +53,6 @@ public class GameTimer : MonoBehaviour
     {
         timeToFinish = totalGameTime + Time.time;
         start = true;
+        powerupspawner.start = true;
     }
 }

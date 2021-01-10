@@ -30,6 +30,7 @@ public class BuffsManager : MonoBehaviour
     List<PowerUp> powerups = new List<PowerUp>();
     MovementInput movement;
     bool isFaster = false;
+    [HideInInspector]
     public bool isBigBomb = false;
     float initVelocity;
     float blinkingTimer = 0f;
@@ -81,7 +82,7 @@ public class BuffsManager : MonoBehaviour
                 isFaster = false;
                 break;
             case PUTypes.BIG_BOMB:
-                //Victor your shiet here
+                isBigBomb = false;
                 break;
             default:
                 break;
@@ -102,7 +103,7 @@ public class BuffsManager : MonoBehaviour
                 speedText.color = Color.white;
                 break;
             case PUTypes.BIG_BOMB:
-                
+                isBigBomb = true;
                 break;
             default:
                 break;
