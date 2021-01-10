@@ -38,7 +38,6 @@ public class PowerUpSpawner : MonoBehaviour
             spawnTime = UnityEngine.Random.Range(5f, 10f);
             spawnTimer = Time.time;
             puType = UnityEngine.Random.Range(1, 4);
-            Debug.Log("TYPE: " + puType);
             Vector3 pos = SetRandomTilePosition();
             InstantiatePowerUp(puType, pos);
         }
@@ -46,19 +45,17 @@ public class PowerUpSpawner : MonoBehaviour
 
     private void InstantiatePowerUp(int puType, Vector3 pos)
     {
+        Vector3 rot = new Vector3(-90, 0, 0);
         switch ((PUTypes)puType)
         {
             case PUTypes.SPEED:
-                spawnedPowerUps.Add(PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "BOMBPU"), pos, Quaternion.identity));//TODO: BIGBOMB
-                Debug.Log("SPEED");
+                spawnedPowerUps.Add(PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PowerUpSpeed"), pos, Quaternion.Euler(rot)));//TODO: BIGBOMB
                 break;
             case PUTypes.BIG_BOMB:
-                spawnedPowerUps.Add(PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "SPEEDPU"), pos, Quaternion.identity));//TODO: BIGBOMB
-                Debug.Log("BOMB");
+                spawnedPowerUps.Add(PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PowerUpBomb"), pos, Quaternion.Euler(rot)));//TODO: BIGBOMB
                 break;
             case PUTypes.COOLDOWN:
-                spawnedPowerUps.Add(PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "COOLDOWNPU"), pos, Quaternion.identity));//TODO: BIGBOMB
-                Debug.Log("COOLDOWN");
+                spawnedPowerUps.Add(PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PowerUpCooldown"), pos, Quaternion.Euler(rot)));//TODO: BIGBOMB
                 break;
         }
     }
