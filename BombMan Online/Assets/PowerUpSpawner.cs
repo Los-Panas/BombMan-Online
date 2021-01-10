@@ -58,7 +58,8 @@ public class PowerUpSpawner : MonoBehaviour
                 spawnedPowerUps.Add(PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PowerUpCooldown"), pos, Quaternion.Euler(rot)));//TODO: BIGBOMB
                 break;
         }
-        //TODO: (pol) Play Audio
+        
+        GameObject.Find("AudioManager").GetComponent<AudioManager>().PlayAudioWithName("spawn");
     }
 
     Vector3 SetRandomTilePosition()

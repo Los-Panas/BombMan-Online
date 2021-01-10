@@ -38,6 +38,8 @@ public class Bomb : MonoBehaviourPunCallbacks
         Invoke("Destroy", 1.5f);
 
         CreatePaintTriggers();
+
+        GameObject.Find("AudioManager").GetComponent<AudioManager>().PlayAudioWithName("explosion");
     }
 
     void CreatePaintTriggers()
