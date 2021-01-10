@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
+
 public enum PUTypes
 {
     NONE,
@@ -27,7 +28,9 @@ public class PowerUp
 public class BuffsManager : MonoBehaviour
 {
     public float secondsUntilBlinking = 0f;
-    Text speedText;
+    public Image speedText;
+    public Image bombText;
+    public Image cooldownText;
     List<PowerUp> powerups = new List<PowerUp>();
     MovementInput movement;
     bool isFaster = false;
@@ -42,9 +45,67 @@ public class BuffsManager : MonoBehaviour
     {
        movement = GetComponent<MovementInput>();
        initVelocity = movement.Velocity;
-       GameObject gO = GameObject.Find("SPEEDUI");
-       speedText = gO.GetComponent<Text>();
+       SetCorrectUI();
         pv = GetComponent<PhotonView>();
+    }
+
+    private void SetCorrectUI()
+    {
+        GameSetUpController gameSetUp = GameObject.Find("GameSetUpController").GetComponent<GameSetUpController>();
+        Text[] names = gameSetUp.GetPlayernames();
+        int indexPlayer = 50;
+        for(int i = 0; i < names.Length; i++)
+        {
+            if(string.Compare(names[i].text, PhotonNetwork.NickName) == 0)
+            {
+                indexPlayer = i;
+                break;
+            }
+        }
+        Debug.Log(indexPlayer);
+        switch(indexPlayer)
+        {
+            case 0: //Red
+                {
+                    GameObject gO = GameObject.Find("SpeedPURed");
+                    speedText = gO.GetComponent<Image>();
+                    GameObject gO1 = GameObject.Find("BombPURed");
+                    bombText = gO1.GetComponent<Image>();
+                    GameObject gO2 = GameObject.Find("CooldownPURed");
+                    cooldownText = gO2.GetComponent<Image>();
+                }
+                break;
+            case 1://Yellow
+                {
+                    GameObject gO = GameObject.Find("SpeedPUYellow");
+                    speedText = gO.GetComponent<Image>();
+                    GameObject gO1 = GameObject.Find("BombPUYellow");
+                    bombText = gO1.GetComponent<Image>();
+                    GameObject gO2 = GameObject.Find("CooldownPUYellow");
+                    cooldownText = gO2.GetComponent<Image>();
+                }
+                break;
+            case 2://Blue
+                {
+                    GameObject gO = GameObject.Find("SpeedPUBlue");
+                    speedText = gO.GetComponent<Image>();
+                    GameObject gO1 = GameObject.Find("BombPUBlue");
+                    bombText = gO1.GetComponent<Image>();
+                    GameObject gO2 = GameObject.Find("CooldownPUBlue");
+                    cooldownText = gO2.GetComponent<Image>();
+                }
+                break;
+            case 3://Black
+                {
+                    GameObject gO = GameObject.Find("SpeedPUBlack");
+                    speedText = gO.GetComponent<Image>();
+                    GameObject gO1 = GameObject.Find("BombPUBlack");
+                    bombText = gO1.GetComponent<Image>();
+                    GameObject gO2 = GameObject.Find("CooldownPUBlack");
+                    cooldownText = gO2.GetComponent<Image>();
+                }
+                break;
+        }
     }
 
     // Update is called once per frame
@@ -138,7 +199,16 @@ public class BuffsManager : MonoBehaviour
             if(!AlreadyHaveThisBuff(po.type))
                 AddPowerUp(po.type, po.lifeTime);
 
+            PowerUpSpawner spawner = GameObject.Find("PowerUpSpawner").GetComponent<PowerUpSpawner>();
 
+            for (int i = 0; i < spawner.spawnedPowerUps.Count; ++i)
+            {
+                if (spawner.spawnedPowerUps[i] == other.gameObject)
+                {
+                    spawner.spawnedPowerUps.Remove(spawner.spawnedPowerUps[i]);
+                    break;
+                }
+            }
             pv.RPC("RCP_DestroyPowerUp", RpcTarget.All, other.gameObject.GetComponent<PhotonView>().ViewID);
 
         }

@@ -32,6 +32,11 @@ public class GameSetUpController : MonoBehaviour
         }
     }
 
+    public Text[] GetPlayernames()
+    {
+        return playerName;
+    }
+
     public void PlayerConnected(string name)
     {
         playerName[playerNameIndex].gameObject.SetActive(true);
