@@ -12426,7 +12426,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2101609759, guid: 690294d74085a644b84dea840b66b0cd, type: 3}
       propertyPath: totalGameTime
-      value: 1
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 5990412246597941753, guid: 690294d74085a644b84dea840b66b0cd,
         type: 3}

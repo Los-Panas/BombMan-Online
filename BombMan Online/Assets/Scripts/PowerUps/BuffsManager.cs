@@ -7,7 +7,8 @@ public enum PUTypes
 {
     NONE,
     SPEED,
-    BIG_BOMB
+    BIG_BOMB,
+    COOLDOWN
 }
 
 public class PowerUp
@@ -30,6 +31,7 @@ public class BuffsManager : MonoBehaviour
     List<PowerUp> powerups = new List<PowerUp>();
     MovementInput movement;
     bool isFaster = false;
+    [HideInInspector]
     public bool isBigBomb = false;
     float initVelocity;
     float blinkingTimer = 0f;
@@ -81,7 +83,10 @@ public class BuffsManager : MonoBehaviour
                 isFaster = false;
                 break;
             case PUTypes.BIG_BOMB:
-                //Victor your shiet here
+                isBigBomb = false;
+                break;
+            case PUTypes.COOLDOWN:
+                movement.bombCooldown = 3.0f;
                 break;
             default:
                 break;
@@ -102,7 +107,10 @@ public class BuffsManager : MonoBehaviour
                 speedText.color = Color.white;
                 break;
             case PUTypes.BIG_BOMB:
-                
+                isBigBomb = true;
+                break;
+            case PUTypes.COOLDOWN:
+                movement.bombCooldown = 1.0f;
                 break;
             default:
                 break;
