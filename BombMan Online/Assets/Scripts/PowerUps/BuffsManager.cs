@@ -31,9 +31,9 @@ public class PowerUp
 public class BuffsManager : MonoBehaviour
 {
     public float secondsUntilBlinking = 0f;
-    public Image speedText;
-    public Image bombText;
-    public Image cooldownText;
+    public Image[] speedText;
+    public Image[] bombText;
+    public Image[] cooldownText;
     List<PowerUp> powerups = new List<PowerUp>();
     MovementInput movement;
     bool isFaster = false;
@@ -43,13 +43,17 @@ public class BuffsManager : MonoBehaviour
 
     PhotonView pv;
     private int indexPlayer = 50;
-    Color playerColor = Color.red;
+    Color[] playerColor;
     // Start is called before the first frame update
     void Start()
     {
-       movement = GetComponent<MovementInput>();
-       initVelocity = movement.Velocity;
-       SetCorrectUI();
+        speedText = new Image[4];
+        bombText = new Image[4];
+        cooldownText = new Image[4];
+        playerColor = new Color[4];
+        movement = GetComponent<MovementInput>();
+        initVelocity = movement.Velocity;
+        SetCorrectUI();
         pv = GetComponent<PhotonView>();
     }
 
@@ -59,59 +63,54 @@ public class BuffsManager : MonoBehaviour
         Text[] names = gameSetUp.GetPlayernames();
         for(int i = 0; i < names.Length; i++)
         {
-            if(string.Compare(names[i].text, PhotonNetwork.NickName) == 0)
-            {
                 indexPlayer = i;
-                break;
+            switch (indexPlayer)
+            {
+                case 0: //Red
+                    {
+                        GameObject gO = GameObject.Find("SpeedPURed");
+                        speedText[i] = gO.GetComponent<Image>();
+                        GameObject gO1 = GameObject.Find("BombPURed");
+                        bombText[i] = gO1.GetComponent<Image>();
+                        GameObject gO2 = GameObject.Find("CooldownPURed");
+                        cooldownText[i] = gO2.GetComponent<Image>();
+                        playerColor[i] = Color.red;
+                    }
+                    break;
+                case 1://Yellow
+                    {
+                        GameObject gO = GameObject.Find("SpeedPUYellow");
+                        speedText[i] = gO.GetComponent<Image>();
+                        GameObject gO1 = GameObject.Find("BombPUYellow");
+                        bombText[i] = gO1.GetComponent<Image>();
+                        GameObject gO2 = GameObject.Find("CooldownPUYellow");
+                        cooldownText[i] = gO2.GetComponent<Image>();
+                        playerColor[i] = Color.yellow;
+                    }
+                    break;
+                case 2://Blue
+                    {
+                        GameObject gO = GameObject.Find("SpeedPUBlue");
+                        speedText[i] = gO.GetComponent<Image>();
+                        GameObject gO1 = GameObject.Find("BombPUBlue");
+                        bombText[i] = gO1.GetComponent<Image>();
+                        GameObject gO2 = GameObject.Find("CooldownPUBlue");
+                        cooldownText[i] = gO2.GetComponent<Image>();
+                        playerColor[i] = Color.blue;
+                    }
+                    break;
+                case 3://Black
+                    {
+                        GameObject gO = GameObject.Find("SpeedPUBlack");
+                        speedText[i] = gO.GetComponent<Image>();
+                        GameObject gO1 = GameObject.Find("BombPUBlack");
+                        bombText[i] = gO1.GetComponent<Image>();
+                        GameObject gO2 = GameObject.Find("CooldownPUBlack");
+                        cooldownText[i] = gO2.GetComponent<Image>();
+                        playerColor[i] = Color.black;
+                    }
+                    break;
             }
-        }
-        Debug.Log(indexPlayer);
-        switch(indexPlayer)
-        {
-            case 0: //Red
-                {
-                    GameObject gO = GameObject.Find("SpeedPURed");
-                    speedText = gO.GetComponent<Image>();
-                    GameObject gO1 = GameObject.Find("BombPURed");
-                    bombText = gO1.GetComponent<Image>();
-                    GameObject gO2 = GameObject.Find("CooldownPURed");
-                    cooldownText = gO2.GetComponent<Image>();
-                    playerColor = Color.red;
-                }
-                break;
-            case 1://Yellow
-                {
-                    GameObject gO = GameObject.Find("SpeedPUYellow");
-                    speedText = gO.GetComponent<Image>();
-                    GameObject gO1 = GameObject.Find("BombPUYellow");
-                    bombText = gO1.GetComponent<Image>();
-                    GameObject gO2 = GameObject.Find("CooldownPUYellow");
-                    cooldownText = gO2.GetComponent<Image>();
-                    playerColor = Color.yellow;
-                }
-                break;
-            case 2://Blue
-                {
-                    GameObject gO = GameObject.Find("SpeedPUBlue");
-                    speedText = gO.GetComponent<Image>();
-                    GameObject gO1 = GameObject.Find("BombPUBlue");
-                    bombText = gO1.GetComponent<Image>();
-                    GameObject gO2 = GameObject.Find("CooldownPUBlue");
-                    cooldownText = gO2.GetComponent<Image>();
-                    playerColor = Color.blue;
-                }
-                break;
-            case 3://Black
-                {
-                    GameObject gO = GameObject.Find("SpeedPUBlack");
-                    speedText = gO.GetComponent<Image>();
-                    GameObject gO1 = GameObject.Find("BombPUBlack");
-                    bombText = gO1.GetComponent<Image>();
-                    GameObject gO2 = GameObject.Find("CooldownPUBlack");
-                    cooldownText = gO2.GetComponent<Image>();
-                    playerColor = Color.black;
-                }
-                break;
         }
     }
 
@@ -129,60 +128,65 @@ public class BuffsManager : MonoBehaviour
             if(Time.time - powerups[i].lifeTimer > secondsUntilBlinking)
             {
                 //Start blinking UI
-                if(Time.time - powerups[i].blinkingTimer > 0.2)
-                {
-                    powerups[i].blinkingTimer = Time.time;
-                    powerups[i].blink = !powerups[i].blink;
-                    switch(powerups[i].type)
-                    {
-                        case PUTypes.SPEED:
-                            speedText.gameObject.SetActive(powerups[i].blink);
-                            break;
-                        case PUTypes.BIG_BOMB:
-                            bombText.gameObject.SetActive(powerups[i].blink);
-                            break;
-                        case PUTypes.COOLDOWN:
-                            cooldownText.gameObject.SetActive(powerups[i].blink);
-                            break;
-                    }
-                    Debug.Log("BLINKING");
-                }
+                //if(Time.time - powerups[i].blinkingTimer > 0.2)
+                //{
+                //    powerups[i].blinkingTimer = Time.time;
+                //    powerups[i].blink = !powerups[i].blink;
+                //    switch(powerups[i].type)
+                //    {
+                //        case PUTypes.SPEED:
+                //            speedText.gameObject.SetActive(powerups[i].blink);
+                //            break;
+                //        case PUTypes.BIG_BOMB:
+                //            bombText.gameObject.SetActive(powerups[i].blink);
+                //            break;
+                //        case PUTypes.COOLDOWN:
+                //            cooldownText.gameObject.SetActive(powerups[i].blink);
+                //            break;
+                //    }
+                //    Debug.Log("BLINKING");
+                //}
             }
         }
     }
     public void SetValueToInitial(PowerUp po)
     {
-        switch (po.type)
+        Text[] names = GameObject.Find("GameSetUp").GetComponent<GameSetUpController>().GetPlayernames();
+        for (int i = 0; i < names.Length; i++)
         {
-            case PUTypes.NONE:
+            switch (po.type)
+            {
+                case PUTypes.NONE:
 
-                break;
-            case PUTypes.SPEED:
-                movement.Velocity = initVelocity;
-                speedText.color = Color.grey;
-                speedText.gameObject.SetActive(true);
-                isFaster = false;
-                break;
-            case PUTypes.BIG_BOMB:
-                isBigBomb = false;
-                bombText.color = Color.grey;
-                bombText.gameObject.SetActive(true);
+                    break;
+                case PUTypes.SPEED:
+                    movement.Velocity = initVelocity;
+                    speedText[i].color = Color.grey;
+                    speedText[i].gameObject.SetActive(true);
+                    isFaster = false;
+                    break;
+                case PUTypes.BIG_BOMB:
+                    isBigBomb = false;
+                    bombText[i].color = Color.grey;
+                    bombText[i].gameObject.SetActive(true);
 
-                break;
-            case PUTypes.COOLDOWN:
-                movement.bombCooldown = 3.0f;
-                cooldownText.color = Color.grey;
-                cooldownText.gameObject.SetActive(true);
-                break;
-            default:
-                break;
+                    break;
+                case PUTypes.COOLDOWN:
+                    movement.bombCooldown = 3.0f;
+                    cooldownText[i].color = Color.grey;
+                    cooldownText[i].gameObject.SetActive(true);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
-    public void AddPowerUp(PUTypes pType, float lifeTime)
+    public void AddPowerUp(PUTypes pType, float lifeTime, string na)
     {
         PowerUp newPU = new PowerUp(lifeTime, pType);
         powerups.Add(newPU);
+        int aux = GameSetUpController.GS.GetPosition(na);
         switch (pType)
         {
             case PUTypes.NONE:
@@ -190,15 +194,15 @@ public class BuffsManager : MonoBehaviour
                 break;
             case PUTypes.SPEED:
                 movement.Velocity = 20;
-                speedText.color = playerColor;
+                speedText[aux].color = playerColor[aux];
                 break;
             case PUTypes.BIG_BOMB:
                 isBigBomb = true;
-                bombText.color = playerColor;
+                bombText[aux].color = playerColor[aux];
                 break;
             case PUTypes.COOLDOWN:
                 movement.bombCooldown = 1.0f;
-                cooldownText.color = playerColor;
+                cooldownText[aux].color = playerColor[aux];
                 break;
             default:
                 break;
@@ -253,10 +257,7 @@ public class BuffsManager : MonoBehaviour
     [PunRPC]
     void RCP_AddPowerUp(int type,float lifeTime, string vID)
     {
-        if(vID.CompareTo(pv.name) == 0)
-        {
-            AddPowerUp((PUTypes)type, lifeTime);
-            GameObject.Find("AudioManager").GetComponent<AudioManager>().PlayAudioWithName("pickup");
-        }
+        AddPowerUp((PUTypes)type, lifeTime, vID);
+        GameObject.Find("AudioManager").GetComponent<AudioManager>().PlayAudioWithName("pickup");
     }
 }
