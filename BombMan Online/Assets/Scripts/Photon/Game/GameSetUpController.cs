@@ -67,6 +67,11 @@ public class GameSetUpController : MonoBehaviour
     {
         canvas.gameObject.SetActive(false);
         GameTimer.GT.NewGame();
+    }
+
+    public void EnableCanvas()
+    {
+        canvas.gameObject.SetActive(true);
 
     }
 

@@ -16,6 +16,9 @@ public class GameTimer : MonoBehaviour
     private float totalGameTime;
     private float timeToFinish;
     PowerUpSpawner powerupspawner;
+
+
+
     bool start = false;
     // Start is called before the first frame update
     private void Start()
@@ -42,6 +45,7 @@ public class GameTimer : MonoBehaviour
             GameSetUpController.GS.DestroyAvatar();
             start = false;
             powerupspawner.start = false;
+            GameSetUpController.GS.EnableCanvas();
         }
         else if (start)
         {
