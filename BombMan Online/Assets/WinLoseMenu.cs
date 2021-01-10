@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
 public class WinLoseMenu : MonoBehaviour
 {
@@ -33,8 +34,8 @@ public class WinLoseMenu : MonoBehaviour
         GeneralLight.SetActive(false);
 
         TileManager.CubeColors cubecolors = TileManager.instance.cubeColors;
-        //TODO: look at how many players there are in the game
-        int playersNum = 4;
+        //TODO: Change Positions
+        int playersNum = PhotonNetwork.CurrentRoom.PlayerCount;
 
         for (int i = 0; i < playersNum; ++i)
         {
@@ -98,7 +99,7 @@ public class WinLoseMenu : MonoBehaviour
             materials[i].material.color = colors[playerWon];
         }
 
-        //playerwonText.text = GameSetUpController.GS.GetPlayernames()[playerWon].text + "won!";
+        playerwonText.text = GameSetUpController.GS.GetPlayernames()[playerWon].text + "won!";
 
         for (int i = 0; i < playersNum; ++i)
         {
@@ -152,6 +153,8 @@ public class WinLoseMenu : MonoBehaviour
             Vector3 dir = cam.transform.position - players[i].transform.position;
             dir.y = players[i].transform.position.y;
             players[i].transform.rotation = Quaternion.LookRotation(dir);
+
+            playerNames[i].text = GameSetUpController.GS.GetPlayernames()[playerWon].text;
 
             switch (i)
             {
