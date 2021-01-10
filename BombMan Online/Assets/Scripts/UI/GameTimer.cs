@@ -45,7 +45,7 @@ public class GameTimer : MonoBehaviour
             GameSetUpController.GS.DestroyAvatar();
             start = false;
             powerupspawner.start = false;
-            GameSetUpController.GS.EnableCanvas();
+            WinLoseMenu.instance.Initialize();
         }
         else if (start)
         {
