@@ -86,6 +86,11 @@ public class GameSetUpController : MonoBehaviour
 
     }
 
+    public void ReturnToLobby()
+    {
+        myNetworkPlayer.GetComponent<PhotonPlayer>().ReturnToLobby();
+    }
+
     public void CloseServer()
     {
         if(PhotonNetwork.IsMasterClient)

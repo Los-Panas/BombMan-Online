@@ -80,17 +80,22 @@ public class PhotonPlayer : MonoBehaviour
 
     private void OnDestroy()
     {
-        //if (myAvatar == null)
-        //{
-        //    PhotonView newPV = myAvatar.GetComponent<PhotonView>();
-        //    if (newPV != null)
-        //        PhotonNetwork.Destroy(newPV);
-        //    myAvatar = null;
-        //}
         if (PhotonNetwork.IsMasterClient)
             PhotonNetwork.DestroyAll();
         else
             PV.RPC("RPC_Disconnect", RpcTarget.AllBufferedViaServer, PhotonNetwork.NickName);
+    }
+
+    public void ReturnToLobby()
+    {
+        PV.RPC("RPC_ReturnToLobby", RpcTarget.All);
+
+    }
+
+    [PunRPC]
+    public void RPC_ReturnToLobby()
+    {
+        WinLoseMenu.instance.ReturnToLobby();
     }
 
 }
