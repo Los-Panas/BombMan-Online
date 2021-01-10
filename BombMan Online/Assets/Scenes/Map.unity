@@ -1549,7 +1549,7 @@ PrefabInstance:
     - target: {fileID: -6634556411078479340, guid: 05e34c0b3f0f0734da4c00a0fd286dd5,
         type: 3}
       propertyPath: m_IsKinematic
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5009222776473603699, guid: 05e34c0b3f0f0734da4c00a0fd286dd5,
         type: 3}
@@ -18992,8 +18992,13 @@ PrefabInstance:
     - target: {fileID: 2720700446495316392, guid: 159800b953f0aa74eb2cb6ad1ffe0eba,
         type: 3}
       propertyPath: viewIdField
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 2806640209929065780, guid: 159800b953f0aa74eb2cb6ad1ffe0eba,
+        type: 3}
+      propertyPath: MainCamera
+      value: 
+      objectReference: {fileID: 1042066152}
     - target: {fileID: 2806640209929065780, guid: 159800b953f0aa74eb2cb6ad1ffe0eba,
         type: 3}
       propertyPath: GeneralLight
@@ -19077,7 +19082,7 @@ PrefabInstance:
     - target: {fileID: 3890226694853156628, guid: 159800b953f0aa74eb2cb6ad1ffe0eba,
         type: 3}
       propertyPath: viewIdField
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 159800b953f0aa74eb2cb6ad1ffe0eba, type: 3}

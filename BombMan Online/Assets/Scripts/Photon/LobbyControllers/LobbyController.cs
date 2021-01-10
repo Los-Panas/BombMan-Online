@@ -12,7 +12,8 @@ public class LobbyController : MonoBehaviourPunCallbacks
 
     void Start()
     {
-        PhotonNetwork.ConnectUsingSettings();
+       
+       PhotonNetwork.ConnectUsingSettings();
     }
 
     public override void OnConnectedToMaster()
