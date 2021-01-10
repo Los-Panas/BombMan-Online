@@ -38,7 +38,6 @@ public class PowerUpSpawner : MonoBehaviour
             spawnTime = UnityEngine.Random.Range(5f, 10f);
             spawnTimer = Time.time;
             puType = UnityEngine.Random.Range(1, 4);
-            Debug.Log("TYPE: " + puType);
             Vector3 pos = SetRandomTilePosition();
             InstantiatePowerUp(puType, pos);
         }
@@ -50,15 +49,12 @@ public class PowerUpSpawner : MonoBehaviour
         {
             case PUTypes.SPEED:
                 spawnedPowerUps.Add(PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "BOMBPU"), pos, Quaternion.identity));//TODO: BIGBOMB
-                Debug.Log("SPEED");
                 break;
             case PUTypes.BIG_BOMB:
                 spawnedPowerUps.Add(PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "SPEEDPU"), pos, Quaternion.identity));//TODO: BIGBOMB
-                Debug.Log("BOMB");
                 break;
             case PUTypes.COOLDOWN:
                 spawnedPowerUps.Add(PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "COOLDOWNPU"), pos, Quaternion.identity));//TODO: BIGBOMB
-                Debug.Log("COOLDOWN");
                 break;
         }
     }

@@ -17,11 +17,14 @@ public class PowerUp
     public float lifeTime = 1f;
     public float lifeTimer = 0f;
     public PUTypes type = PUTypes.NONE;
+    public bool blink = false;
+    public float blinkingTimer = 0f;
     public PowerUp(float time, PUTypes type)
     {
         this.lifeTime = time;
         this.type = type;
-        lifeTimer = Time.realtimeSinceStartup;
+        lifeTimer = Time.time;
+        blinkingTimer = Time.time;
     }
 }
 
@@ -37,9 +40,10 @@ public class BuffsManager : MonoBehaviour
     [HideInInspector]
     public bool isBigBomb = false;
     float initVelocity;
-    float blinkingTimer = 0f;
-    bool blink;
+
     PhotonView pv;
+    private int indexPlayer = 50;
+    Color playerColor = Color.red;
     // Start is called before the first frame update
     void Start()
     {
@@ -53,7 +57,6 @@ public class BuffsManager : MonoBehaviour
     {
         GameSetUpController gameSetUp = GameObject.Find("GameSetUp").GetComponent<GameSetUpController>();
         Text[] names = gameSetUp.GetPlayernames();
-        int indexPlayer = 50;
         for(int i = 0; i < names.Length; i++)
         {
             if(string.Compare(names[i].text, PhotonNetwork.NickName) == 0)
@@ -73,6 +76,7 @@ public class BuffsManager : MonoBehaviour
                     bombText = gO1.GetComponent<Image>();
                     GameObject gO2 = GameObject.Find("CooldownPURed");
                     cooldownText = gO2.GetComponent<Image>();
+                    playerColor = Color.red;
                 }
                 break;
             case 1://Yellow
@@ -83,6 +87,7 @@ public class BuffsManager : MonoBehaviour
                     bombText = gO1.GetComponent<Image>();
                     GameObject gO2 = GameObject.Find("CooldownPUYellow");
                     cooldownText = gO2.GetComponent<Image>();
+                    playerColor = Color.yellow;
                 }
                 break;
             case 2://Blue
@@ -93,6 +98,7 @@ public class BuffsManager : MonoBehaviour
                     bombText = gO1.GetComponent<Image>();
                     GameObject gO2 = GameObject.Find("CooldownPUBlue");
                     cooldownText = gO2.GetComponent<Image>();
+                    playerColor = Color.blue;
                 }
                 break;
             case 3://Black
@@ -103,6 +109,7 @@ public class BuffsManager : MonoBehaviour
                     bombText = gO1.GetComponent<Image>();
                     GameObject gO2 = GameObject.Find("CooldownPUBlack");
                     cooldownText = gO2.GetComponent<Image>();
+                    playerColor = Color.black;
                 }
                 break;
         }
@@ -122,11 +129,23 @@ public class BuffsManager : MonoBehaviour
             if(Time.time - powerups[i].lifeTimer > secondsUntilBlinking)
             {
                 //Start blinking UI
-                if(Time.time - blinkingTimer > 0.2)
+                if(Time.time - powerups[i].blinkingTimer > 0.2)
                 {
-                    blinkingTimer = Time.realtimeSinceStartup;
-                    blink = !blink;
-                    speedText.gameObject.SetActive(blink);
+                    powerups[i].blinkingTimer = Time.time;
+                    powerups[i].blink = !powerups[i].blink;
+                    switch(powerups[i].type)
+                    {
+                        case PUTypes.SPEED:
+                            speedText.gameObject.SetActive(powerups[i].blink);
+                            break;
+                        case PUTypes.BIG_BOMB:
+                            bombText.gameObject.SetActive(powerups[i].blink);
+                            break;
+                        case PUTypes.COOLDOWN:
+                            cooldownText.gameObject.SetActive(powerups[i].blink);
+                            break;
+                    }
+                    Debug.Log("BLINKING");
                 }
             }
         }
@@ -141,13 +160,19 @@ public class BuffsManager : MonoBehaviour
             case PUTypes.SPEED:
                 movement.Velocity = initVelocity;
                 speedText.color = Color.grey;
+                speedText.gameObject.SetActive(true);
                 isFaster = false;
                 break;
             case PUTypes.BIG_BOMB:
                 isBigBomb = false;
+                bombText.color = Color.grey;
+                bombText.gameObject.SetActive(true);
+
                 break;
             case PUTypes.COOLDOWN:
                 movement.bombCooldown = 3.0f;
+                cooldownText.color = Color.grey;
+                cooldownText.gameObject.SetActive(true);
                 break;
             default:
                 break;
@@ -165,13 +190,15 @@ public class BuffsManager : MonoBehaviour
                 break;
             case PUTypes.SPEED:
                 movement.Velocity = 20;
-                speedText.color = Color.white;
+                speedText.color = playerColor;
                 break;
             case PUTypes.BIG_BOMB:
                 isBigBomb = true;
+                bombText.color = playerColor;
                 break;
             case PUTypes.COOLDOWN:
                 movement.bombCooldown = 1.0f;
+                cooldownText.color = playerColor;
                 break;
             default:
                 break;
@@ -187,7 +214,6 @@ public class BuffsManager : MonoBehaviour
                 powerups[i].lifeTimer = Time.realtimeSinceStartup;
                 return true;
             }
-
         }
         return false;
     }
