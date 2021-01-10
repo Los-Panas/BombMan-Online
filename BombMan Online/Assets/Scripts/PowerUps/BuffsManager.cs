@@ -223,7 +223,7 @@ public class BuffsManager : MonoBehaviour
         {
             PowerUpEntity po = other.gameObject.GetComponent<PowerUpEntity>();
             if (!AlreadyHaveThisBuff(po.type))
-                pv.RPC("RCP_AddPowerUp", RpcTarget.All, new object[] { (int)po.type, po.lifeTime });
+                pv.RPC("RCP_AddPowerUp", RpcTarget.All, new object[] { (int)po.type, po.lifeTime, PhotonNetwork.NickName});
 
             PowerUpSpawner spawner = GameObject.Find("PowerUpSpawner").GetComponent<PowerUpSpawner>();
 
@@ -251,8 +251,9 @@ public class BuffsManager : MonoBehaviour
     }
 
     [PunRPC]
-    void RCP_AddPowerUp(int type,float lifeTime)
+    void RCP_AddPowerUp(int type,float lifeTime, string vID)
     {
-        AddPowerUp((PUTypes)type, lifeTime);
+        if(vID.CompareTo(pv.name) == 0)
+            AddPowerUp((PUTypes)type, lifeTime);
     }
 }
