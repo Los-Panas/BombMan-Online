@@ -54,6 +54,8 @@ public class PhotonPlayer : MonoBehaviour
     [PunRPC]
     public void RPC_DestroyAvatar()
     {
+        if (myAvatar == null)
+            return;
        PhotonView newPV = myAvatar.GetComponent<PhotonView>();
         if(newPV != null)
            PhotonNetwork.Destroy(newPV.gameObject);

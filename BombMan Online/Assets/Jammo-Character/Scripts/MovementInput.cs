@@ -194,4 +194,12 @@ public class MovementInput : MonoBehaviour {
 			anim.SetFloat ("Blend", Speed, StopAnimTime, Time.deltaTime);
 		}
 	}
+
+	private void OnTriggerEnter(Collider other)
+	{
+		if (string.Compare(other.gameObject.tag, "BombPaint") == 0)
+		{
+			PhotonNetwork.Destroy(gameObject);
+		}
+	}
 }
