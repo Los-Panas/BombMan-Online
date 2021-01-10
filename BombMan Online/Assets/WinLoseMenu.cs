@@ -299,16 +299,16 @@ public class WinLoseMenu : MonoBehaviour
             switch (i)
             {
                 case 0:
-                    percentages[i].text = (System.Math.Round(((float)cubecolors.redCubes / 133.0f) * 100, 2)).ToString() + "%";
+                    percentages[i].text = (Mathf.Round(((float)cubecolors.redCubes / 133.0f) * 100) / 100.0f).ToString();
                     break;
                 case 1:
-                    percentages[i].text = (System.Math.Round(((float)cubecolors.yellowCubes / 133.0f) * 100, 2)).ToString() + "%";
+                    percentages[i].text = (Mathf.Round(((float)cubecolors.yellowCubes / 133.0f) * 100) / 100.0f).ToString();
                     break;
                 case 2:
-                    percentages[i].text = (System.Math.Round(((float)cubecolors.blueCubes / 133.0f) * 100, 2)).ToString() + "%";
+                    percentages[i].text = (Mathf.Round(((float)cubecolors.blueCubes / 133.0f) * 100) / 100.0f).ToString();
                     break;
                 case 3:
-                    percentages[i].text = (System.Math.Round(((float)cubecolors.blackCubes / 133.0f) * 100, 2)).ToString() + "%";
+                    percentages[i].text = (Mathf.Round(((float)cubecolors.blackCubes / 133.0f) * 100) / 100.0f).ToString();
                     break;
             }
         }
