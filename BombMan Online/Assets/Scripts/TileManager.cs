@@ -7,7 +7,8 @@ public class TileManager : MonoBehaviour
 {
     public static TileManager instance;
 
-    struct CubeColors
+    [System.Serializable]
+    public struct CubeColors
     {
         public int redCubes;
         public int yellowCubes;
@@ -17,7 +18,7 @@ public class TileManager : MonoBehaviour
 
     [HideInInspector]
     public List<FloorCube> cubes = new List<FloorCube>();
-    CubeColors cubeColors;
+    public CubeColors cubeColors;
     [SerializeField]
     Text[] cubesText;
 
