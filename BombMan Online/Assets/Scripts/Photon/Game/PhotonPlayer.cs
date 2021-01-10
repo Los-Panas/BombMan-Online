@@ -8,6 +8,7 @@ public class PhotonPlayer : MonoBehaviour
 {
     public PhotonView PV;
     public GameObject myAvatar;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +18,7 @@ public class PhotonPlayer : MonoBehaviour
             PV.RPC("RCP_UpdateLobby", RpcTarget.AllBufferedViaServer, PhotonNetwork.NickName);
             GameSetUpController.GS.myNetworkPlayer = gameObject;
         }
+
     }
 
     public void StartGame()
@@ -28,10 +30,13 @@ public class PhotonPlayer : MonoBehaviour
     void RCP_StartGame()
     {
        GameSetUpController.GS.DisableCanvas();
-       int id = GameSetUpController.GS.GetPosition() + 1;
-       myAvatar = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player" + id.ToString()),
-       GameSetUpController.GS.spawnPoints[id].position, GameSetUpController.GS.spawnPoints[id].rotation); 
-        
+        if (PV.IsMine)
+        {
+            int id = GameSetUpController.GS.GetPosition() + 1;
+            myAvatar = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player" + id.ToString()),
+            GameSetUpController.GS.spawnPoints[id].position, GameSetUpController.GS.spawnPoints[id].rotation);
+            GameTimer.GT.NewGame();
+        }
     }
 
     [PunRPC]
@@ -42,13 +47,20 @@ public class PhotonPlayer : MonoBehaviour
 
     public void DestroyAvatar()
     {
-        PV.RPC("RCP_DestroyAvatar", RpcTarget.AllBufferedViaServer);
+        PhotonNetwork.Destroy(myAvatar);
     }
 
     [PunRPC]
-    void RCP_DestroyAvatar()
+    public void RPC_DestroyAvatar()
     {
-        if (PV.IsMine)
-            PhotonNetwork.Destroy(myAvatar);
+        PhotonView newPV = myAvatar.GetComponent<PhotonView>();
+        if(newPV != null && newPV.IsMine)
+            PhotonNetwork.Destroy(newPV.gameObject);
+       myAvatar = null;
+    }
+
+    private void OnDestroy()
+    {
+        DestroyAvatar();
     }
 }

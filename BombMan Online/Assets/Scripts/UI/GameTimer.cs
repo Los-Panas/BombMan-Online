@@ -16,6 +16,7 @@ public class GameTimer : MonoBehaviour
     private float totalGameTime;
     private float timeToFinish;
 
+
     bool start = false;
     // Start is called before the first frame update
     void OnEnable()
@@ -33,9 +34,10 @@ public class GameTimer : MonoBehaviour
         {
             seconds.text = "00";
             miliseconds.text = "00";
-            Destroy(this);
-            if (PhotonNetwork.IsMasterClient)
-                GameSetUpController.GS.DestroyAvatar();
+            //estroy(this); 
+            //PhotonDestroyAvatar.DA.DestroyAvatar();
+            GameSetUpController.GS.DestroyAvatar();
+            start = false;
         }
         else if (start)
         {

@@ -23,6 +23,7 @@ public class GameSetUpController : MonoBehaviour
 
     public GameObject myNetworkPlayer;
 
+
     private void OnEnable()
     {
       if(GameSetUpController.GS == null)
@@ -77,6 +78,14 @@ public class GameSetUpController : MonoBehaviour
 
     public void DestroyAvatar()
     {
-        myNetworkPlayer.GetComponent<PhotonPlayer>().DestroyAvatar();
+        if (myNetworkPlayer != null)
+            myNetworkPlayer.GetComponent<PhotonPlayer>().DestroyAvatar();
+        //PhotonNetwork.Destroy(myNetworkPlayer);
+
+        //foreach (GameObject av in allAvatars)
+        //{
+        //   // av.GetComponent<PhotonPlayer>().DestroyAvatar();
+        //}
+        //allAvatars.Clear();
     }
 }
