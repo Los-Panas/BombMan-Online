@@ -51,7 +51,7 @@ public class BuffsManager : MonoBehaviour
 
     private void SetCorrectUI()
     {
-        GameSetUpController gameSetUp = GameObject.Find("GameSetUpController").GetComponent<GameSetUpController>();
+        GameSetUpController gameSetUp = GameObject.Find("GameSetUp").GetComponent<GameSetUpController>();
         Text[] names = gameSetUp.GetPlayernames();
         int indexPlayer = 50;
         for(int i = 0; i < names.Length; i++)
