@@ -23,20 +23,21 @@ public class PhotonPlayer : MonoBehaviour
 
     public void StartGame()
     {
-        PV.RPC("RCP_StartGame", RpcTarget.AllBuffered);
+        PV.RPC("RCP_StartGame", RpcTarget.AllViaServer);
     }
 
     [PunRPC]
     void RCP_StartGame()
     {
-       GameSetUpController.GS.DisableCanvas();
-        if (PV.IsMine)
-        {
+        GameTimer.GT.NewGame();
+
+        GameSetUpController.GS.DisableCanvas();
+        
             int id = GameSetUpController.GS.GetPosition() + 1;
             myAvatar = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player" + id.ToString()),
             GameSetUpController.GS.spawnPoints[id].position, GameSetUpController.GS.spawnPoints[id].rotation);
-            GameTimer.GT.NewGame();
-        }
+       
+
     }
 
     [PunRPC]
@@ -47,20 +48,15 @@ public class PhotonPlayer : MonoBehaviour
 
     public void DestroyAvatar()
     {
-        PhotonNetwork.Destroy(myAvatar);
+        PV.RPC("RPC_DestroyAvatar", RpcTarget.AllViaServer);
     }
 
     [PunRPC]
     public void RPC_DestroyAvatar()
     {
-        PhotonView newPV = myAvatar.GetComponent<PhotonView>();
-        if(newPV != null && newPV.IsMine)
-            PhotonNetwork.Destroy(newPV.gameObject);
-       myAvatar = null;
-    }
-
-    private void OnDestroy()
-    {
-        DestroyAvatar();
+       PhotonView newPV = myAvatar.GetComponent<PhotonView>();
+        if(newPV != null)
+           PhotonNetwork.Destroy(newPV.gameObject);
+      myAvatar = null;
     }
 }

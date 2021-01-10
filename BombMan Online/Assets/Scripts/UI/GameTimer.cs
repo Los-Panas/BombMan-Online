@@ -41,6 +41,7 @@ public class GameTimer : MonoBehaviour
             //PhotonDestroyAvatar.DA.DestroyAvatar();
             GameSetUpController.GS.DestroyAvatar();
             start = false;
+            powerupspawner.start = false;
         }
         else if (start)
         {
