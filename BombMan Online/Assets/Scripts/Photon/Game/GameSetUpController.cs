@@ -47,7 +47,7 @@ public class GameSetUpController : MonoBehaviour
         playerName[playerNameIndex].gameObject.SetActive(true);
         playerImage[playerNameIndex].SetActive(true);
         playerName[playerNameIndex].text = name;
-        if (playerNameIndex > 1 && startButton.gameObject.activeSelf == false
+        if (playerNameIndex > 0 && startButton.gameObject.activeSelf == false
             && PhotonNetwork.IsMasterClient)
             startButton.gameObject.SetActive(true);
 
