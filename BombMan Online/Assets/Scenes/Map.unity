@@ -6187,7 +6187,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: c6fbce73141da374bb6c25b3584910d7, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.6
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -19068,6 +19068,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WinLose
+      objectReference: {fileID: 0}
+    - target: {fileID: 2806640210392984477, guid: 159800b953f0aa74eb2cb6ad1ffe0eba,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2962418447028530495, guid: 159800b953f0aa74eb2cb6ad1ffe0eba,
         type: 3}
