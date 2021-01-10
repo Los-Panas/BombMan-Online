@@ -32,6 +32,11 @@ public class GameSetUpController : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        
+    }
+
     public Text[] GetPlayernames()
     {
         return playerName;
@@ -49,12 +54,12 @@ public class GameSetUpController : MonoBehaviour
         playerNameIndex++;
     }
 
-    public int GetPosition()
+    public int GetPosition(string name)
     {
         int pos = 0;
         foreach(Text n in playerName)
         {
-            if(n.text == PhotonNetwork.NickName)
+            if(n.text == name)
             {
                 break;
             }
@@ -77,6 +82,8 @@ public class GameSetUpController : MonoBehaviour
     public void EnableCanvas()
     {
         canvas.gameObject.SetActive(true);
+        if (PhotonNetwork.IsMasterClient)
+            PhotonNetwork.CurrentRoom.IsOpen = true;
 
     }
 
@@ -97,4 +104,23 @@ public class GameSetUpController : MonoBehaviour
         //}
         //allAvatars.Clear();
     }
+
+    public void DisconnectPlayer(string name)
+    {
+        int id = GetPosition(name);
+        for (; id < playerName.Length - 1; ++id)
+        {
+            playerName[id].gameObject.SetActive(false);
+            playerImage[id].SetActive(false);
+            playerName[id].text = "";
+
+            if (playerName[id + 1].text != "")
+            {
+                playerName[id].text = playerName[id + 1].text;
+                playerNameIndex = id + 1;
+            }
+        }
+    }
+
+
 }

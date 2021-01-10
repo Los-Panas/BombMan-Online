@@ -21,6 +21,16 @@ public class PhotonPlayer : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {            
+            GameObject.Find("RoomController").GetComponent<RoomController>().GoToMenu();
+            PhotonNetwork.Destroy(gameObject);
+
+        }
+    }
+
     public void StartGame()
     {
         PV.RPC("RCP_StartGame", RpcTarget.AllViaServer);
@@ -33,7 +43,7 @@ public class PhotonPlayer : MonoBehaviour
 
         GameSetUpController.GS.DisableCanvas();
         
-            int id = GameSetUpController.GS.GetPosition() + 1;
+            int id = GameSetUpController.GS.GetPosition(PhotonNetwork.NickName) + 1;
             myAvatar = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player" + id.ToString()),
             GameSetUpController.GS.spawnPoints[id].position, GameSetUpController.GS.spawnPoints[id].rotation);
        
@@ -61,4 +71,26 @@ public class PhotonPlayer : MonoBehaviour
            PhotonNetwork.Destroy(newPV.gameObject);
       myAvatar = null;
     }
+
+    [PunRPC]
+    public void RPC_Disconnect(string name)
+    {
+        GameSetUpController.GS.DisconnectPlayer(name);
+    }
+
+    private void OnDestroy()
+    {
+        //if (myAvatar == null)
+        //{
+        //    PhotonView newPV = myAvatar.GetComponent<PhotonView>();
+        //    if (newPV != null)
+        //        PhotonNetwork.Destroy(newPV);
+        //    myAvatar = null;
+        //}
+        if (PhotonNetwork.IsMasterClient)
+            PhotonNetwork.DestroyAll();
+        else
+            PV.RPC("RPC_Disconnect", RpcTarget.AllBufferedViaServer, PhotonNetwork.NickName);
+    }
+
 }
