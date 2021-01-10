@@ -14,6 +14,7 @@ public class PowerUpSpawner : MonoBehaviour
     float spawnTimer = 0f;
     public GameObject speedPU;
     public GameObject bombPU;
+    public GameObject cooldownPU;
     int puType;
     PhotonView pv;
     [HideInInspector]
@@ -35,7 +36,7 @@ public class PowerUpSpawner : MonoBehaviour
         {
             spawnTime = UnityEngine.Random.Range(5f, 10f);
             spawnTimer = Time.time;
-            puType = UnityEngine.Random.Range(1, 3);
+            puType = UnityEngine.Random.Range(1, 4);
             Debug.Log("TYPE: " + puType);
             Vector3 pos = SetRandomTilePosition();
             InstantiatePowerUp(puType, pos);
@@ -53,6 +54,10 @@ public class PowerUpSpawner : MonoBehaviour
             case PUTypes.BIG_BOMB:
                 PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "SPEEDPU"), pos, Quaternion.identity);//TODO: BIGBOMB
                 Debug.Log("BOMB");
+                break;
+            case PUTypes.COOLDOWN:
+                PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "COOLDOWNPU"), pos, Quaternion.identity);//TODO: BIGBOMB
+                Debug.Log("COOLDOWN");
                 break;
         }
     }

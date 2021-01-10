@@ -7,7 +7,8 @@ public enum PUTypes
 {
     NONE,
     SPEED,
-    BIG_BOMB
+    BIG_BOMB,
+    COOLDOWN
 }
 
 public class PowerUp
@@ -84,6 +85,9 @@ public class BuffsManager : MonoBehaviour
             case PUTypes.BIG_BOMB:
                 isBigBomb = false;
                 break;
+            case PUTypes.COOLDOWN:
+                movement.bombCooldown = 3.0f;
+                break;
             default:
                 break;
         }
@@ -104,6 +108,9 @@ public class BuffsManager : MonoBehaviour
                 break;
             case PUTypes.BIG_BOMB:
                 isBigBomb = true;
+                break;
+            case PUTypes.COOLDOWN:
+                movement.bombCooldown = 1.0f;
                 break;
             default:
                 break;
