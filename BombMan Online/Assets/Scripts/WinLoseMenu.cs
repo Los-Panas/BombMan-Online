@@ -164,7 +164,7 @@ public class WinLoseMenu : MonoBehaviour
         {
             for (int i = 0; i < playersThatWon.Count; ++i)
             {
-                switch (i)
+                switch (playersThatWon[i])
                 {
                     case 0:
                         if (cubecolors.redCubes < cubecolors.blueCubes)
@@ -201,7 +201,7 @@ public class WinLoseMenu : MonoBehaviour
             {
                 for (int i = 0; i < playersThatWon.Count; ++i)
                 {
-                    switch (i)
+                    switch (playersThatWon[i])
                     {
                         case 0:
                             if (cubecolors.redCubes < cubecolors.blackCubes)
@@ -300,15 +300,15 @@ public class WinLoseMenu : MonoBehaviour
             case 2:
                 for (int i = 0; i < playersThatWon.Count; ++i)
                 {
-                    switch (i)
+                    switch (playersThatWon[i])
                     {
                         case 0:
                             pos = new Vector2(-200, -290);
-                            playerNames[i].GetComponent<RectTransform>().anchoredPosition = pos;
+                            playerNames[0].GetComponent<RectTransform>().anchoredPosition = pos;
                             break;
                         case 1:
                             pos = new Vector2(200, -290);
-                            playerNames[i].GetComponent<RectTransform>().anchoredPosition = pos;
+                            playerNames[1].GetComponent<RectTransform>().anchoredPosition = pos;
                             break;
                     }
                 }
@@ -316,19 +316,19 @@ public class WinLoseMenu : MonoBehaviour
             case 3:
                 for (int i = 0; i < playersThatWon.Count; ++i)
                 {
-                    switch (i)
+                    switch (playersThatWon[i])
                     {
                         case 0:
                             pos = new Vector2(-420, -290);
-                            playerNames[i].GetComponent<RectTransform>().anchoredPosition = pos;
+                            playerNames[0].GetComponent<RectTransform>().anchoredPosition = pos;
                             break;
                         case 1:
                             pos = new Vector2(0, -290);
-                            playerNames[i].GetComponent<RectTransform>().anchoredPosition = pos;
+                            playerNames[1].GetComponent<RectTransform>().anchoredPosition = pos;
                             break;
                         case 2:
                             pos = new Vector2(420, -290);
-                            playerNames[i].GetComponent<RectTransform>().anchoredPosition = pos;
+                            playerNames[2].GetComponent<RectTransform>().anchoredPosition = pos;
                             break;
                     }
 
@@ -337,23 +337,23 @@ public class WinLoseMenu : MonoBehaviour
             case 4:
                 for (int i = 0; i < playersThatWon.Count; ++i)
                 {
-                    switch (i)
+                    switch (playersThatWon[i])
                     {
                         case 0:
                             pos = new Vector2(-620, -290);
-                            playerNames[i].GetComponent<RectTransform>().anchoredPosition = pos;
+                            playerNames[0].GetComponent<RectTransform>().anchoredPosition = pos;
                             break;
                         case 1:
                             pos = new Vector2(-200, -290);
-                            playerNames[i].GetComponent<RectTransform>().anchoredPosition = pos;
+                            playerNames[1].GetComponent<RectTransform>().anchoredPosition = pos;
                             break;
                         case 2:
                             pos = new Vector2(200, -290);
-                            playerNames[i].GetComponent<RectTransform>().anchoredPosition = pos;
+                            playerNames[2].GetComponent<RectTransform>().anchoredPosition = pos;
                             break;
                         case 3:
                             pos = new Vector2(620, -290);
-                            playerNames[i].GetComponent<RectTransform>().anchoredPosition = pos;
+                            playerNames[3].GetComponent<RectTransform>().anchoredPosition = pos;
                             break;
                     }
                 }
@@ -364,7 +364,7 @@ public class WinLoseMenu : MonoBehaviour
         {
             for (int j = 0; j < playersThatWon.Count; ++j)
             {
-                if (i == j)
+                if (i == playersThatWon[j])
                 {
                     pos = players[i].transform.localPosition;
                     pos.z = 1;
@@ -428,6 +428,11 @@ public class WinLoseMenu : MonoBehaviour
 
     public void ReturnToLobby()
     {
+        for (int i = 0; i < materials.Length; ++i)
+        {
+            materials[i].material.color = Color.white;
+        }
+
         playersThatWon.Clear();
         CleanMap.CM.CleanAllMap();
         TileManager.instance.UpdateValues();
