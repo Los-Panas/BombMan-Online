@@ -35,6 +35,8 @@ public class WinLoseMenu : MonoBehaviour
     [SerializeField]
     Image fadeImage;
 
+    List<int> playersThatWon = new List<int>();
+
     private void Awake()
     {
         instance = this;
@@ -139,192 +141,257 @@ public class WinLoseMenu : MonoBehaviour
 
         if (cubecolors.redCubes < cubecolors.yellowCubes)
         {
-            playerWon = 1;
+            playersThatWon.Add(1);
+        }
+        else if(cubecolors.redCubes == cubecolors.yellowCubes)
+        {
+            playersThatWon.Add(0);
+            playersThatWon.Add(1);
+        }
+        else
+        {
+            playersThatWon.Add(0);
         }
 
         if (playersNum > 2)
         {
-            switch (playerWon)
+            for (int i = 0; i < playersThatWon.Count; ++i)
             {
-                case 0:
-                    if (cubecolors.redCubes < cubecolors.blueCubes)
-                    {
-                        playerWon = 2;
-                    }
-                    break;
-                case 1:
-                    if (cubecolors.yellowCubes < cubecolors.blueCubes)
-                    {
-                        playerWon = 2;
-                    }
-                    break;
+                switch (i)
+                {
+                    case 0:
+                        if (cubecolors.redCubes < cubecolors.blueCubes)
+                        {
+                            playersThatWon.Clear();
+                            playersThatWon.Add(2);
+                            goto exit;
+                        }
+                        else if (cubecolors.redCubes == cubecolors.blueCubes)
+                        {
+                            playersThatWon.Add(2);
+                            goto exit;
+                        }
+                        break;
+                    case 1:
+                        if (cubecolors.yellowCubes < cubecolors.blueCubes)
+                        {
+                            playersThatWon.Clear();
+                            playersThatWon.Add(2);
+                            goto exit;
+                        }
+                        else if (cubecolors.yellowCubes == cubecolors.blueCubes)
+                        {
+                            playersThatWon.Add(2);
+                            goto exit;
+                        }
+                        break;
+                }
             }
+
+            exit:;
 
             if (playersNum > 3)
             {
-                switch (playerWon)
+                for (int i = 0; i < playersThatWon.Count; ++i)
                 {
-                    case 0:
-                        if (cubecolors.redCubes < cubecolors.blackCubes)
-                        {
-                            playerWon = 3;
-                        }
-                        break;
-                    case 1:
-                        if (cubecolors.yellowCubes < cubecolors.blackCubes)
-                        {
-                            playerWon = 3;
-                        }
-                        break;
-                    case 2:
-                        if (cubecolors.blueCubes < cubecolors.blackCubes)
-                        {
-                            playerWon = 3;
-                        }
-                        break;
+                    switch (i)
+                    {
+                        case 0:
+                            if (cubecolors.redCubes < cubecolors.blackCubes)
+                            {
+                                playersThatWon.Clear();
+                                playersThatWon.Add(3);
+                                goto exit2;
+                            }
+                            else if (cubecolors.redCubes == cubecolors.blackCubes)
+                            {
+                                playersThatWon.Add(3);
+                                goto exit2;
+                            }
+                            break;
+                        case 1:
+                            if (cubecolors.yellowCubes < cubecolors.blackCubes)
+                            {
+                                playersThatWon.Clear();
+                                playersThatWon.Add(3);
+                                goto exit2;
+                            }
+                            else if (cubecolors.yellowCubes == cubecolors.blackCubes)
+                            {
+                                playersThatWon.Add(3);
+                                goto exit2;
+                            }
+                            break;
+                        case 2:
+                            if (cubecolors.blueCubes < cubecolors.blackCubes)
+                            {
+                                playersThatWon.Clear();
+                                playersThatWon.Add(3);
+                                goto exit2;
+                            }
+                            else if (cubecolors.blueCubes == cubecolors.blackCubes)
+                            {
+                                playersThatWon.Add(3);
+                                goto exit2;
+                            }
+                            break;
+                    }
                 }
             }
+
+        exit2:;
         }
+
         // --------------------------------------------------------------------------
 
-        for (int i = 0; i < materials.Length; ++i)
+        if (playersThatWon.Count > 1)
         {
-            materials[i].material.color = colors[playerWon];
+            playerwonText.text = "It's a Draw!";
+        }
+        else
+        {
+            playerwonText.text = GameSetUpController.GS.GetPlayernames()[playersThatWon[0]].text + " won!";
+            for (int i = 0; i < materials.Length; ++i)
+            {
+                materials[i].material.color = colors[playersThatWon[0]];
+            }
         }
 
-        playerwonText.text = GameSetUpController.GS.GetPlayernames()[playerWon].text + " won!";
-
+        // Set Players UI
         switch (playersNum)
         {
             case 2:
-                switch (playerWon)
+                pos = new Vector2(-170, -220);
+                playerNames[0].GetComponent<RectTransform>().anchoredPosition = pos;
+                pos = new Vector2(170, -220);
+                playerNames[1].GetComponent<RectTransform>().anchoredPosition = pos;
+                break;
+            case 3:
+                pos = new Vector2(-340, -220);
+                playerNames[0].GetComponent<RectTransform>().anchoredPosition = pos;
+                pos = new Vector2(0, -220);
+                playerNames[1].GetComponent<RectTransform>().anchoredPosition = pos;
+                pos = new Vector2(340, -220);
+                playerNames[2].GetComponent<RectTransform>().anchoredPosition = pos;
+                break;
+            case 4:
+                pos = new Vector2(-510, -220);
+                playerNames[0].GetComponent<RectTransform>().anchoredPosition = pos;
+                pos = new Vector2(-170, -220);
+                playerNames[1].GetComponent<RectTransform>().anchoredPosition = pos;
+                pos = new Vector2(170, -220);
+                playerNames[2].GetComponent<RectTransform>().anchoredPosition = pos;
+                pos = new Vector2(510, -220);
+                playerNames[3].GetComponent<RectTransform>().anchoredPosition = pos;
+                break;
+        }
+
+
+        // Set Winners UI
+        switch (playersNum)
+        {
+            case 2:
+                for (int i = 0; i < playersThatWon.Count; ++i)
                 {
-                    case 0:
-                        pos = new Vector2(-200, -290);
-                        playerNames[0].GetComponent<RectTransform>().anchoredPosition = pos;
-
-                        pos = new Vector2(170, -220);
-                        playerNames[1].GetComponent<RectTransform>().anchoredPosition = pos;
-                        break;
-                    case 1:
-                        pos = new Vector2(-170, -220);
-                        playerNames[0].GetComponent<RectTransform>().anchoredPosition = pos;
-
-                        pos = new Vector2(200, -290);
-                        playerNames[1].GetComponent<RectTransform>().anchoredPosition = pos;
-                        break;
+                    switch (i)
+                    {
+                        case 0:
+                            pos = new Vector2(-200, -290);
+                            playerNames[0].GetComponent<RectTransform>().anchoredPosition = pos;
+                            break;
+                        case 1:
+                            pos = new Vector2(200, -290);
+                            playerNames[1].GetComponent<RectTransform>().anchoredPosition = pos;
+                            break;
+                    }
                 }
                 break;
             case 3:
-                for (int i = 0; i < 3; ++i)
+                for (int i = 0; i < playersThatWon.Count; ++i)
                 {
                     switch (i)
                     {
                         case 0:
-                            pos = new Vector2(-340, -220);
-                            playerNames[i].GetComponent<RectTransform>().anchoredPosition = pos;
+                            pos = new Vector2(-420, -290);
+                            playerNames[playerWon].GetComponent<RectTransform>().anchoredPosition = pos;
                             break;
                         case 1:
-                            pos = new Vector2(0, -220);
-                            playerNames[i].GetComponent<RectTransform>().anchoredPosition = pos;
+                            pos = new Vector2(0, -290);
+                            playerNames[playerWon].GetComponent<RectTransform>().anchoredPosition = pos;
                             break;
                         case 2:
-                            pos = new Vector2(340, -220);
-                            playerNames[i].GetComponent<RectTransform>().anchoredPosition = pos;
+                            pos = new Vector2(420, -290);
+                            playerNames[playerWon].GetComponent<RectTransform>().anchoredPosition = pos;
                             break;
                     }
-                }
 
-                switch (playerWon)
-                {
-                    case 0:
-                        pos = new Vector2(-420, -290);
-                        playerNames[playerWon].GetComponent<RectTransform>().anchoredPosition = pos;
-                        break;
-                    case 1:
-                        pos = new Vector2(0, -290);
-                        playerNames[playerWon].GetComponent<RectTransform>().anchoredPosition = pos;
-                        break;
-                    case 2:
-                        pos = new Vector2(420, -290);
-                        playerNames[playerWon].GetComponent<RectTransform>().anchoredPosition = pos;
-                        break;
                 }
                 break;
             case 4:
-                for (int i = 0; i < 4; ++i)
+                for (int i = 0; i < playersThatWon.Count; ++i)
                 {
                     switch (i)
                     {
                         case 0:
-                            pos = new Vector2(-510, -220);
-                            playerNames[i].GetComponent<RectTransform>().anchoredPosition = pos;
+                            pos = new Vector2(-620, -290);
+                            playerNames[playerWon].GetComponent<RectTransform>().anchoredPosition = pos;
                             break;
                         case 1:
-                            pos = new Vector2(-170, -220);
-                            playerNames[i].GetComponent<RectTransform>().anchoredPosition = pos;
+                            pos = new Vector2(-200, -290);
+                            playerNames[playerWon].GetComponent<RectTransform>().anchoredPosition = pos;
                             break;
                         case 2:
-                            pos = new Vector2(170, -220);
-                            playerNames[i].GetComponent<RectTransform>().anchoredPosition = pos;
+                            pos = new Vector2(200, -290);
+                            playerNames[playerWon].GetComponent<RectTransform>().anchoredPosition = pos;
                             break;
                         case 3:
-                            pos = new Vector2(510, -220);
-                            playerNames[i].GetComponent<RectTransform>().anchoredPosition = pos;
+                            pos = new Vector2(620, -290);
+                            playerNames[playerWon].GetComponent<RectTransform>().anchoredPosition = pos;
                             break;
                     }
-                }
-
-                switch (playerWon)
-                {
-                    case 0:
-                        pos = new Vector2(-620, -290);
-                        playerNames[playerWon].GetComponent<RectTransform>().anchoredPosition = pos;
-                        break;
-                    case 1:
-                        pos = new Vector2(-200, -290);
-                        playerNames[playerWon].GetComponent<RectTransform>().anchoredPosition = pos;
-                        break;
-                    case 2:
-                        pos = new Vector2(200, -290);
-                        playerNames[playerWon].GetComponent<RectTransform>().anchoredPosition = pos;
-                        break;
-                    case 3:
-                        pos = new Vector2(620, -290);
-                        playerNames[playerWon].GetComponent<RectTransform>().anchoredPosition = pos;
-                        break;
                 }
                 break;
         }
 
         for (int i = 0; i < playersNum; ++i)
         {
-            if (i == playerWon)
+            for (int j = 0; j < playersThatWon.Count; ++j)
             {
-                pos = players[i].transform.position;
-                pos.z += 1;
-                players[i].transform.position = pos;
-                players[i].SetAnimationWinLose("happy");
-                playerLights[i].gameObject.SetActive(true);
-                playerNames[i].color = Color.white;
-                percentages[i].color = Color.white;
+                if (i == j)
+                {
+                    pos = players[i].transform.position;
+                    pos.z += 1;
+                    players[i].transform.position = pos;
+                    players[i].SetAnimationWinLose("happy");
+                    playerLights[i].gameObject.SetActive(true);
+
+                    if (playersThatWon.Count == 1)
+                    {
+                        playerNames[i].color = Color.white;
+                        percentages[i].color = Color.white;
+                    }
+
+                    goto skipNotWinner;
+                }
+            }
+
+
+            int random = Random.Range(0, 2);
+            if (random == 0)
+            {
+                players[i].SetAnimationWinLose("angry");
             }
             else
             {
-                int random = Random.Range(0, 2);
-                if (random == 0)
-                {
-                    players[i].SetAnimationWinLose("angry");
-                }
-                else
-                {
-                    players[i].SetAnimationWinLose("dead");
-                }
-
-                playerLights[i].gameObject.SetActive(false);
-                playerNames[i].color = colors[i];
-                percentages[i].color = colors[i];
+                players[i].SetAnimationWinLose("dead");
             }
+
+            playerLights[i].gameObject.SetActive(false);
+            playerNames[i].color = colors[i];
+            percentages[i].color = colors[i];
+            
+
+        skipNotWinner:;
 
             Vector3 dir = cam.transform.position - players[i].transform.position;
             dir.y = players[i].transform.position.y;
