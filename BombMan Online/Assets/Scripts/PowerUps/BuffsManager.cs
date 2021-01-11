@@ -35,11 +35,14 @@ public class BuffsManager : MonoBehaviour
     public Image[] bombText;
     public Image[] cooldownText;
     List<PowerUp> powerups = new List<PowerUp>();
-    MovementInput movement;
-    bool isFaster = false;
+    [HideInInspector]
+    public MovementInput movement;
+    [HideInInspector]
+    public bool isFaster = false;
     [HideInInspector]
     public bool isBigBomb = false;
-    float initVelocity;
+    [HideInInspector]
+    public float initVelocity;
 
     PhotonView pv;
     private int indexPlayer = 50;
@@ -161,20 +164,19 @@ public class BuffsManager : MonoBehaviour
                     break;
                 case PUTypes.SPEED:
                     movement.Velocity = initVelocity;
-                    speedText[i].color = Color.grey;
                     speedText[i].gameObject.SetActive(true);
+                    speedText[i].color = Color.grey;              
                     isFaster = false;
                     break;
                 case PUTypes.BIG_BOMB:
                     isBigBomb = false;
-                    bombText[i].color = Color.grey;
                     bombText[i].gameObject.SetActive(true);
-
+                    bombText[i].color = Color.grey;
                     break;
                 case PUTypes.COOLDOWN:
                     movement.bombCooldown = 3.0f;
-                    cooldownText[i].color = Color.grey;
                     cooldownText[i].gameObject.SetActive(true);
+                    cooldownText[i].color = Color.grey;
                     break;
                 default:
                     break;
