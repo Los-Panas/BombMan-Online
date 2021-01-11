@@ -10,7 +10,8 @@ public class FloorCube : MonoBehaviour
         Light
     }
 
-    Material mat;
+    [HideInInspector]
+    public Material mat;
     
     public Style cubeStyle = Style.Light;
 
@@ -21,12 +22,11 @@ public class FloorCube : MonoBehaviour
     {
         currentColor = CharacterSkinController.RobotColor.None;
         TileManager.instance.cubes.Add(this);
+        mat = GetComponent<MeshRenderer>().material;
     }
 
     private void Start()
     {
-        mat = GetComponent<MeshRenderer>().material;
-
         if (cubeStyle == Style.Dark)
         {
             mat.color = Color.white * 0.75f;

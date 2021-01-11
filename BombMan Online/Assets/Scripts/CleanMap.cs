@@ -10,23 +10,30 @@ public class CleanMap : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(CM == null)
+        if (CM == null)
         {
             CM = this;
         }
+
+
         color = Color.white;
     }
 
    public void CleanAllMap()
     {
-        MeshRenderer[] cubes = GetComponentsInChildren<MeshRenderer>();
-        foreach(MeshRenderer c in cubes)
+        var cubes = TileManager.instance.cubes;
+        Color c = Color.white;
+
+        for (int i = 0; i < cubes.Count; ++i)
         {
-            c.material.color = color;
-            if (color == Color.white)
-                color.r = color.g = color.b = 0.8f;
+            if (cubes[i].cubeStyle == FloorCube.Style.Dark)
+            {
+                cubes[i].mat.color = c * 0.75f;
+            }
             else
-                color = Color.white;
+            {
+                cubes[i].mat.color = c;
+            }
         }
     }
 }
