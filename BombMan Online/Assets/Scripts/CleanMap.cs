@@ -26,6 +26,7 @@ public class CleanMap : MonoBehaviour
 
         for (int i = 0; i < cubes.Count; ++i)
         {
+            cubes[i].currentColor = CharacterSkinController.RobotColor.None;
             if (cubes[i].cubeStyle == FloorCube.Style.Dark)
             {
                 cubes[i].mat.color = c * 0.75f;
