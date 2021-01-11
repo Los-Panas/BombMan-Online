@@ -32,6 +32,8 @@ public class WinLoseMenu : MonoBehaviour
     GameObject MainCamera;
     [SerializeField]
     GameObject LobbyButton;
+    [SerializeField]
+    Image fadeImage;
 
     private void Awake()
     {
@@ -39,11 +41,45 @@ public class WinLoseMenu : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    public void StartTransition()
+    {
+        StartCoroutine(FadeImage());
+    }
+
+    IEnumerator FadeImage()
+    {
+        Color c = fadeImage.color;
+        float time_start = Time.time;
+
+        while (fadeImage.color.a != 0)
+        {
+            float t = (Time.time - time_start) / 0.5f;
+
+            if (t < 1)
+            {
+                c.a = 1 - t;
+            }
+            else
+            {
+                c.a = 0;
+            }
+
+            fadeImage.color = c;
+
+            yield return null;
+        }
+
+        Invoke("ShowButton", 3.0f);
+    }
+
     public void Initialize()
     {
         gameObject.SetActive(true);
         MainCamera.SetActive(false);
         TileManagerCanvas.SetActive(false);
+        Color c = GameTimer.GT.fadeImage.color;
+        c.a = 0;
+        GameTimer.GT.fadeImage.color = c;
         GeneralLight.SetActive(false);
 
         TileManager.CubeColors cubecolors = TileManager.instance.cubeColors;
@@ -313,7 +349,7 @@ public class WinLoseMenu : MonoBehaviour
             }
         }
 
-        Invoke("ShowButton", 3.0f);
+        StartTransition();
     }
 
     public void ReturnToLobby()
@@ -323,6 +359,10 @@ public class WinLoseMenu : MonoBehaviour
         TileManagerCanvas.SetActive(true);
         GeneralLight.SetActive(true);
         LobbyButton.SetActive(false);
+        Color c = fadeImage.color;
+        c.a = 1;
+        fadeImage.color = c;
+        GameTimer.GT.itsOverPanel.GetComponent<Animator>().SetTrigger("Again");
         GameSetUpController.GS.EnableCanvas();
     }
 

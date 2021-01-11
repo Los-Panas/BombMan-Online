@@ -11,13 +11,13 @@ public class GameTimer : MonoBehaviour
     Text seconds;
     [SerializeField]
     Text miliseconds;
+    public GameObject itsOverPanel;
+    public Image fadeImage;
 
     [SerializeField]
     private float totalGameTime;
     private float timeToFinish;
     PowerUpSpawner powerupspawner;
-
-
 
     bool start = false;
     // Start is called before the first frame update
@@ -25,6 +25,7 @@ public class GameTimer : MonoBehaviour
     {
         powerupspawner = GameObject.Find("PowerUpSpawner").GetComponent<PowerUpSpawner>();
     }
+
     void OnEnable()
     {
         if (GT == null)
@@ -40,19 +41,33 @@ public class GameTimer : MonoBehaviour
         {
             seconds.text = "00";
             miliseconds.text = "00";
-            //estroy(this); 
-            //PhotonDestroyAvatar.DA.DestroyAvatar();
             GameSetUpController.GS.DestroyAvatar();
             start = false;
             powerupspawner.start = false;
-            WinLoseMenu.instance.Initialize();
+            StartWinTransition();
         }
         else if (start)
         {
             double timeseg = timeToFinish - Time.time;
             int fseconds = Mathf.FloorToInt((float)timeseg);
-            seconds.text = fseconds.ToString();
-            miliseconds.text = Mathf.Round((float)System.Math.Round((timeseg - fseconds) * 100, 2)).ToString();
+            string s_seconds = fseconds.ToString();
+            
+            if (fseconds < 10)
+            {
+                s_seconds = "0" + s_seconds;
+            }
+
+            seconds.text = s_seconds;
+
+            float fmiliseconds = Mathf.Round((float)System.Math.Round((timeseg - fseconds) * 100, 2));
+            string s_miliseconds = fmiliseconds.ToString();
+
+            if (fmiliseconds < 10)
+            {
+                s_miliseconds = "0" + s_miliseconds;
+            }
+
+            miliseconds.text = s_miliseconds;
         }
     }
     public void NewGame()
@@ -61,5 +76,47 @@ public class GameTimer : MonoBehaviour
         start = true;
         powerupspawner.start = true;
         CleanMap.CM.CleanAllMap();
+    }
+
+    void StartWinTransition()
+    {
+        itsOverPanel.SetActive(true);
+    }
+
+    public void PositionDone()
+    {
+        Invoke("StartFade", 2.0f);
+    }
+
+    void StartFade()
+    {
+        StartCoroutine(FadeImage());
+    }
+
+    IEnumerator FadeImage()
+    {
+        Color c = fadeImage.color;
+        float time_start = Time.time;
+
+        while (fadeImage.color.a != 1)
+        {
+            float t = (Time.time - time_start) / 0.5f;
+
+            if (t < 1)
+            {
+                c.a = t;
+            }
+            else
+            {
+                c.a = 1;
+            }
+
+            fadeImage.color = c;
+
+            yield return null;
+        }
+
+        itsOverPanel.SetActive(false);
+        WinLoseMenu.instance.Initialize();
     }
 }
