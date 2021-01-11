@@ -43,6 +43,8 @@ public class MovementInput : MonoBehaviour {
 	public float bombCooldown = 3.0f;
 	float last_boom_throw = 0.0f;
 
+	[HideInInspector]
+	public bool inputBlocked = false;
 	// Use this for initialization
 	void Start () {
 		anim = this.GetComponent<Animator> ();
@@ -54,7 +56,7 @@ public class MovementInput : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (!GetComponent<PhotonView>().IsMine)
+		if (!GetComponent<PhotonView>().IsMine || inputBlocked)
             return;
 
         InputMagnitude ();
@@ -191,10 +193,32 @@ public class MovementInput : MonoBehaviour {
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (string.Compare(other.gameObject.tag, "BombPaint") == 0)
+		if (other.CompareTag("BombPaint"))
 		{
-			PhotonNetwork.Destroy(gameObject);
+			inputBlocked = true;
+			StartCoroutine(RobotDead());
+			Destroy(anim);
+			Destroy(GetComponent<PhotonAnimatorView>());
 			GameObject.Find("AudioManager").GetComponent<AudioManager>().PlayAudioWithName("death");
 		}
+	}
+
+	IEnumerator RobotDead()
+    {
+		float time = Time.time;
+		Vector3 m = new Vector3(0, 3 * Time.deltaTime, 0);
+		Quaternion q = Quaternion.Euler(0, 360.0f * Time.deltaTime, 0);
+		Quaternion rot;
+
+		while ((Time.time - time) < 3)
+        {
+			controller.Move(m);
+			rot = transform.rotation * q;
+			transform.rotation = rot;
+
+			yield return null;
+        }
+		
+		PhotonNetwork.Destroy(gameObject);
 	}
 }
