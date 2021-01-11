@@ -124,7 +124,7 @@ public class MovementInput : MonoBehaviour {
 
 		if (buffsManager.isBigBomb) 
         {
-			bomb = Instantiate(BigBomb, pos, Bomb.transform.rotation);
+			bomb = Instantiate(BigBomb, pos, BigBomb.transform.rotation);
 		}
 		else
         {

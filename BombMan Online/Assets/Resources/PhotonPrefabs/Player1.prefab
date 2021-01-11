@@ -2263,7 +2263,10 @@ MonoBehaviour:
   - {fileID: 0}
   cooldownText:
   - {fileID: 0}
+  movement: {fileID: 0}
+  isFaster: 0
   isBigBomb: 0
+  initVelocity: 0
 --- !u!1 &2466322886839824688
 GameObject:
   m_ObjectHideFlags: 0
