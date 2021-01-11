@@ -101,12 +101,6 @@ public class GameSetUpController : MonoBehaviour
     {
         if (myNetworkPlayer != null)
             myNetworkPlayer.GetComponent<PhotonPlayer>().DestroyAvatar();
-
-        //foreach (GameObject av in allAvatars)
-        //{
-        //   // av.GetComponent<PhotonPlayer>().DestroyAvatar();
-        //}
-        //allAvatars.Clear();
     }
 
     public void DisconnectPlayer(string name)

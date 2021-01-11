@@ -61,7 +61,8 @@ public class RoomController : MonoBehaviourPunCallbacks, IInRoomCallbacks
     public override void OnLeftRoom()
     {
         base.OnLeftRoom();
-        //PhotonNetwork.LeaveLobby();
+        PhotonNetwork.Disconnect();
+        //Destroy(gameObject);
         Destroy(gameObject);
         SceneManager.LoadScene(0);
     }
