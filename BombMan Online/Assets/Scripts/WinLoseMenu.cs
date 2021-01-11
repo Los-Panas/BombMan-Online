@@ -100,47 +100,47 @@ public class WinLoseMenu : MonoBehaviour
         switch (playersNum)
         {
             case 2:
-                pos = players[0].transform.position;
+                pos = players[0].transform.localPosition;
                 pos.x = 1;
                 pos.z = 0;
-                players[0].transform.position = pos;
+                players[0].transform.localPosition = pos;
 
-                pos = players[1].transform.position;
+                pos = players[1].transform.localPosition;
                 pos.x = -1;
                 pos.z = 0;
-                players[1].transform.position = pos;
+                players[1].transform.localPosition = pos;
                 break;
             case 3:
-                pos = players[0].transform.position;
+                pos = players[0].transform.localPosition;
                 pos.x = 2;
                 pos.z = 0;
-                players[0].transform.position = pos;
+                players[0].transform.localPosition = pos;
 
-                pos = players[2].transform.position;
+                pos = players[2].transform.localPosition;
                 pos.x = -2;
                 pos.z = 0;
-                players[2].transform.position = pos;
+                players[2].transform.localPosition = pos;
                 break;
             case 4:
-                pos = players[0].transform.position;
+                pos = players[0].transform.localPosition;
                 pos.x = 3;
                 pos.z = 0;
-                players[0].transform.position = pos;
+                players[0].transform.localPosition = pos;
 
-                pos = players[1].transform.position;
+                pos = players[1].transform.localPosition;
                 pos.x = 1;
                 pos.z = 0;
-                players[1].transform.position = pos;
+                players[1].transform.localPosition = pos;
 
-                pos = players[2].transform.position;
+                pos = players[2].transform.localPosition;
                 pos.x = -1;
                 pos.z = 0;
-                players[2].transform.position = pos;
+                players[2].transform.localPosition = pos;
 
-                pos = players[3].transform.position;
+                pos = players[3].transform.localPosition;
                 pos.x = -3;
                 pos.z = 0;
-                players[3].transform.position = pos;
+                players[3].transform.localPosition = pos;
                 break;
         }
 
@@ -366,9 +366,9 @@ public class WinLoseMenu : MonoBehaviour
             {
                 if (i == j)
                 {
-                    pos = players[i].transform.position;
+                    pos = players[i].transform.localPosition;
                     pos.z = 1;
-                    players[i].transform.position = pos;
+                    players[i].transform.localPosition = pos;
                     players[i].SetAnimationWinLose("happy");
                     playerLights[i].gameObject.SetActive(true);
 
