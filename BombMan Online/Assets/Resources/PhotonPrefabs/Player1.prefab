@@ -2172,7 +2172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caa9f165e2b4f1a4f9522501717c095d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Velocity: 10
+  Velocity: 5
   InputX: 1
   InputZ: 1
   desiredMoveDirection: {x: 0, y: 0, z: 0}
@@ -2189,6 +2189,7 @@ MonoBehaviour:
   StopAnimTime: 0.15
   verticalVel: 0
   Bomb: {fileID: 4128046997149437145, guid: 14dac1e71de8a5e4387ac48e80a69dd6, type: 3}
+  BigBomb: {fileID: 1935976096270868512, guid: bf6f259a2061e86458ab40283403b18d, type: 3}
   bombCooldown: 3
   inputBlocked: 0
 --- !u!114 &3680587066939997476
@@ -2221,6 +2222,9 @@ MonoBehaviour:
   - Type: 9
     SynchronizeType: 0
     Name: dead
+  - Type: 9
+    SynchronizeType: 0
+    Name: ReallyDead
   m_SynchronizeLayers:
   - SynchronizeType: 2
     LayerIndex: 0

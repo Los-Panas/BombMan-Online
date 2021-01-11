@@ -39,6 +39,8 @@ public class MovementInput : MonoBehaviour {
 
 	[SerializeField]
 	GameObject Bomb;
+	[SerializeField]
+	GameObject BigBomb;
 
 	public float bombCooldown = 3.0f;
 	float last_boom_throw = 0.0f;
@@ -117,12 +119,21 @@ public class MovementInput : MonoBehaviour {
 
 		pos.y = 0.8f;
 		gameObject.layer = 8;
-		GameObject bomb = Instantiate(Bomb, pos, Bomb.transform.rotation);
+
+		GameObject bomb = null;
+
+		if (buffsManager.isBigBomb) 
+        {
+			bomb = Instantiate(Bomb, pos, Bomb.transform.rotation);
+		}
+		else
+        {
+			bomb = Instantiate(Bomb, pos, Bomb.transform.rotation);
+		}
+
 		Bomb b = bomb.GetComponent<Bomb>();
 		b.color = GetComponent<CharacterSkinController>().childColor;
 		b.bomb_color = GetComponent<CharacterSkinController>().color;
-		if (buffsManager.isBigBomb)
-			b.tiles_to_paint = 4;
 	}
 
 	void PlayerMoveAndRotation() {

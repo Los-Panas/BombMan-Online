@@ -195,7 +195,7 @@ public class BuffsManager : MonoBehaviour
 
                 break;
             case PUTypes.SPEED:
-                movement.Velocity = 20;
+                movement.Velocity = 8;
                 speedText[aux].color = playerColor[aux];
                 break;
             case PUTypes.BIG_BOMB:

@@ -18,16 +18,13 @@ public class PhotonPlayer : MonoBehaviour
             PV.RPC("RCP_UpdateLobby", RpcTarget.AllBufferedViaServer, PhotonNetwork.NickName);
             GameSetUpController.GS.myNetworkPlayer = gameObject;
         }
-
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
-        {            
-            GameObject.Find("RoomController").GetComponent<RoomController>().GoToMenu();
-            PhotonNetwork.Destroy(gameObject);
-
+        {
+            Disconnect();
         }
     }
 
@@ -43,9 +40,9 @@ public class PhotonPlayer : MonoBehaviour
 
         GameSetUpController.GS.DisableCanvas();
         
-            int id = GameSetUpController.GS.GetPosition(PhotonNetwork.NickName) + 1;
-            myAvatar = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player" + id.ToString()),
-            GameSetUpController.GS.spawnPoints[id].position, GameSetUpController.GS.spawnPoints[id].rotation);
+        int id = GameSetUpController.GS.GetPosition(PhotonNetwork.NickName) + 1;
+        myAvatar = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player" + id.ToString()),
+        GameSetUpController.GS.spawnPoints[id].position, GameSetUpController.GS.spawnPoints[id].rotation);
        
 
     }
@@ -64,26 +61,38 @@ public class PhotonPlayer : MonoBehaviour
     [PunRPC]
     public void RPC_DestroyAvatar()
     {
-        if (myAvatar == null)
-            return;
        PhotonView newPV = myAvatar.GetComponent<PhotonView>();
         if(newPV != null)
-           PhotonNetwork.Destroy(newPV.gameObject);
-      myAvatar = null;
+           PhotonNetwork.Destroy(newPV);
+    }
+
+
+    public void Disconnect()
+    {
+        if (PhotonNetwork.IsMasterClient)
+            PV.RPC("RPC_DisconnectAll", RpcTarget.AllBufferedViaServer);
+
+        else
+            PV.RPC("RPC_Disconnect", RpcTarget.AllBufferedViaServer, PhotonNetwork.NickName);
+
+        GameObject.Find("RoomController").GetComponent<RoomController>().GoToMenu();
+        PhotonNetwork.Destroy(gameObject);
     }
 
     [PunRPC]
+    public void RPC_DisconnectAll()
+    {
+        if (name != PhotonNetwork.NickName)
+        {
+            GameObject.Find("RoomController").GetComponent<RoomController>().GoToMenu();
+            PhotonNetwork.Destroy(gameObject);
+        }
+    }
+    [PunRPC]
     public void RPC_Disconnect(string name)
     {
-        GameSetUpController.GS.DisconnectPlayer(name);
-    }
-
-    private void OnDestroy()
-    {
-        if (PhotonNetwork.IsMasterClient)
-            PhotonNetwork.DestroyAll();
-        else
-            PV.RPC("RPC_Disconnect", RpcTarget.AllBufferedViaServer, PhotonNetwork.NickName);
+        if (name != PhotonNetwork.NickName)
+            GameSetUpController.GS.DisconnectPlayer(name);
     }
 
     public void ReturnToLobby()
@@ -97,5 +106,4 @@ public class PhotonPlayer : MonoBehaviour
     {
         WinLoseMenu.instance.ReturnToLobby();
     }
-
 }
