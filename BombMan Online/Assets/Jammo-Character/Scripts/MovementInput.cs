@@ -124,11 +124,11 @@ public class MovementInput : MonoBehaviour {
 
 		if (buffsManager.isBigBomb) 
         {
-			bomb = Instantiate(Bomb, pos, Bomb.transform.rotation);
+			bomb = Instantiate(BigBomb, pos, Bomb.transform.rotation);
 		}
 		else
         {
-			bomb = Instantiate(BigBomb, pos, Bomb.transform.rotation);
+			bomb = Instantiate(Bomb, pos, Bomb.transform.rotation);
 		}
 
 		Bomb b = bomb.GetComponent<Bomb>();
