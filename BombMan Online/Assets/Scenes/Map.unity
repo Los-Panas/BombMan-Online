@@ -18980,39 +18980,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 486159697, guid: 159800b953f0aa74eb2cb6ad1ffe0eba, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 486159698, guid: 159800b953f0aa74eb2cb6ad1ffe0eba, type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 486159698, guid: 159800b953f0aa74eb2cb6ad1ffe0eba, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 486159698, guid: 159800b953f0aa74eb2cb6ad1ffe0eba, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 486159698, guid: 159800b953f0aa74eb2cb6ad1ffe0eba, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 486159698, guid: 159800b953f0aa74eb2cb6ad1ffe0eba, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 65
-      objectReference: {fileID: 0}
     - target: {fileID: 486159699, guid: 159800b953f0aa74eb2cb6ad1ffe0eba, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 510738632}
-    - target: {fileID: 2720700446495316392, guid: 159800b953f0aa74eb2cb6ad1ffe0eba,
-        type: 3}
-      propertyPath: viewIdField
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 2806640209929065780, guid: 159800b953f0aa74eb2cb6ad1ffe0eba,
         type: 3}
       propertyPath: MainCamera
@@ -19087,26 +19058,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WinLose
-      objectReference: {fileID: 0}
-    - target: {fileID: 2806640210392984477, guid: 159800b953f0aa74eb2cb6ad1ffe0eba,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2962418447028530495, guid: 159800b953f0aa74eb2cb6ad1ffe0eba,
-        type: 3}
-      propertyPath: viewIdField
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3403961745330189206, guid: 159800b953f0aa74eb2cb6ad1ffe0eba,
-        type: 3}
-      propertyPath: viewIdField
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3890226694853156628, guid: 159800b953f0aa74eb2cb6ad1ffe0eba,
-        type: 3}
-      propertyPath: viewIdField
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 159800b953f0aa74eb2cb6ad1ffe0eba, type: 3}

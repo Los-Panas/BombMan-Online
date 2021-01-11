@@ -2580,7 +2580,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 1594702719253845104}
   - {fileID: 378765428250379303}
-  viewIdField: 4
+  viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &1594702719253845104
@@ -4666,7 +4666,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 1944645645764862183}
   - {fileID: 6665378753928683068}
-  viewIdField: 3
+  viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &1944645645764862183
@@ -5656,7 +5656,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 2079842949097373262}
   - {fileID: 4986987911649208517}
-  viewIdField: 2
+  viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &2079842949097373262
@@ -9076,7 +9076,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 440375958945845964}
   - {fileID: 830612528488554757}
-  viewIdField: 1
+  viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &440375958945845964
