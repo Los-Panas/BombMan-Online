@@ -64,7 +64,6 @@ public class PowerUpSpawner : MonoBehaviour
     {
         for(int i = 0; i < spawnedPowerUps.Count; ++i)
         {
-            spawnedPowerUps.Remove(spawnedPowerUps[i]);
             Destroy(spawnedPowerUps[i]);
         }
         spawnedPowerUps.Clear();
