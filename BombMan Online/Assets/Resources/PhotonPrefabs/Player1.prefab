@@ -2190,6 +2190,7 @@ MonoBehaviour:
   verticalVel: 0
   Bomb: {fileID: 4128046997149437145, guid: 14dac1e71de8a5e4387ac48e80a69dd6, type: 3}
   bombCooldown: 3
+  inputBlocked: 0
 --- !u!114 &3680587066939997476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2252,9 +2253,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   secondsUntilBlinking: 2
-  speedText: {fileID: 0}
-  bombText: {fileID: 0}
-  cooldownText: {fileID: 0}
+  speedText:
+  - {fileID: 0}
+  bombText:
+  - {fileID: 0}
+  cooldownText:
+  - {fileID: 0}
   isBigBomb: 0
 --- !u!1 &2466322886839824688
 GameObject:
