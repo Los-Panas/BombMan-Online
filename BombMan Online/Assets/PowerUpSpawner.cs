@@ -9,8 +9,6 @@ public class PowerUpSpawner : MonoBehaviour
     List<FloorCube> tilesMap;
     public List<GameObject> spawnedPowerUps;
     public int maxPowerUps = 5;
-    int currentPU = 0;
-    int currentPowerUps = 0;
     float spawnTime = 0f;
     float spawnTimer = 0f;
     public GameObject speedPU;
@@ -60,6 +58,16 @@ public class PowerUpSpawner : MonoBehaviour
         }
         
         GameObject.Find("AudioManager").GetComponent<AudioManager>().PlayAudioWithName("spawn");
+    }
+
+    public void DestroyCurrentPUs()
+    {
+        for(int i = 0; i < spawnedPowerUps.Count; ++i)
+        {
+            spawnedPowerUps.Remove(spawnedPowerUps[i]);
+            Destroy(spawnedPowerUps[i]);
+        }
+        spawnedPowerUps.Clear();
     }
 
     Vector3 SetRandomTilePosition()
