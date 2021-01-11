@@ -128,7 +128,7 @@ public class MovementInput : MonoBehaviour {
 		}
 		else
         {
-			bomb = Instantiate(Bomb, pos, Bomb.transform.rotation);
+			bomb = Instantiate(BigBomb, pos, Bomb.transform.rotation);
 		}
 
 		Bomb b = bomb.GetComponent<Bomb>();
