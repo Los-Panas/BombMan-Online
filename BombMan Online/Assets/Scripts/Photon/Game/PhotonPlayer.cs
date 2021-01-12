@@ -40,11 +40,9 @@ public class PhotonPlayer : MonoBehaviour
 
         GameSetUpController.GS.DisableCanvas();
         
-        int id = GameSetUpController.GS.GetPosition(PhotonNetwork.NickName) + 1;
-        myAvatar = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player" + id.ToString()),
+        int id = GameSetUpController.GS.GetPosition(PhotonNetwork.NickName);
+        myAvatar = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player" + (id + 1).ToString()),
         GameSetUpController.GS.spawnPoints[id].position, GameSetUpController.GS.spawnPoints[id].rotation);
-       
-
     }
 
     [PunRPC]

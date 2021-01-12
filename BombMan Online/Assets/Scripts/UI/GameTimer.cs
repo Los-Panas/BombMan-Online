@@ -69,12 +69,12 @@ public class GameTimer : MonoBehaviour
             miliseconds.text = s_miliseconds;
         }
     }
+
     public void NewGame()
     {
         timeToFinish = totalGameTime + Time.time;
         start = true;
         powerupspawner.start = true;
-        CleanMap.CM.CleanAllMap();
     }
 
     void StartWinTransition()
