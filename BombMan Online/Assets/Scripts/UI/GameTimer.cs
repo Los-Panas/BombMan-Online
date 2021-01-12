@@ -116,33 +116,9 @@ public class GameTimer : MonoBehaviour
         }
 
         itsOverPanel.SetActive(false);
-        UIToInitial();
         GameSetUpController.GS.DestroyAvatar();
         powerupspawner.DestroyCurrentPUs();
         WinLoseMenu.instance.Initialize();
     }
 
-    void UIToInitial()
-    {
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-
-        for(int i = 0; i < players.Length; ++i)
-        {
-            BuffsManager bman = players[i].GetComponent<BuffsManager>();
-
-            bman.movement.Velocity = bman.initVelocity;
-            bman.speedText[i].gameObject.SetActive(true);
-            bman.speedText[i].color = Color.grey;
-            bman.isFaster = false;
-
-            bman.isBigBomb = false;
-            bman.bombText[i].gameObject.SetActive(true);
-            bman.bombText[i].color = Color.grey;
-
-            bman.movement.bombCooldown = 3.0f;
-            bman.cooldownText[i].gameObject.SetActive(true);
-            bman.cooldownText[i].color = Color.grey;
-
-        }
-    }
 }

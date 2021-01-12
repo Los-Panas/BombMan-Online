@@ -57,6 +57,7 @@ public class BuffsManager : MonoBehaviour
         movement = GetComponent<MovementInput>();
         initVelocity = movement.Velocity;
         SetCorrectUI();
+        ResetUI();
         pv = GetComponent<PhotonView>();
     }
 
@@ -116,7 +117,26 @@ public class BuffsManager : MonoBehaviour
             }
         }
     }
+    void ResetUI()
+    {
+        Text[] names = GameObject.Find("GameSetUp").GetComponent<GameSetUpController>().GetPlayernames();
+        for (int i = 0; i < names.Length; i++)
+        { 
+            movement.Velocity = initVelocity;
+            speedText[i].gameObject.SetActive(true);
+            speedText[i].color = Color.grey;
+            isFaster = false;
 
+            isBigBomb = false;
+            bombText[i].gameObject.SetActive(true);
+            bombText[i].color = Color.grey;
+
+            movement.bombCooldown = 3.0f;
+            cooldownText[i].gameObject.SetActive(true);
+            cooldownText[i].color = Color.grey;
+
+        }
+    }
     // Update is called once per frame
     void Update()
     {
