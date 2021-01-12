@@ -8,6 +8,7 @@ public class MainMenuFuncs : MonoBehaviour
     // Start is called before the first frame update
     public GameObject PanelBG;
     public GameObject RoomPanel;
+    public GameObject CreditsPanel;
     public InputField CreateInputField;
     public InputField JoinInputField;
     public Dropdown mapDropDown;
@@ -29,17 +30,27 @@ public class MainMenuFuncs : MonoBehaviour
         }
         PanelBG.SetActive(true);
         RoomPanel.SetActive(false);
+        CreditsPanel.SetActive(false);
     }
 
     public void OpenGamePanel()
     {
         PanelBG.SetActive(false);
+        CreditsPanel.SetActive(false);
         RoomPanel.SetActive(true);  
     }
     public void OpenMainPanel()
     {
         PanelBG.SetActive(true);
         RoomPanel.SetActive(false);
+        CreditsPanel.SetActive(false);
+    }
+
+    public void OpenCredits()
+    {
+        PanelBG.SetActive(false);
+        RoomPanel.SetActive(false);
+        CreditsPanel.SetActive(true);
     }
 
     public void SetRoomName(string value)
