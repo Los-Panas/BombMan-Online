@@ -37,10 +37,12 @@ public class PowerUpSpawner : MonoBehaviour
             spawnTimer = Time.time;
             puType = UnityEngine.Random.Range(1, 4);
             Vector3 pos = SetRandomTilePosition();
-            InstantiatePowerUp(puType, pos);
+            pv.RPC("InstantiatePowerUp", RpcTarget.All, new object[] {puType, pos });
+            //InstantiatePowerUp(puType, pos);
         }
     }
 
+    [PunRPC]
     private void InstantiatePowerUp(int puType, Vector3 pos)
     {
         Vector3 rot = new Vector3(-90, 0, 0);
