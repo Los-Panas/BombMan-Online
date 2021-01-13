@@ -21,6 +21,8 @@ public class TileManager : MonoBehaviour
     public CubeColors cubeColors;
     [SerializeField]
     Text[] cubesText;
+    [SerializeField]
+    GameObject[] playersDead;
 
     private void Awake()
     {
@@ -64,5 +66,24 @@ public class TileManager : MonoBehaviour
         cubesText[1].text = cubeColors.yellowCubes.ToString();
         cubesText[2].text = cubeColors.blueCubes.ToString();
         cubesText[3].text = cubeColors.blackCubes.ToString();
+    }
+
+    public void PlayerDead(int player)
+    {
+        if (player < 0)
+        {
+            Debug.LogError("Player doesn't exist");
+            return;
+        }
+
+        playersDead[player].SetActive(true);
+    }
+
+    public void PlayersDeadOff()
+    {
+        for (int i = 0; i < playersDead.Length; ++i)
+        {
+            playersDead[i].SetActive(false);
+        }
     }
 }

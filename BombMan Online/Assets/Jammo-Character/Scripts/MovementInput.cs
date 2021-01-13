@@ -211,6 +211,25 @@ public class MovementInput : MonoBehaviour {
 			Destroy(anim);
 			Destroy(GetComponent<PhotonAnimatorView>());
 			GameObject.Find("AudioManager").GetComponent<AudioManager>().PlayAudioWithName("death");
+
+			int playerIndex = -1;
+			switch(gameObject.name)
+            {
+				case "Player1(Clone)":
+					playerIndex = 0;
+					break;
+				case "Player2(Clone)":
+					playerIndex = 1;
+					break;
+				case "Player3(Clone)":
+					playerIndex = 2;
+					break;
+				case "Player4(Clone)":
+					playerIndex = 3;
+					break;
+			}
+
+			TileManager.instance.PlayerDead(playerIndex);
 		}
 	}
 

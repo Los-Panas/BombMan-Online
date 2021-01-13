@@ -436,6 +436,7 @@ public class WinLoseMenu : MonoBehaviour
         playersThatWon.Clear();
         CleanMap.CM.CleanAllMap();
         TileManager.instance.UpdateValues();
+        TileManager.instance.PlayersDeadOff();
         gameObject.SetActive(false);
         MainCamera.SetActive(true);
         TileManagerCanvas.SetActive(true);
