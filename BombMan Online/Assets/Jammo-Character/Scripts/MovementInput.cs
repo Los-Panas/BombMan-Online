@@ -207,7 +207,8 @@ public class MovementInput : MonoBehaviour {
 		if (other.CompareTag("BombPaint"))
 		{
 			inputBlocked = true;
-			StartCoroutine(RobotDead());
+			if (GetComponent<PhotonView>().IsMine)
+				StartCoroutine(RobotDead());
 			Destroy(anim);
 			Destroy(GetComponent<PhotonAnimatorView>());
 			GameObject.Find("AudioManager").GetComponent<AudioManager>().PlayAudioWithName("death");
@@ -249,7 +250,6 @@ public class MovementInput : MonoBehaviour {
 			yield return null;
         }
 
-		if (GetComponent<PhotonView>().IsMine)
 			PhotonNetwork.Destroy(gameObject);
 	}
 }
