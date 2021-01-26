@@ -15,6 +15,8 @@ public class PowerUpSpawner : MonoBehaviour
     PhotonView pv;
     [HideInInspector]
     public bool start = false;
+    [HideInInspector]
+    public bool end = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +38,11 @@ public class PowerUpSpawner : MonoBehaviour
             Vector3 pos = SetRandomTilePosition();
             pv.RPC("InstantiatePowerUp", RpcTarget.All, new object[] {puType, pos });
             //InstantiatePowerUp(puType, pos);
+        }
+        if(end)
+        {
+            end = false;
+            pv.RPC("DestroyCurrentPUs", RpcTarget.All);
         }
     }
 
@@ -59,6 +66,7 @@ public class PowerUpSpawner : MonoBehaviour
         GameObject.Find("AudioManager").GetComponent<AudioManager>().PlayAudioWithName("spawn");
     }
 
+    [PunRPC]
     public void DestroyCurrentPUs()
     {
         for(int i = 0; i < spawnedPowerUps.Count; ++i)
