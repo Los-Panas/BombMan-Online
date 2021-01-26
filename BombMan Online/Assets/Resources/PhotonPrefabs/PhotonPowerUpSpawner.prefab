@@ -46,10 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnedPowerUps: []
   maxPowerUps: 5
-  speedPU: {fileID: 100000, guid: dc9654250f713b848ae930dfcbcf7b23, type: 3}
-  bombPU: {fileID: 100000, guid: 992190abc696d9d4db9dbef827e00de4, type: 3}
-  cooldownPU: {fileID: 100000, guid: 80960a539127eee4d86b716a48fa7de6, type: 3}
   start: 0
+  end: 0
 --- !u!114 &1015170777588682985
 MonoBehaviour:
   m_ObjectHideFlags: 0

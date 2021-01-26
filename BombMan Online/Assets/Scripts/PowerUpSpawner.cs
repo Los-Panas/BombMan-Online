@@ -42,7 +42,6 @@ public class PowerUpSpawner : MonoBehaviour
         if(end)
         {
             end = false;
-            Debug.Log("DELETEPUS");
             pv.RPC("DestroyCurrentPUs", RpcTarget.All);
         }
     }
@@ -73,6 +72,7 @@ public class PowerUpSpawner : MonoBehaviour
         for(int i = 0; i < spawnedPowerUps.Count; ++i)
         {
             Destroy(spawnedPowerUps[i]);
+            Debug.Log(spawnedPowerUps.Count);
         }
         spawnedPowerUps.Clear();
     }

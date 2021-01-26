@@ -43,6 +43,7 @@ public class GameTimer : MonoBehaviour
             miliseconds.text = "00";
             start = false;
             powerupspawner.start = false;
+            powerupspawner.end = true;
             StartWinTransition();
         }
         else if (start)
@@ -117,7 +118,6 @@ public class GameTimer : MonoBehaviour
 
         itsOverPanel.SetActive(false);
         GameSetUpController.GS.DestroyAvatar();
-        powerupspawner.end = true;
         WinLoseMenu.instance.Initialize();
     }
 
