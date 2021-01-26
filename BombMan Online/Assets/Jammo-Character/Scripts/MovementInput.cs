@@ -207,15 +207,9 @@ public class MovementInput : MonoBehaviour {
 		if (other.CompareTag("BombPaint"))
 		{
 			inputBlocked = true;
-			if (GetComponent<PhotonView>().IsMine)
-				StartCoroutine(RobotDead());
-			//Destroy(anim);
-			//Destroy(GetComponent<PhotonAnimatorView>());
-			GameObject.Find("AudioManager").GetComponent<AudioManager>().PlayAudioWithName("death");
-
 			int playerIndex = -1;
-			switch(gameObject.name)
-            {
+			switch (gameObject.name)
+			{
 				case "Player1(Clone)":
 					playerIndex = 0;
 					break;
@@ -231,6 +225,22 @@ public class MovementInput : MonoBehaviour {
 			}
 
 			TileManager.instance.PlayerDead(playerIndex);
+
+			if (GetComponent<PhotonView>().IsMine)
+				StartCoroutine(RobotDead());
+			//Destroy(anim);
+			//Destroy(GetComponent<PhotonAnimatorView>());
+			GameObject.Find("AudioManager").GetComponent<AudioManager>().PlayAudioWithName("death");
+
+			if (PhotonNetwork.IsMasterClient)
+			{
+				++GameSetUpController.GS.players_dead;
+				if (GameSetUpController.GS.players_dead >= GameSetUpController.GS.playerNameIndex)
+				{
+					GameSetUpController.GS.players_dead = 0;
+					GameTimer.GT.StopTimer();
+				}
+			}
 		}
 	}
 

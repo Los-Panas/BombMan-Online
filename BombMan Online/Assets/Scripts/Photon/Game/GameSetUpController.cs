@@ -11,9 +11,9 @@ public class GameSetUpController : MonoBehaviour
 
     public Transform[] spawnPoints;
 
-    [SerializeField]
-    private Text[] playerName;
-    private int playerNameIndex;
+    public Text[] playerName;
+    [HideInInspector]
+    public int playerNameIndex;
     [SerializeField]
     private Button startButton;
     [SerializeField]
@@ -23,6 +23,7 @@ public class GameSetUpController : MonoBehaviour
 
     public GameObject myNetworkPlayer;
 
+    public int players_dead = 0;
 
     private void OnEnable()
     {

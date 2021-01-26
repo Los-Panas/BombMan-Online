@@ -20,6 +20,7 @@ public class GameTimer : MonoBehaviour
     PowerUpSpawner powerupspawner;
 
     bool start = false;
+    bool running = true;
     // Start is called before the first frame update
     private void Start()
     {
@@ -37,36 +38,39 @@ public class GameTimer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (timeToFinish - Time.time <= 0 && start)
+        if (running)
         {
-            seconds.text = "00";
-            miliseconds.text = "00";
-            start = false;
-            powerupspawner.start = false;
-            StartWinTransition();
-        }
-        else if (start)
-        {
-            double timeseg = timeToFinish - Time.time;
-            int fseconds = Mathf.FloorToInt((float)timeseg);
-            string s_seconds = fseconds.ToString();
-            
-            if (fseconds < 10)
+            if (timeToFinish - Time.time <= 0 && start)
             {
-                s_seconds = "0" + s_seconds;
+                seconds.text = "00";
+                miliseconds.text = "00";
+                start = false;
+                powerupspawner.start = false;
+                StartWinTransition();
             }
-
-            seconds.text = s_seconds;
-
-            float fmiliseconds = Mathf.Round((float)System.Math.Round((timeseg - fseconds) * 100, 2));
-            string s_miliseconds = fmiliseconds.ToString();
-
-            if (fmiliseconds < 10)
+            else if (start)
             {
-                s_miliseconds = "0" + s_miliseconds;
-            }
+                double timeseg = timeToFinish - Time.time;
+                int fseconds = Mathf.FloorToInt((float)timeseg);
+                string s_seconds = fseconds.ToString();
 
-            miliseconds.text = s_miliseconds;
+                if (fseconds < 10)
+                {
+                    s_seconds = "0" + s_seconds;
+                }
+
+                seconds.text = s_seconds;
+
+                float fmiliseconds = Mathf.Round((float)System.Math.Round((timeseg - fseconds) * 100, 2));
+                string s_miliseconds = fmiliseconds.ToString();
+
+                if (fmiliseconds < 10)
+                {
+                    s_miliseconds = "0" + s_miliseconds;
+                }
+
+                miliseconds.text = s_miliseconds;
+            }
         }
     }
 
@@ -75,6 +79,13 @@ public class GameTimer : MonoBehaviour
         timeToFinish = totalGameTime + Time.time;
         start = true;
         powerupspawner.start = true;
+        running = true;
+    }
+
+    public void StopTimer()
+    {
+        running = false;
+        StartWinTransition();
     }
 
     void StartWinTransition()
