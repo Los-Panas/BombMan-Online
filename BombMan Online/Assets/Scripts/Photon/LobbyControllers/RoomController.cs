@@ -90,6 +90,7 @@ public class RoomController : MonoBehaviourPunCallbacks, IInRoomCallbacks
     private void CreatePlayer()
     {
         PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonNetworkPlayer"), transform.position, Quaternion.identity, 0);
+        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonPowerUpSpawner"), transform.position, Quaternion.identity, 0);
     }
 
     public void SetLevelMap(int value)

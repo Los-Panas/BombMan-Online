@@ -11,9 +11,6 @@ public class PowerUpSpawner : MonoBehaviour
     public int maxPowerUps = 5;
     float spawnTime = 0f;
     float spawnTimer = 0f;
-    public GameObject speedPU;
-    public GameObject bombPU;
-    public GameObject cooldownPU;
     int puType;
     PhotonView pv;
     [HideInInspector]
