@@ -26,7 +26,7 @@ public class GameSetUpController : MonoBehaviour
 
     private void OnEnable()
     {
-      if(GameSetUpController.GS == null)
+        if (GameSetUpController.GS == null)
         {
             GameSetUpController.GS = this;
         }
@@ -46,11 +46,11 @@ public class GameSetUpController : MonoBehaviour
         playerName[playerNameIndex].gameObject.SetActive(true);
         playerImage[playerNameIndex].SetActive(true);
         playerName[playerNameIndex].text = name;
-        if (playerNameIndex > -1 && startButton.gameObject.activeSelf == false
+        if (playerNameIndex >= 1 && startButton.gameObject.activeSelf == false
             && PhotonNetwork.IsMasterClient)
             startButton.gameObject.SetActive(true);
 
-        playerNameIndex++;
+        ++playerNameIndex;
     }
 
     public int GetPosition(string name)

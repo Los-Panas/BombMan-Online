@@ -235,10 +235,10 @@ public class MovementInput : MonoBehaviour {
 
 	IEnumerator RobotDead()
     {
-		float time = Time.time;
 		Vector3 m = new Vector3(0, 3 * Time.deltaTime, 0);
 		Quaternion q = Quaternion.Euler(0, 360.0f * Time.deltaTime, 0);
 		Quaternion rot;
+		float time = Time.time;
 
 		while ((Time.time - time) < 3)
         {
@@ -248,7 +248,8 @@ public class MovementInput : MonoBehaviour {
 
 			yield return null;
         }
-		
-		PhotonNetwork.Destroy(gameObject);
+
+		if (PhotonNetwork.IsMasterClient)
+			PhotonNetwork.Destroy(gameObject);
 	}
 }
