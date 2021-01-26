@@ -209,8 +209,8 @@ public class MovementInput : MonoBehaviour {
 			inputBlocked = true;
 			if (GetComponent<PhotonView>().IsMine)
 				StartCoroutine(RobotDead());
-			Destroy(anim);
-			Destroy(GetComponent<PhotonAnimatorView>());
+			//Destroy(anim);
+			//Destroy(GetComponent<PhotonAnimatorView>());
 			GameObject.Find("AudioManager").GetComponent<AudioManager>().PlayAudioWithName("death");
 
 			int playerIndex = -1;
