@@ -272,7 +272,7 @@ public class BuffsManager : MonoBehaviour
     void RCP_DestroyPowerUp(int nID)
     {
         PhotonView aux = PhotonView.Find(nID);
-        if(aux != null && aux.IsMine)
+        if(aux != null && PhotonNetwork.IsMasterClient)
             PhotonNetwork.Destroy(aux);
     }
 

@@ -30,19 +30,22 @@ public class PowerUpSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Time.time - spawnTimer > spawnTime && spawnedPowerUps.Count < maxPowerUps && start)
+        if(PhotonNetwork.IsMasterClient)
         {
-            spawnTime = UnityEngine.Random.Range(5f, 10f);
-            spawnTimer = Time.time;
-            puType = UnityEngine.Random.Range(1, 4);
-            Vector3 pos = SetRandomTilePosition();
-            pv.RPC("InstantiatePowerUp", RpcTarget.All, new object[] {puType, pos });
-            //InstantiatePowerUp(puType, pos);
-        }
-        if(end)
-        {
-            end = false;
-            pv.RPC("DestroyCurrentPUs", RpcTarget.All);
+            if (Time.time - spawnTimer > spawnTime && spawnedPowerUps.Count < maxPowerUps && start)
+            {
+                spawnTime = UnityEngine.Random.Range(5f, 10f);
+                spawnTimer = Time.time;
+                puType = UnityEngine.Random.Range(1, 4);
+                Vector3 pos = SetRandomTilePosition();
+                pv.RPC("InstantiatePowerUp", RpcTarget.All, new object[] { puType, pos });
+                //InstantiatePowerUp(puType, pos);
+            }
+            if (end)
+            {
+                end = false;
+                pv.RPC("DestroyCurrentPUs", RpcTarget.All);
+            }
         }
     }
 
@@ -71,10 +74,9 @@ public class PowerUpSpawner : MonoBehaviour
     {
         for(int i = 0; i < spawnedPowerUps.Count; ++i)
         {
-            PhotonView aux = PhotonView.Find(spawnedPowerUps[i].GetComponent<PhotonView>().ViewID);
-            if (aux != null && aux.IsMine)
-                PhotonNetwork.Destroy(aux);
+            PhotonNetwork.Destroy(spawnedPowerUps[i]);
         }
+
         spawnedPowerUps.Clear();
     }
 
