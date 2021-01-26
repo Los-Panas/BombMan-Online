@@ -71,8 +71,9 @@ public class PowerUpSpawner : MonoBehaviour
     {
         for(int i = 0; i < spawnedPowerUps.Count; ++i)
         {
-            Destroy(spawnedPowerUps[i]);
-            Debug.Log(spawnedPowerUps.Count);
+            PhotonView aux = PhotonView.Find(spawnedPowerUps[i].GetComponent<PhotonView>().ViewID);
+            if (aux != null && aux.IsMine)
+                PhotonNetwork.Destroy(aux);
         }
         spawnedPowerUps.Clear();
     }
