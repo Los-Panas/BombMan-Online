@@ -117,7 +117,7 @@ public class GameTimer : MonoBehaviour
 
         itsOverPanel.SetActive(false);
         GameSetUpController.GS.DestroyAvatar();
-        powerupspawner.DestroyCurrentPUs();
+        powerupspawner.end = true;
         WinLoseMenu.instance.Initialize();
     }
 

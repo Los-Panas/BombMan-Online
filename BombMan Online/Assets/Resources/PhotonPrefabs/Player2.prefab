@@ -2222,6 +2222,9 @@ MonoBehaviour:
   - Type: 9
     SynchronizeType: 0
     Name: dead
+  - Type: 9
+    SynchronizeType: 0
+    Name: ReallyDead
   m_SynchronizeLayers:
   - SynchronizeType: 2
     LayerIndex: 0
