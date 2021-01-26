@@ -30,7 +30,7 @@ public class PowerUpSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.IsMasterClient)
         {
             if (Time.time - spawnTimer > spawnTime && spawnedPowerUps.Count < maxPowerUps && start)
             {
@@ -38,18 +38,18 @@ public class PowerUpSpawner : MonoBehaviour
                 spawnTimer = Time.time;
                 puType = UnityEngine.Random.Range(1, 4);
                 Vector3 pos = SetRandomTilePosition();
-                pv.RPC("InstantiatePowerUp", RpcTarget.All, new object[] { puType, pos });
-                //InstantiatePowerUp(puType, pos);
+                //pv.RPC("InstantiatePowerUp", RpcTarget.All, new object[] {puType, pos });
+                InstantiatePowerUp(puType, pos);
             }
             if (end)
             {
+                Debug.Log("ENTRO");
                 end = false;
-                pv.RPC("DestroyCurrentPUs", RpcTarget.All);
+                DestroyCurrentPUs();
             }
         }
+        
     }
-
-    [PunRPC]
     private void InstantiatePowerUp(int puType, Vector3 pos)
     {
         Vector3 rot = new Vector3(-90, 0, 0);
@@ -69,12 +69,12 @@ public class PowerUpSpawner : MonoBehaviour
         GameObject.Find("AudioManager").GetComponent<AudioManager>().PlayAudioWithName("spawn");
     }
 
-    [PunRPC]
     public void DestroyCurrentPUs()
     {
         for(int i = 0; i < spawnedPowerUps.Count; ++i)
         {
-            PhotonNetwork.Destroy(spawnedPowerUps[i]);
+            if (spawnedPowerUps[i] != null)
+                PhotonNetwork.Destroy(spawnedPowerUps[i]);
         }
 
         spawnedPowerUps.Clear();
