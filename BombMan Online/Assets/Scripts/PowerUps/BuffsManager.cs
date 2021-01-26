@@ -261,7 +261,7 @@ public class BuffsManager : MonoBehaviour
                     break;
                 }
             }
-            pv.RPC("RCP_DestroyPowerUp", RpcTarget.All, other.gameObject.GetComponent<PhotonView>().ViewID);
+            pv.RPC("RCP_DestroyPowerUp", RpcTarget.MasterClient, other.gameObject.GetComponent<PhotonView>().ViewID);
 
             
            
