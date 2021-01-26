@@ -232,14 +232,11 @@ public class MovementInput : MonoBehaviour {
 			//Destroy(GetComponent<PhotonAnimatorView>());
 			GameObject.Find("AudioManager").GetComponent<AudioManager>().PlayAudioWithName("death");
 
-			if (PhotonNetwork.IsMasterClient)
+			++GameSetUpController.GS.players_dead;
+			if (GameSetUpController.GS.players_dead >= GameSetUpController.GS.playerNameIndex)
 			{
-				++GameSetUpController.GS.players_dead;
-				if (GameSetUpController.GS.players_dead >= GameSetUpController.GS.playerNameIndex)
-				{
-					GameSetUpController.GS.players_dead = 0;
-					GameTimer.GT.StopTimer();
-				}
+				GameSetUpController.GS.players_dead = 0;
+				GameTimer.GT.StopTimer();
 			}
 		}
 	}
