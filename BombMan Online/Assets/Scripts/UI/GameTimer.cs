@@ -91,6 +91,7 @@ public class GameTimer : MonoBehaviour
     void StartWinTransition()
     {
         itsOverPanel.SetActive(true);
+        GameSetUpController.GS.DestroyAvatar();
     }
 
     public void PositionDone()
