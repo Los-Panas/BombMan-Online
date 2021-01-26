@@ -53,6 +53,7 @@ public class PhotonPlayer : MonoBehaviour
 
     public void DestroyAvatar()
     {
+        if(myAvatar != null)
         PV.RPC("RPC_DestroyAvatar", RpcTarget.AllViaServer);
     }
 

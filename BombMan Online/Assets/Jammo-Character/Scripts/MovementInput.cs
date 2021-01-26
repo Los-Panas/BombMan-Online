@@ -250,6 +250,9 @@ public class MovementInput : MonoBehaviour {
 			yield return null;
         }
 
-			PhotonNetwork.Destroy(gameObject);
+		if(GetComponent<PhotonView>().IsMine)
+        {
+			GameSetUpController.GS.DestroyAvatar();
+        }
 	}
 }
