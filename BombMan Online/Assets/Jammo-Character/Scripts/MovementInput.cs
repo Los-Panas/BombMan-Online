@@ -249,7 +249,7 @@ public class MovementInput : MonoBehaviour {
 			yield return null;
         }
 
-		if (PhotonNetwork.IsMasterClient)
+		if (GetComponent<PhotonView>().IsMine)
 			PhotonNetwork.Destroy(gameObject);
 	}
 }
