@@ -6,7 +6,6 @@ using Photon.Pun;
 using System.IO;
 public class PowerUpSpawner : MonoBehaviour
 {
-    public static PowerUpSpawner PS;
     List<FloorCube> tilesMap;
     public List<GameObject> spawnedPowerUps;
     public int maxPowerUps = 5;
@@ -21,7 +20,6 @@ public class PowerUpSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PS = this;
         tilesMap = TileManager.instance.cubes;
         spawnTime = UnityEngine.Random.Range(5f, 20f);
         spawnTimer = Time.time;
@@ -45,7 +43,7 @@ public class PowerUpSpawner : MonoBehaviour
             }
             if (end)
             {
-
+                Debug.Log("ENTRO");
                 end = false;
                 DestroyCurrentPUs();
             }
