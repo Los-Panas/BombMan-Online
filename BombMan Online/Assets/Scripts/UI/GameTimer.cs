@@ -46,6 +46,7 @@ public class GameTimer : MonoBehaviour
                 miliseconds.text = "00";
                 start = false;
                 powerupspawner.start = false;
+                GameSetUpController.GS.DestroyAvatar();
                 StartWinTransition();
             }
             else if (start)
