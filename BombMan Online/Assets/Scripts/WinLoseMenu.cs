@@ -422,22 +422,22 @@ public class WinLoseMenu : MonoBehaviour
                     case 0:
                         aux[0] = Mathf.Round(((float)cubecolors.redCubes / 133.0f) * 100.0f * 100.0f) / 100.0f;
                         aux[1] = i;
-                        PV.RPC("RPC_CalculatePercentatge", RpcTarget.All, aux);
+                        PV.RPC("RPC_CalculatePercentatge", RpcTarget.AllViaServer, aux);
                         break;
                     case 1:
                         aux[0] = Mathf.Round(((float)cubecolors.yellowCubes / 133.0f) * 100.0f * 100.0f) / 100.0f;
                         aux[1] = i;
-                        PV.RPC("RPC_CalculatePercentatge", RpcTarget.All, aux);
+                        PV.RPC("RPC_CalculatePercentatge", RpcTarget.AllViaServer, aux);
                         break;
                     case 2:
                         aux[0] = Mathf.Round(((float)cubecolors.blueCubes / 133.0f) * 100.0f * 100.0f) / 100.0f;
                         aux[1] = i;
-                        PV.RPC("RPC_CalculatePercentatge", RpcTarget.All, aux);
+                        PV.RPC("RPC_CalculatePercentatge", RpcTarget.AllViaServer, aux);
                         break;
                     case 3:
                         aux[0] = Mathf.Round(((float)cubecolors.blackCubes / 133.0f) * 100.0f * 100.0f) / 100.0f;
                         aux[1] = i;
-                        PV.RPC("RPC_CalculatePercentatge", RpcTarget.All, aux);
+                        PV.RPC("RPC_CalculatePercentatge", RpcTarget.AllViaServer, aux);
                         break;
                 }
             }
@@ -450,6 +450,7 @@ public class WinLoseMenu : MonoBehaviour
     [PunRPC]
     public void RPC_CalculatePercentatge(float percentatge, int i)
     {
+        if(PV.IsMine)
         percentages[i].text = percentatge.ToString() + "%";
     }
 
