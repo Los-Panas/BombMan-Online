@@ -35,18 +35,12 @@ public class WinLoseMenu : MonoBehaviour
     [SerializeField]
     Image fadeImage;
 
-    PhotonView PV;
-
     List<int> playersThatWon = new List<int>();
 
     private void Awake()
     {
-        PV = GetComponent<PhotonView>();
         instance = this;
         gameObject.SetActive(false);
-        MainCamera = Camera.main.gameObject;
-        TileManagerCanvas = GameObject.Find("TileManager").transform.GetChild(0).gameObject;
-        GeneralLight = GameObject.Find("Directional Light");
     }
 
     public void StartTransition()
@@ -412,46 +406,24 @@ public class WinLoseMenu : MonoBehaviour
 
             playerNames[i].text = GameSetUpController.GS.GetPlayernames()[i].text;
 
-
-            if (PhotonNetwork.IsMasterClient)
+            switch (i)
             {
-                object[] aux = new object[2];
-
-                switch (i)
-                {
-                    case 0:
-                        aux[0] = Mathf.Round(((float)cubecolors.redCubes / 133.0f) * 100.0f * 100.0f) / 100.0f;
-                        aux[1] = i;
-                        PV.RPC("RPC_CalculatePercentatge", RpcTarget.AllViaServer, aux);
-                        break;
-                    case 1:
-                        aux[0] = Mathf.Round(((float)cubecolors.yellowCubes / 133.0f) * 100.0f * 100.0f) / 100.0f;
-                        aux[1] = i;
-                        PV.RPC("RPC_CalculatePercentatge", RpcTarget.AllViaServer, aux);
-                        break;
-                    case 2:
-                        aux[0] = Mathf.Round(((float)cubecolors.blueCubes / 133.0f) * 100.0f * 100.0f) / 100.0f;
-                        aux[1] = i;
-                        PV.RPC("RPC_CalculatePercentatge", RpcTarget.AllViaServer, aux);
-                        break;
-                    case 3:
-                        aux[0] = Mathf.Round(((float)cubecolors.blackCubes / 133.0f) * 100.0f * 100.0f) / 100.0f;
-                        aux[1] = i;
-                        PV.RPC("RPC_CalculatePercentatge", RpcTarget.AllViaServer, aux);
-                        break;
-                }
+                case 0:
+                    percentages[i].text = (Mathf.Round(((float)cubecolors.redCubes / 133.0f) * 100.0f * 100.0f) / 100.0f).ToString() + "%";
+                    break;
+                case 1:
+                    percentages[i].text = (Mathf.Round(((float)cubecolors.yellowCubes / 133.0f) * 100.0f * 100.0f) / 100.0f).ToString() + "%";
+                    break;
+                case 2:
+                    percentages[i].text = (Mathf.Round(((float)cubecolors.blueCubes / 133.0f) * 100.0f * 100.0f) / 100.0f).ToString() + "%";
+                    break;
+                case 3:
+                    percentages[i].text = (Mathf.Round(((float)cubecolors.blackCubes / 133.0f) * 100.0f * 100.0f) / 100.0f).ToString() + "%";
+                    break;
             }
-           
         }
 
         StartTransition();
-    }
-
-    [PunRPC]
-    public void RPC_CalculatePercentatge(float percentatge, int i)
-    {
-        if(PV != null && PV.IsMine)
-        percentages[i].text = percentatge.ToString() + "%";
     }
 
     public void ReturnToLobby()

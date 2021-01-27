@@ -24,7 +24,7 @@ public class GameTimer : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        powerupspawner = PowerUpSpawner.PS;
+        powerupspawner = GameObject.Find("PhotonPowerUpSpawner(Clone)").GetComponent<PowerUpSpawner>();
     }
 
     void OnEnable()
@@ -45,7 +45,6 @@ public class GameTimer : MonoBehaviour
                 seconds.text = "00";
                 miliseconds.text = "00";
                 start = false;
-                if(PhotonNetwork.IsMasterClient)
                 powerupspawner.start = false;
                 StartWinTransition();
             }
@@ -79,9 +78,7 @@ public class GameTimer : MonoBehaviour
     {
         timeToFinish = totalGameTime + Time.time;
         start = true;
-        if (PhotonNetwork.IsMasterClient)
-
-            powerupspawner.start = true;
+        powerupspawner.start = true;
         running = true;
     }
 

@@ -47,7 +47,7 @@ public class GameSetUpController : MonoBehaviour
         playerName[playerNameIndex].gameObject.SetActive(true);
         playerImage[playerNameIndex].SetActive(true);
         playerName[playerNameIndex].text = name;
-        if (playerNameIndex >= 1 && startButton.gameObject.activeSelf == false
+        if (playerNameIndex >= 0 && startButton.gameObject.activeSelf == false
             && PhotonNetwork.IsMasterClient)
             startButton.gameObject.SetActive(true);
 
@@ -57,9 +57,9 @@ public class GameSetUpController : MonoBehaviour
     public int GetPosition(string name)
     {
         int pos = 0;
-        foreach (Text n in playerName)
+        foreach(Text n in playerName)
         {
-            if (n.text == name)
+            if(n.text == name)
             {
                 break;
             }
@@ -93,7 +93,7 @@ public class GameSetUpController : MonoBehaviour
 
     public void CloseServer()
     {
-        if (PhotonNetwork.IsMasterClient)
+        if(PhotonNetwork.IsMasterClient)
             PhotonNetwork.CurrentRoom.IsOpen = false;
     }
 
@@ -119,5 +119,6 @@ public class GameSetUpController : MonoBehaviour
             }
         }
     }
+
 
 }
