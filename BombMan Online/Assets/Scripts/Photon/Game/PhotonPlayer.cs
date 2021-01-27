@@ -60,9 +60,12 @@ public class PhotonPlayer : MonoBehaviour
     [PunRPC]
     public void RPC_DestroyAvatar()
     {
-       PhotonView newPV = myAvatar.GetComponent<PhotonView>();
-        if(newPV != null)
-           PhotonNetwork.Destroy(newPV);
+        if (myAvatar != null)
+        {
+            PhotonView newPV = myAvatar.GetComponent<PhotonView>();
+            if (newPV != null)
+                PhotonNetwork.Destroy(newPV);
+        }
     }
 
 

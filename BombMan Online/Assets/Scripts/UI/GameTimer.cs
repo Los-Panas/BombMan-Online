@@ -24,7 +24,7 @@ public class GameTimer : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        powerupspawner = GameObject.Find("PhotonPowerUpSpawner(Clone)").GetComponent<PowerUpSpawner>();
+        powerupspawner = PowerUpSpawner.PS;
     }
 
     void OnEnable()
