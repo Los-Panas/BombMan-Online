@@ -450,7 +450,7 @@ public class WinLoseMenu : MonoBehaviour
     [PunRPC]
     public void RPC_CalculatePercentatge(float percentatge, int i)
     {
-        if(PV.IsMine)
+        if(PV != null && PV.IsMine)
         percentages[i].text = percentatge.ToString() + "%";
     }
 
