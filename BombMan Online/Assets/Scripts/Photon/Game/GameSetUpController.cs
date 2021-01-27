@@ -57,9 +57,9 @@ public class GameSetUpController : MonoBehaviour
     public int GetPosition(string name)
     {
         int pos = 0;
-        foreach(Text n in playerName)
+        foreach (Text n in playerName)
         {
-            if(n.text == name)
+            if (n.text == name)
             {
                 break;
             }
@@ -93,7 +93,7 @@ public class GameSetUpController : MonoBehaviour
 
     public void CloseServer()
     {
-        if(PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.IsMasterClient)
             PhotonNetwork.CurrentRoom.IsOpen = false;
     }
 
@@ -119,6 +119,5 @@ public class GameSetUpController : MonoBehaviour
             }
         }
     }
-
 
 }

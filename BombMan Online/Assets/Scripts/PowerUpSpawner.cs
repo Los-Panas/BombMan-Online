@@ -43,7 +43,7 @@ public class PowerUpSpawner : MonoBehaviour
             }
             if (end)
             {
-                Debug.Log("ENTRO");
+
                 end = false;
                 DestroyCurrentPUs();
             }
