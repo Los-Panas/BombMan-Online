@@ -45,6 +45,7 @@ public class GameTimer : MonoBehaviour
                 seconds.text = "00";
                 miliseconds.text = "00";
                 start = false;
+                if(PhotonNetwork.IsMasterClient)
                 powerupspawner.start = false;
                 StartWinTransition();
             }
@@ -78,7 +79,9 @@ public class GameTimer : MonoBehaviour
     {
         timeToFinish = totalGameTime + Time.time;
         start = true;
-        powerupspawner.start = true;
+        if (PhotonNetwork.IsMasterClient)
+
+            powerupspawner.start = true;
         running = true;
     }
 
